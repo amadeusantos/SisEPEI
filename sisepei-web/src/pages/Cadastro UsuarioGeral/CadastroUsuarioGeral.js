@@ -18,7 +18,7 @@ export function CadastroUsuarioGeral(){
         event.preventDefault();
 
         await api
-        .post("/usuario/geral/cadastro", {
+        .post("/cadastro/usuario/geral", {
             nome: nome,
             email: email,
             senha: senha,

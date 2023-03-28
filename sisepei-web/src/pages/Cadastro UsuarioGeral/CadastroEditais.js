@@ -17,7 +17,7 @@ export function CadastroEditais(){
         event.preventDefault();
 
         await api
-        .post("/edital/cadastro", {
+        .post("/cadastro/edital", {
             titulo: titulo,
             descricao: descricao,
             criterio: criterio,
