@@ -1,4 +1,4 @@
-package br.upe.sisepei.sisepei.core.usuario;
+package br.upe.sisepei.sisepei.core.usuario.modelo;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
