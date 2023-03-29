@@ -1,4 +1,4 @@
-package br.upe.sisepei.sisepei.core.usuario;
+package br.upe.sisepei.sisepei.core.usuario.modelo;
 
 import java.util.List;
 
