@@ -1,6 +1,5 @@
 package br.upe.sisepei.sisepei.core.usuario;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import br.upe.sisepei.sisepei.base.exception.NaoEncontradoException;
 import br.upe.sisepei.sisepei.base.exception.ValidacaoException;
-import br.upe.sisepei.sisepei.core.usuario.modelo.PerfilEnum;
 import br.upe.sisepei.sisepei.core.usuario.modelo.Usuario;
 import br.upe.sisepei.sisepei.core.usuario.modelo.UsuarioDTO;
 
@@ -45,9 +43,6 @@ public class UsuarioServico {
 		Usuario usuario = converterDTO(usuarioDTO);
 //		usuario.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
 		
-		List<PerfilEnum> perfis = new ArrayList<PerfilEnum>();
-		perfis.add(PerfilEnum.GERAL);
-		usuario.setPerfis(perfis);
 		
 		return usuarioRepositorio.save(usuario);
 	}
