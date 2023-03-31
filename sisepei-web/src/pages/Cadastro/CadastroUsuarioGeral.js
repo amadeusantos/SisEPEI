@@ -11,8 +11,9 @@ export function CadastroUsuarioGeral(){
     //constantes com useState que serao utilizadas
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
+    const [senha, setSenha] = useState(""); //A senha deve ter no minimo 6 caracteres **logica no disable
     const [confirmaSenha, setConfirmaSenha] = useState("");
+    const [errEmail, setErrEmail] = useState(false);
 
     async function cadastrarUsuarioGeral(event) {
         event.preventDefault();
@@ -24,14 +25,15 @@ export function CadastroUsuarioGeral(){
             senha: senha,
         })
         .then(() => navigate("/cadastro/concluido"))
-        .catch((err) => console.log(err));
+        .catch((err) => setErrEmail(true)); //Aqui, se o usuario tentar cadastrar um email ja cadastrado, um erro vai ser lancado, e eu teri de lidar com ele de alguma forma. Em call com amadeu, pensei em colocar uma div dentro de {boolean && <div>} que ai quando a variavel foltasse pra false, a div apareceia, toda vermelhinha, avisando que o email ja esta cadastradono bd e que agora esse emial nao pde ser cadastrado nomevanet e que o usuario, se quiser continuar o cadatro, ele deve utilizar outro email. 
 
-        setNome("")
-        setEmail("")
-        setSenha("")
-        setConfirmaSenha("")
+        setNome("");
+        setEmail("");
+        setSenha("");
+        setConfirmaSenha("");
     }
     
+
     return(
         <>
             <div id="divGeral">
@@ -44,7 +46,11 @@ export function CadastroUsuarioGeral(){
                 <br/>
                 <label htmlFor="email">Email:</label>
                 <input id="email" type="email" required
-                onClick={(event)=> setEmail(event.target.value)} />
+                onClick={(event) => (setEmail(event.target.value) , setErrEmail(false))} />
+                {/* fazer uma logica ocm um botao para para verificar se no banco ja existe um emial igual a esse que o ccara esta tentando se cadastrar */}
+                {
+                errEmail && <span>ERRO: Email ja cadastrado!, utilize outro endereço de Email.</span>
+                }{/* Esse texto do Span tem que ser VERMELHO!!! */}
                 <br/>
                 <label htmlFor="senha">Senha:</label>
                 <input id="senha" type="password" required
@@ -55,6 +61,7 @@ export function CadastroUsuarioGeral(){
                  onClick={(event)=> setConfirmaSenha(event.target.value)} />
                 <br/>
                 <button
+                 disable={senha.length>6  && senha !== confirmaSenha }
                  onClick={(event) => cadastrarUsuarioGeral(event)}
                 >Cadastrar</button> <button>Voltar</button>
             </div>

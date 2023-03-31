@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../lib/Api";
 
 
-export function CadastroCoordenador(){
+export function MudancaPermicao(){
     //declaraçoes
     const navigate =  useNavigate();
     let encontradoNoBancoDeDados = false;
@@ -12,12 +12,23 @@ export function CadastroCoordenador(){
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [tipo, setTipo] = useState("");
-    
+
+    async function popularSelect(event) {
+        event.preventDefault();
+
+        await api
+        .get("/adm/mudanca/permicao/popsel", {})
+        .then((resp) => (
+            resp.data.map()
+        ))
+        .catch((err) => console.log(err));
+    }
+
     async function buscaCoordenador(event) {
         event.preventDefault();
 
         await api
-        .get("/cadastro/coordenador/busca", {
+        .get("/adm/mudanca/permicao/busca", {
             nome: nome,
             email: email
         })
@@ -66,10 +77,13 @@ export function CadastroCoordenador(){
 
                 <br/>
                 
+
+                {/* Isso aqui é um checkBox po!!!!!! pq o Usuario geral pode assumir diversos perfis */}
                 <fieldset id="setTipo">
                     <label htmlFor="selectCoordenador">Selecione o Tipo de Coordenador:</label>
-                    <select id="selectCoordenador" required>
+                    <select onClick={popularSelect} id="selectCoordenador" required>
                         <option value="" disabled>--- Select ---</option>
+                        auqi tem que ter um map pras opçoes
                         <option value="extensao">Coordenador de Extenção</option>
                         <option value="pesquisa">Coordenador de Pesquisa</option>
                         <option value="inovacao">Coordenador de Inovação</option>
