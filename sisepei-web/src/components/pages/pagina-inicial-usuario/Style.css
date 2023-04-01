@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+}
+.welcome{
+    font-family: 'Inter', sans-serif;
+    color: #143757;
+    margin-left: 55px;
+}
+
+.myhr{
+    border-color: #9ca7dbf3;
+    width: 90%;
+    margin: 0 auto;
+    border-width: 0.5px !important;
+}
+
+.editaiswelcome{
+    display: flex;
+    margin-top: 57px;
+    margin-bottom: 34px;
+    font-family: 'Inter', sans-serif;
+    color: #143757;
+    font-size: 40px;
+    justify-content: center;
+}
+.button-search{
+    display: flex;
+}
