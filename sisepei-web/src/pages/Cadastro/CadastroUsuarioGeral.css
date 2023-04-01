@@ -56,7 +56,18 @@
     cursor: pointer;
   }
   
+
   button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  #ErroEmail {
+    display: block;
+    background-color: #f44336;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
   }

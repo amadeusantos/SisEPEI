@@ -49,7 +49,7 @@ export function CadastroUsuarioGeral(){
                 onClick={(event) => (setEmail(event.target.value) , setErrEmail(false))} />
                 {/* fazer uma logica ocm um botao para para verificar se no banco ja existe um emial igual a esse que o ccara esta tentando se cadastrar */}
                 {
-                errEmail && <span>ERRO: Email ja cadastrado!, utilize outro endereço de Email.</span>
+                errEmail && <span id="ErroEmail">ERRO: Email ja cadastrado!, utilize outro endereço de Email.</span>
                 }{/* Esse texto do Span tem que ser VERMELHO!!! */}
                 <br/>
                 <label htmlFor="senha">Senha:</label>
