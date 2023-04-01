@@ -3,9 +3,6 @@ package br.upe.sisepei.sisepei.api.representation;
 import java.io.Serializable;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import br.upe.sisepei.sisepei.core.usuario.modelo.PerfilEnum;
 import lombok.Data;
 
 @Data
@@ -19,9 +16,10 @@ public class UsuarioRepresentation implements Serializable {
 	
 	private String email;
 	
-	private List<PerfilEnum> perfis;
+	private List<UsuarioPerfilRepresentation> perfis;
 	
 //	@JsonIgnore
 //	private List<EditalRepresentation> editais;
 	
 }
+
