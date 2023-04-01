@@ -24,13 +24,13 @@ export function CadastroUsuarioGeral(){
             email: email,
             senha: senha,
         })
-        .then(() => navigate("/cadastro/concluido"))
+        .then(() => (navigate("/cadastro/concluido"),
+            setNome(""),
+            setEmail(""),
+            setSenha(""),
+            setConfirmaSenha("")
+        ))
         .catch((err) => setErrEmail(true)); //Aqui, se o usuario tentar cadastrar um email ja cadastrado, um erro vai ser lancado, e eu teri de lidar com ele de alguma forma. Em call com amadeu, pensei em colocar uma div dentro de {boolean && <div>} que ai quando a variavel foltasse pra false, a div apareceia, toda vermelhinha, avisando que o email ja esta cadastradono bd e que agora esse emial nao pde ser cadastrado nomevanet e que o usuario, se quiser continuar o cadatro, ele deve utilizar outro email. 
-
-        setNome("");
-        setEmail("");
-        setSenha("");
-        setConfirmaSenha("");
     }
     
 

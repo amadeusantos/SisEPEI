@@ -14,7 +14,7 @@ function App() {
         <Route path="/cadastro/usuario" element={<CadastroUsuarioGeral />} />
         <Route path="/cadastro/concluido" element={<CadastroConcluido />} />
         <Route path="/adm/mudanca/permicao" element={<MudancaPermicao />} />
-        <Route path="/cadastro/edital" element={<CadastroEditais />} />
+        <Route path="/edital" element={<CadastroEditais />} />
       </Routes>
     </div>
     </>

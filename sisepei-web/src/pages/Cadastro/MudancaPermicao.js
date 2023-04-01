@@ -2,27 +2,22 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../lib/Api";
 
-
 export function MudancaPermicao(){
     //declaraçoes
     const navigate =  useNavigate();
-    let encontradoNoBancoDeDados = false;
 
     //constantes com useState que serao utilizadas
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [tipo, setTipo] = useState("");
+    const [errBusca, setErrBusca] = useState(false);
+    const [mostrarCheckBox, setMostrarCheckBox] = useState(false);
+    const [perfis,setPerfis] = useState([]);
 
-    async function popularSelect(event) {
-        event.preventDefault();
-
-        await api
-        .get("/adm/mudanca/permicao/popsel", {})
-        .then((resp) => (
-            resp.data.map()
-        ))
-        .catch((err) => console.log(err));
-    }
+    let adm = false;
+    let ce = false;
+    let ci = false;
+    let cp = false;
 
     async function buscaCoordenador(event) {
         event.preventDefault();
@@ -32,73 +27,98 @@ export function MudancaPermicao(){
             nome: nome,
             email: email
         })
-        .then(() => (encontradoNoBancoDeDados = true) )
-        .catch((err) => console.log(err));
+        .then((res) => (
+            setNome(res.data.nome),
+            setEmail(res.data.email),
+            setPerfis(res.data.perfis),
+            setMostrarCheckBox(true),
+            setCheckBoxs(perfis)
+        ) )
+        .catch((err) => (console.log(err) , setErrBusca(true)));
+    }
+
+    function setCheckBoxs(perfis) { 
+        for (let index = 0; index < perfis.length; index++) {
+            if(perfis[index] === "adm"){
+                adm = true;
+            }
+            if(perfis[index] === "Coordenador de Extenção"){
+                adm = true;
+            }
+            if(perfis[index] === "Coordenador de Pesquisa"){
+                adm = true;
+            }
+            if(perfis[index] === "Coordenador de Inovação"){
+                adm = true;
+            }
+        }
     }
 
     async function cadastrarCoordenador(event) {
         event.preventDefault();
 
         await api
-        .post("/cadastro/coordenador", {
+        .post("/adm/mudarPoder", { 
             nome: nome,
             email: email,
             tipo: tipo
         })
-        .then(() => navigate("/cadastro/coordenador"))
+        .then(() => (navigate("/"),
+            setNome(""),
+            setEmail(""),
+            setTipo(""),
+            setErrBusca(false)
+        ))
         .catch((err) => console.log(err));
-
-        setNome("");
-        setEmail("");
-        setTipo("");
-        encontradoNoBancoDeDados = false;
     }
 
     return(
         <>
             <div id="divGeral">
-                <h1>O adm cadastra o coordenador de curso a partir de um usuario geral ja cadastartdo</h1>
+                <h1>**O adm cadastra o coordenador de curso a partir de um usuario geral ja cadastartdo**</h1>
                 <br/>
-                <h3>Cadastro de Coordenador no Sistema</h3>
-                <p>Preencha o Cadastro com as informaçoes pertinentes sobre o coordenador</p>
+                <h3>Atribuir ou Retirar Permição/Poder de um determinado Usuario</h3>
+                <p>Preencha o Cadastro com as informaçoes pertinentes sobre o Usuario</p>
 
                 <fieldset id="buscaUsuario">
-                    <label htmlFor="nome">Nome:</label>
-                    <input id="nome" type="text" required
+                    <label htmlFor="nome">Nome do usuario:</label>
+                    <input id="nome" type="text" 
                     onClick={(event)=> setNome(event.target.value)} />
                     <br/>
-                    <label htmlFor="email">Email:</label>
+                    <label htmlFor="email">Email do usuario:</label>
                     <input id="email" type="email" required
                     onClick={(event)=> setEmail(event.target.value)} />
                     <button
                     onClick={(event) => buscaCoordenador(event)}
-                    >Cadastrar Coordenador</button>
+                    >Buscar Usuario</button>
+                    {errBusca && <span>Usuario nao encontrado no Banco de Dados, tente novamente.</span>}
                 </fieldset>
 
                 <br/>
-                
 
-                {/* Isso aqui é um checkBox po!!!!!! pq o Usuario geral pode assumir diversos perfis */}
-                <fieldset id="setTipo">
-                    <label htmlFor="selectCoordenador">Selecione o Tipo de Coordenador:</label>
-                    <select onClick={popularSelect} id="selectCoordenador" required>
-                        <option value="" disabled>--- Select ---</option>
-                        auqi tem que ter um map pras opçoes
-                        <option value="extensao">Coordenador de Extenção</option>
-                        <option value="pesquisa">Coordenador de Pesquisa</option>
-                        <option value="inovacao">Coordenador de Inovação</option>
-                    </select>
+                <fieldset id="setTipo" hidden={!mostrarCheckBox}>
+                    <input type="checkbox" id="adm" value={"Administrador"} checked={adm} />
+                    <label for="adm">Administrador</label>
+                    <br/>
 
+                    <input type="checkbox" id="Coordenador de Extenção" value={"Coordenador de Extenção"} checked={ce} />
+                    <label for="Coordenador de Extenção">Coordenador de Extenção</label>
                     <br/>
+
+                    <input type="checkbox" id="Coordenador de Pesquisa" value={"Coordenador de Pesquisa"} checked={cp} />
+                    <label for="Coordenador de Pesquisa">Coordenador de Pesquisa</label>
                     <br/>
-                    
+
+                    <input type="checkbox" id="Coordenador de Inovação" value={"Coordenador de Inovação"} checked={ci} />
+                    <label for="Coordenador de Inovação">Coordenador de Inovação</label>
+                    <br/>
                 </fieldset>
 
-                {/* Aqui oq acontece é que o botao fica desabilitado ate a funçao buscaCoordenador retornar algo de util */}
+                <br/>
                 <button
                 onClick={(event) => cadastrarCoordenador(event)}
-                disabled={encontradoNoBancoDeDados === false}
-                >Cadastrar Coordenador</button>
+                disabled={errBusca}
+                >Mudar Atribuição de Poder</button>
 
                 <button>Voltar</button>
             </div>
