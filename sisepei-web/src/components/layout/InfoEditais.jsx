@@ -34,7 +34,14 @@ export const Card = ({ name, type, description}) => {
                 <p>Mostrar</p>
                 </div>
              </div>
-             {openModal && <Modal closeModal={closeModal} />}
+             {openModal && (
+        <Modal
+          closeModal={closeModal}
+          name={name}
+          type={type}
+          description={description}
+        />
+      )}
          </div>
 
   );
