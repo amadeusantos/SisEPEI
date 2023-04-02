@@ -6,4 +6,7 @@ import br.upe.sisepei.sisepei.core.edital.modelo.Edital;
 
 public interface EditalRepository extends JpaRepository<Edital, Long> {
 
+	
+    public boolean existsByTitulo(String titulo);
+
 }
