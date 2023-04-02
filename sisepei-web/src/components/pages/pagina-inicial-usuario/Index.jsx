@@ -3,6 +3,7 @@ import TopBar from '../../layout/topbar';
 import './style.css';
 import BotaoCadastrar from '../../layout/BotaoCadastrar';
 import SearchBar from '../../layout/SearchBar';
+import Card from '../../layout/InfoEditais';
 
 export function PaginaInicial(props) {
   return (
@@ -15,6 +16,54 @@ export function PaginaInicial(props) {
         <BotaoCadastrar />
         <SearchBar />
       </div>
+      <Card
+      name="Example Card"
+      description="This is an example card"
+      date="2023-04-01"
+    >
+    </Card>
+    <Card
+      name="Example Card"
+      description="This is an example card"
+      date="2023-04-01"
+    >
+    </Card>
+    <Card
+      name="Example Card"
+      description="This is an example card"
+      date="2023-04-01"
+    >
+    </Card>
+    <Card
+      name="Example Card"
+      description="This is an example card"
+      date="2023-04-01"
+    >
+    </Card>
+    <Card
+      name="Example Card"
+      description="This is an example card"
+      date="2023-04-01"
+    >
+    </Card>
+    <Card
+      name="Example Card"
+      description="This is an example card"
+      date="2023-04-01"
+    >
+    </Card>
+    <Card
+      name="Example Card"
+      description="This is an example card"
+      date="2023-04-01"
+    >
+    </Card>
+    <Card
+      name="Example Card"
+      description="This is an example card"
+      date="2023-04-01"
+    >
+    </Card>
     </body>
   );
 }

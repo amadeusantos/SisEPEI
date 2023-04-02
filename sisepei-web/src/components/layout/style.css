@@ -41,14 +41,12 @@
     align-items: center;
     margin-left: 250px;
     margin-right: 250px;
+    margin-bottom: 75px;
     justify-content: space-between;
   }
   
   .search-bar {
     display: flex;
-    align-items: end;
-    background-image: url("");
-    background-position: right center;
      background-repeat: no-repeat;
   }
 
@@ -63,6 +61,21 @@
     height: 35px;
     text-indent: 10px;
   }
-
+  
+  .card-body {
+    margin-bottom: 20px;
+    margin-left:250px;
+    margin-right: 250px;
+    border-radius: 13px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #E6E7ED;
+    border: none;
+  }
+  
+  .actions button {
+    margin-left: 10px;
+  }
   
   
