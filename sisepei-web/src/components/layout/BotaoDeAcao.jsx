@@ -1,13 +1,13 @@
 import React from 'react';
 
-function ActionButton(props) {
+function BotaoDeAcao(props) {
   return (
     <div className='edit-container'>
-      <button onClick={props.onClick}>
+      <button className={props.className} onClick={props.onClick}>
         <img src={props.src} alt={props.alt} />
       </button>
       <span>{props.label}</span>
     </div>
   );
 }
-export default ActionButton
+export default BotaoDeAcao;

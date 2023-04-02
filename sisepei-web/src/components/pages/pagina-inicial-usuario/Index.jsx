@@ -6,6 +6,7 @@ import SearchBar from '../../layout/SearchBar';
 import Card from '../../layout/InfoEditais';
 import { useEffect, useState } from 'react';
 import Axios from 'axios';
+import Filter from '../../layout/Filter';
 
 
 export function PaginaInicial() {
@@ -33,8 +34,11 @@ export function PaginaInicial() {
       <h1 className='editaiswelcome'>Editais</h1>
 
       <div className='button-search'>
-      <BotaoCadastrar />
-      <SearchBar />
+        <BotaoCadastrar />
+          <div className='search-filter'>
+            <SearchBar />
+            <Filter/>
+          </div>
       </div>
       {/* Array.isArray vai checar se a data sendo recebida pelo back é um array, caso contrário não vai renderizar nada,
       coloquei aqui pra não ficar dando erro, mas caso preciso é só remover. */}
