@@ -23,6 +23,12 @@ sdhsdjhgggfhdgfghdfhdcvdbc ndbchdbhdfvdgvgdvdcbhjcbdbcj"
       type = "Extensão"
     >
     </Card>
+    <Card
+      name="Edital1"
+      description="Esse edital nao serve pra nada"
+      type = "Extensão"
+    >
+    </Card>
     </body>
   );
 }
