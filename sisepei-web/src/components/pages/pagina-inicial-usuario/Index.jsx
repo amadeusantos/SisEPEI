@@ -25,7 +25,7 @@ export function PaginaInicial(props) {
 
 
   return (
-    <body id='page1'>
+    <div id='page1'>
 
       <TopBar />
       <h1 className='welcome'>Bem vindo!</h1>
@@ -36,7 +36,7 @@ export function PaginaInicial(props) {
       <BotaoCadastrar />
       <SearchBar />
       </div>
-      {/* Array.isArray vai checar se a data sendo recebida pelo back é um array, caso contrário não vai renderizar nada
+      {/* Array.isArray vai checar se a data sendo recebida pelo back é um array, caso contrário não vai renderizar nada,
       coloquei aqui pra não ficar dando erro, mas caso preciso é só remover. */}
       {Array.isArray(cardsData) && cardsData.map((card) => (
       <Card
@@ -46,7 +46,7 @@ export function PaginaInicial(props) {
         description={card.description}
       />
     ))}
-    </body>
+    </div>
   );
 }
 
