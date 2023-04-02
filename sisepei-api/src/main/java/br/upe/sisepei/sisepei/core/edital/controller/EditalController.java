@@ -1,7 +1,6 @@
 package br.upe.sisepei.sisepei.core.edital.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.upe.sisepei.sisepei.base.exception.NaoEncontradoException;
+import br.upe.sisepei.sisepei.base.exception.ValidacaoException;
 import br.upe.sisepei.sisepei.core.edital.EditalServico;
 import br.upe.sisepei.sisepei.core.edital.modelo.Edital;
 import br.upe.sisepei.sisepei.core.edital.modelo.EditalDTO;
+import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("edital")
+@RequestMapping("/edital")
 public class EditalController {
 	
 	@Autowired
@@ -43,20 +44,23 @@ public class EditalController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> criarEdital(@RequestBody EditalDTO edital){
+	public ResponseEntity<?> criarEdital(@Valid @RequestBody EditalDTO edital){
+		try {
 			Edital result = editalServico.criarEdital(edital);			
 			return ResponseEntity.status(HttpStatus.CREATED).body(result);
+			
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateEdital(@PathVariable Long id, @RequestBody EditalDTO edital){
+	public ResponseEntity<?> updateEdital(@PathVariable Long id, @Valid @RequestBody EditalDTO edital) throws ValidacaoException{
 		try{
-			editalServico.updateEdital(id, edital);
-		} catch(NaoEncontradoException e){
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+			return ResponseEntity.ok(editalServico.updateEdital(id, edital));
+		} catch(Exception e){
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
 	
