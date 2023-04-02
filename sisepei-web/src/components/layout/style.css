@@ -97,7 +97,12 @@ button img {
     width: 100%;
     height: 100%;
     transform: scale(0.7); 
+    transition: all 0.2s ease-in-out;
   }
+
+button img:hover{
+  transform: scale(1.0);
+}
 
 
 .actions {

@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import Axios from 'axios';
 
 
-export function PaginaInicial(props) {
+export function PaginaInicial() {
   const [cardsData, setCardsData] = useState([]);
   useEffect(() => {
     console.log("Fetching cards...");
@@ -45,7 +45,13 @@ export function PaginaInicial(props) {
         type={card.type}
         description={card.description}
       />
+
     ))}
+
+    {/* teste pra ver se os cards tão funcionando */}
+     <Card name="edital" type="Extensão" description="fjkdsalfjlksdafjksdalfjlksdjfls" />
+    <Card name="edital" type="Extensão" description="fjkdsalfjlksdafjksdalfjlksdjfls" />
+    <Card name="edital" type="Extensão" description="fjkdsalfjlksdafjksdalfjlksdjfls" />
     </div>
   );
 }
