@@ -17,51 +17,10 @@ export function PaginaInicial(props) {
         <SearchBar />
       </div>
       <Card
-      name="Example Card"
-      description="This is an example card"
-      date="2023-04-01"
-    >
-    </Card>
-    <Card
-      name="Example Card"
-      description="This is an example card"
-      date="2023-04-01"
-    >
-    </Card>
-    <Card
-      name="Example Card"
-      description="This is an example card"
-      date="2023-04-01"
-    >
-    </Card>
-    <Card
-      name="Example Card"
-      description="This is an example card"
-      date="2023-04-01"
-    >
-    </Card>
-    <Card
-      name="Example Card"
-      description="This is an example card"
-      date="2023-04-01"
-    >
-    </Card>
-    <Card
-      name="Example Card"
-      description="This is an example card"
-      date="2023-04-01"
-    >
-    </Card>
-    <Card
-      name="Example Card"
-      description="This is an example card"
-      date="2023-04-01"
-    >
-    </Card>
-    <Card
-      name="Example Card"
-      description="This is an example card"
-      date="2023-04-01"
+      name="Edital"
+      description="Edtal de extensão bla bla bla bla bla blabal ldkjjsdjkashdhgshdgj
+sdhsdjhgggfhdgfghdfhdcvdbc ndbchdbhdfvdgvgdvdcbhjcbdbcj"
+      type = "Extensão"
     >
     </Card>
     </body>
