@@ -1,7 +1,14 @@
 import React from 'react';
 import './style.css';
-
+import { useState } from 'react';
+import Modal from './Modal';
 export const Card = ({ name, type, description}) => {
+    const [openModal, setOpenModal] = useState(false);
+
+    const closeModal = () => {
+        setOpenModal(false);
+      };
+    
   return (
       <div className="card-body">
         <div className="title">
@@ -18,14 +25,17 @@ export const Card = ({ name, type, description}) => {
         </div>
 
         <div className="actions">
+            
                 <div className='view-container'>
-                <button><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" id="eye">
+                <button onClick={() => {setOpenModal(true);}}><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" id="eye">
                     <path fill="none" d="M0 0h48v48H0z"></path>
                     <path d="M24 9C14 9 5.46 15.22 2 24c3.46 8.78 12 15 22 15 10.01 0 18.54-6.22 22-15-3.46-8.78-11.99-15-22-15zm0 25c-5.52 0-10-4.48-10-10s4.48-10 10-10 10 4.48 10 10-4.48 10-10 10zm0-16c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z"></path></svg>
-                </button><p>Mostrar</p>
+                </button>
+                <p>Mostrar</p>
                 </div>
-        </div>
-      </div>
+             </div>
+             {openModal && <Modal closeModal={closeModal} />}
+         </div>
 
   );
 };

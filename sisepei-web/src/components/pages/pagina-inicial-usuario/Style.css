@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    overflow: hidden;
 }
 .welcome{
     font-family: 'Inter', sans-serif;
