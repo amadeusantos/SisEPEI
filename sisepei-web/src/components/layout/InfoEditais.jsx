@@ -33,7 +33,7 @@ export const Card = ({ name, type, description}) => {
     label='Deletar'
     className='BotaoDeAcao'/>
 
-    <div class="line"></div>
+    <div className="line"></div>
 
     <BotaoDeAcao
     src='https://cdn.discordapp.com/attachments/440326168491720705/1092098165030789140/pencil.png'
@@ -41,7 +41,7 @@ export const Card = ({ name, type, description}) => {
     label='Editar'
     className='BotaoDeAcao'/>
 
-    <div class="line"></div>
+    <div className="line"></div>
 
     <BotaoDeAcao
     src='https://cdn.discordapp.com/attachments/440326168491720705/1092093148815167630/eye_1.png'
