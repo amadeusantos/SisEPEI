@@ -1,10 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './Login.css';
 
-
 const Login = () => {
+
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+        console.log('Submit', {email, senha});
+    };
+
     return (
         <div className='frame'>
             <div className='intro'>
@@ -18,18 +27,20 @@ const Login = () => {
             <div className="login">
                 <h1 className='title'>Login</h1>
                 <br />
-                <Form action='' className='form'>
+                <Form action='' onSubmit={handleSubmit} className='form'>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         
                         <Form.Label>Email:</Form.Label>
-                        <Form.Control type='email' name='email' id='email' placeholder='Digite aqui seu email' />
+                        <Form.Control type='email' name='email' placeholder='Digite aqui seu email' 
+                        value={email} onChange={(e) => setEmail(e.target.value)}/>
                         
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
 
-                        <Form.Label htmlFor='password'>Senha:</Form.Label>
-                        <Form.Control type='password' name='password' id='password' placeholder='Digite aqui sua senha' />
+                        <Form.Label>Senha:</Form.Label>
+                        <Form.Control type='password' name='password' placeholder='Digite aqui sua senha' 
+                        value={senha} onChange={(e) => setSenha(e.target.value)}/>
                         
                     </Form.Group>
                     <div className='buttons'>
