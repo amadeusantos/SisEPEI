@@ -31,7 +31,7 @@ const Login = () => {
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         
                         <Form.Label>Email:</Form.Label>
-                        <Form.Control type='email' name='email' placeholder='Digite aqui seu email' 
+                        <Form.Control type='email' name='email' required placeholder='Digite aqui seu email' 
                         value={email} onChange={(e) => setEmail(e.target.value)}/>
                         
                     </Form.Group>
@@ -39,7 +39,7 @@ const Login = () => {
                     <Form.Group className="mb-3" controlId="formBasicPassword">
 
                         <Form.Label>Senha:</Form.Label>
-                        <Form.Control type='password' name='password' placeholder='Digite aqui sua senha' 
+                        <Form.Control type='password' name='password' required placeholder='Digite aqui sua senha' 
                         value={senha} onChange={(e) => setSenha(e.target.value)}/>
                         
                     </Form.Group>
