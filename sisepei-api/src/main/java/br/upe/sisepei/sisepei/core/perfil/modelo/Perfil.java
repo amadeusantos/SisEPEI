@@ -1,4 +1,4 @@
-package br.upe.sisepei.sisepei.core.usuario.modelo;
+package br.upe.sisepei.sisepei.core.perfil.modelo;
 
 import java.util.List;
 
@@ -12,25 +12,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
-@Entity
 @Data
-public class Usuario {
-	
+@Entity
+public class Perfil {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
+	@Column(unique = true)
 	private String nome;
 	
-	@Column(unique = true)
-	private String email;
-	
-	private String senha;
-	
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
-	private List<UsuarioPerfil> perfis;
-	
-//	@OneToMany(mappedBy = "Edital")
-//	private List<Edital> editais;
+	@OneToMany(mappedBy = "perfil", fetch = FetchType.EAGER)
+	private List<UsuarioPerfil> usuarios; 
 	
 }

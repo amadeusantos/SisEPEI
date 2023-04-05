@@ -1,85 +1,86 @@
 package br.upe.sisepei.sisepei.core.usuario;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import br.upe.sisepei.sisepei.base.exception.NaoEncontradoException;
+import br.upe.sisepei.sisepei.base.exception.ValidacaoException;
+import br.upe.sisepei.sisepei.core.usuario.modelo.Usuario;
+import br.upe.sisepei.sisepei.core.usuario.modelo.UsuarioDTO;
 
 @Service
 public class UsuarioServico {
 
 	@Autowired
-	private UsuarioRepositorio repositorio;
+	private UsuarioRepositorio usuarioRepositorio;
+	
+//	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	public List<Usuario> listarUsuarios() {
-		return repositorio.findAll();
+		return usuarioRepositorio.findAll();
 	}
 	
-	public Usuario buscarUsuario(Long id) {
-		Optional<Usuario> usuario = repositorio.findById(id);
+	public Usuario buscarUsuario(Long id) throws NaoEncontradoException {
+		Optional<Usuario> usuario = usuarioRepositorio.findById(id);
 		if (usuario.isEmpty()) {
-//			throw new 
+			throw new NaoEncontradoException("Usuário não encontrado!");
 		}
 		
 		return usuario.get();
 	}
 	
-	public Usuario incluirUsuario(UsuarioDTO usuarioDTO) {
-		if (repositorio.existsByEmail(usuarioDTO.getEmail())) {
-			
+	public Usuario incluirUsuario(UsuarioDTO usuarioDTO) throws ValidacaoException {
+		if (usuarioRepositorio.existsByEmail(usuarioDTO.getEmail())) {
+			throw new ValidacaoException("Email já cadastrado por outro usuário!");
 		}
 		
 		Usuario usuario = converterDTO(usuarioDTO);
+//		usuario.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
 		
-		return repositorio.save(usuario);
+		
+		return usuarioRepositorio.save(usuario);
 	}
 	
-	public Usuario alterarUsuario(Long id, UsuarioDTO usuarioDTO) {
-		Optional<Usuario> usuarioExistente = repositorio.findById(id);
+	public Usuario alterarUsuario(Long id, UsuarioDTO usuarioDTO) throws NaoEncontradoException, ValidacaoException {
+		Optional<Usuario> usuarioExistente = usuarioRepositorio.findById(id);
 		
 		if (usuarioExistente.isEmpty()) {
-			
+			throw new NaoEncontradoException("Usuário não encontrado!");
 		}
 		
 		if (!(usuarioExistente.get().getEmail().equals(usuarioDTO.getEmail()))
-				&& repositorio.existsByEmail(usuarioDTO.getEmail())) {
-			
+				&& usuarioRepositorio.existsByEmail(usuarioDTO.getEmail())) {
+			throw new ValidacaoException("Email já cadastrado por outro usuário!");
 		}
 		
 		Usuario usuario = converterDTO(usuarioDTO);
+		usuario.setId(id);
+//		usuario.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
 		
 		usuario.setPerfis(usuarioExistente.get().getPerfis());
 //		usuario.setEditais(usuarioExistente.get().getEditais());
 		
-		return repositorio.save(usuario);
+		return usuarioRepositorio.save(usuario);
 	}
 	
-	public void excluirUsuario(Long id) {
-		if (repositorio.existsById(id)) {
-			
+	public void excluirUsuario(Long id) throws NaoEncontradoException {
+		if (!usuarioRepositorio.existsById(id)) {
+			throw new NaoEncontradoException("Usuário não encontrado!");
 		}
 		
-		repositorio.deleteById(id);
+		usuarioRepositorio.deleteById(id);
 	}
 	
 	
 	private Usuario converterDTO(UsuarioDTO usuarioDTO) {
-		Usuario usuario = new Usuario();
-		
-		usuario.setNome(usuarioDTO.getNome());
-		usuario.setEmail(usuarioDTO.getEmail());
-		//TODO: AS- Criptografar senha
-		usuario.setSenha(usuarioDTO.getSenha());
-		
-		List<PerfilEnum> perfis = new ArrayList<>();
-		
-		perfis.add(PerfilEnum.GERAL);
-		usuario.setPerfis(perfis);
-//		usuario.setEditais(new ArrayList<>());
-		
-		return usuario;
+		ModelMapper modelMapper = new ModelMapper();
+		return modelMapper.map(usuarioDTO, Usuario.class);
 	}
 	
 }
