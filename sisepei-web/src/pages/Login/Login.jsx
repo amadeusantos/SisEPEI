@@ -12,10 +12,10 @@ const Login = () => {
 
     const navigate =  useNavigate();
 
-    const handleSubmit = (e) => {
+    async function handleSubmit(e){
         e.preventDefault();
-
-        api.post('/login', {email, senha})
+        
+        await api.post('/login', {email: email, senha: senha})
         
         .then(() => navigate('/home'))
 
