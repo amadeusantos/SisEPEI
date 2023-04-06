@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
+import { api } from '../../lib/Api';
+import { useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import './Login.css';
 
@@ -8,10 +10,18 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
+    const navigate =  useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        api.post('/login', {email, senha})
         
-        console.log('Submit', {email, senha});
+        .then(() => navigate('/home'))
+
+        .catch((error) => {
+            console.log(error);
+        })
     };
 
     return (
