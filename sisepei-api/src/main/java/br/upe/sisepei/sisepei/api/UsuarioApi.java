@@ -25,7 +25,7 @@ import br.upe.sisepei.sisepei.core.usuario.modelo.UsuarioDTO;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("usuarios")
+@RequestMapping("/usuarios")
 public class UsuarioApi {
 
 	@Autowired

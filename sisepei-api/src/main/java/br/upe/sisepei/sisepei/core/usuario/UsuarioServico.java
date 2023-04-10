@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ public class UsuarioServico {
 
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
+	private PasswordEncoder passwordEncoder;
 	
 //	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
@@ -41,7 +43,7 @@ public class UsuarioServico {
 		}
 		
 		Usuario usuario = converterDTO(usuarioDTO);
-//		usuario.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
+		usuario.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
 		
 		
 		return usuarioRepositorio.save(usuario);
