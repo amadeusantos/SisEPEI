@@ -4,7 +4,7 @@ export function BotaoCadastrar(){
     const navigate = useNavigate()
     const handleClick = () =>{
         //Colocar a rota correta
-        navigate('/cadastrar')
+        navigate('/edital')
     }
 
     return(

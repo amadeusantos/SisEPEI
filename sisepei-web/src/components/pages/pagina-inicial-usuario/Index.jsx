@@ -1,6 +1,5 @@
 import React from 'react';
-import TopBar from '../../layout/topbar';
-import './style.css';
+import './Style.css';
 import BotaoCadastrar from '../../layout/BotaoCadastrar';
 import SearchBar from '../../layout/SearchBar';
 import Card from '../../layout/InfoEditais';
@@ -32,8 +31,6 @@ export function PaginaInicial() {
       || card.type.toLowerCase().includes(searchTerm.toLowerCase()))
   return ( 
     <div id='page1'>
-
-      <TopBar />
       <h1 className='welcome'>Bem vindo!</h1>
       <hr className='myhr' />
       <h1 className='editaiswelcome'>Editais</h1>
@@ -63,4 +60,3 @@ export function PaginaInicial() {
 }
 
 export default PaginaInicial;
-
