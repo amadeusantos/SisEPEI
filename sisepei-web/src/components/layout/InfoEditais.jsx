@@ -3,13 +3,27 @@ import './style.css';
 import { useState } from 'react';
 import Modal from './Modal';
 import BotaoDeAcao from './BotaoDeAcao';
-export const Card = ({ name, type, description}) => {
+import Axios from 'axios';
+export const Card = ({ id, name, type, description}) => {
     const [openModal, setOpenModal] = useState(false);
 
     const closeModal = () => {
         setOpenModal(false);
       };
-    
+      const deletar = () => {
+        console.log("Deletando...");
+        Axios
+          .delete("", {
+            cardId: id
+            //inserir informação do card aqui pra poder deletar, provavelmente vai ser o ID
+          })
+          .then((response) => {
+            console.log(response)
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } 
   return (
       <div className="card-body">
         <div className="title">
@@ -31,7 +45,10 @@ export const Card = ({ name, type, description}) => {
     src='https://cdn.discordapp.com/attachments/440326168491720705/1092108550400127108/delete.png'
     alt='excluir'
     label='Deletar'
-    className='BotaoDeAcao'/>
+    className='BotaoDeAcao'
+    onClick = {deletar}
+    />
+    
 
     <div className="line"></div>
 
