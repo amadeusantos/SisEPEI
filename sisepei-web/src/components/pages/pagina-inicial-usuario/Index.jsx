@@ -36,7 +36,6 @@ export function PaginaInicial() {
       <h1 className='editaiswelcome'>Editais</h1>
 
       <div className='button-search'>
-        <BotaoCadastrar />
           <div className='search-filter'>
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
             <Filter/>
@@ -52,6 +51,7 @@ export function PaginaInicial() {
         name={card.name}
         type={card.type}
         description={card.description}
+        showDeleteButton={false} showEditButton={false} showShowButton={true}
       />
     ))}
 

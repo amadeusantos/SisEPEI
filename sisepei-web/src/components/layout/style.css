@@ -65,6 +65,9 @@
   height: 35px;
   transition: background-color 0.2s ease-in-out;
   padding-bottom: 10px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
 }
 
 .filter button:hover{
@@ -91,10 +94,17 @@
   height: 120px;
     
 }
-.title, .type, .description, h3{
+.nomeedital, .type, .description{
     margin-top: 0px;
     font-family: 'Inter', sans-serif; 
+    margin-left: 20px;
 }
+
+.nomeedital, .type, .description h3{
+  margin-top: 5px;
+
+}
+
 .description {
     overflow-wrap: break-word;
     max-width: 500px;
