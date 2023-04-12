@@ -1,18 +1,18 @@
 import React from 'react';
 import './Style.css';
-import BotaoCadastrar from '../../layout/BotaoCadastrar';
-import SearchBar from '../../layout/SearchBar';
-import Card from '../../layout/InfoEditais';
+import BotaoCadastrar from '../../Components/layout/BotaoCadastrar';
+import SearchBar from '../../Components/layout/SearchBar';
+import Card from '../../Components/layout/InfoEditais';
 import { useEffect, useState } from 'react';
 import Axios from 'axios';
-import Filter from '../../layout/Filter';
+import Filter from '../../Components/layout/Filter';
 
 
-export function PgCoordPesquisa() {
+export function PaginaInicial() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [cardsData, setCardsData] = useState([{ id: 1, name: "Edital 1", type: "Pesquisa", description: "Descrição 1" },
+  const [cardsData, setCardsData] = useState([{ id: 1, name: "Edital 1", type: "Tipo 1", description: "Descrição 1" },
   { id: 2, name: "Edital 2", type: "Tipo 2", description: "Descrição 2" },
-  { id: 3, name: "Edital 3", type: "Pesquisa", description: "Descrição 3" },
+  { id: 3, name: "Edital 3", type: "Tipo 1", description: "Descrição 3" },
   { id: 4, name: "Edital 4", type: "Tipo 2", description: "Descrição 4" },]);
   useEffect(() => {
     console.log("Fetching cards...");
@@ -27,14 +27,13 @@ export function PgCoordPesquisa() {
         console.log(error);
       });
   }, []);
-  const valorfiltroPesquisa = "Pesquisa"
   const filteredCards = cardsData.filter(card => card.name.toLowerCase().includes(searchTerm.toLowerCase())
-      && card.type.toLowerCase().includes(valorfiltroPesquisa.toLowerCase()))  
+      || card.type.toLowerCase().includes(searchTerm.toLowerCase()))
   return ( 
     <div id='page1'>
       <h1 className='welcome'>Bem vindo!</h1>
       <hr className='myhr' />
-      <h1 className='editaiswelcome'>Editais de Pesquisa</h1>
+      <h1 className='editaiswelcome'>Editais</h1>
 
       <div className='button-search'>
         <BotaoCadastrar />
@@ -60,4 +59,4 @@ export function PgCoordPesquisa() {
   );
 }
 
-export default PgCoordPesquisa;
+export default PaginaInicial;

@@ -7,8 +7,9 @@ import { CadastroEditais } from './pages/Cadastro/CadastroEditais';
 import Header from './Components/Header/Index'
 import Login from "./pages/Login/Login";
 import React from 'react';
-import PaginaInicial from './Components/pages/pagina-inicial-usuario/Index'
-import PgCoordPesquisa from './Components/pages/paginaInicialCoordPesquisa/Index';
+import PaginaInicial from './pages/pagina-inicial-usuario/Index';
+import PgCoordPesquisa from './pages/paginaInicialCoordPesquisa/Index';
+import PgCoordExtensao from './pages/pagina-coord-extensao/Index';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/paginainicial" element={<PaginaInicial/>} />
         <Route path="/paginainicialCoordPesquisa" element={<PgCoordPesquisa/>} />
+        <Route path="/paginainicialCoordExtensao" element={<PgCoordExtensao/>} />
       </Routes>
     </div>
     </>
