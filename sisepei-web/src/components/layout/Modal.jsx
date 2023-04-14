@@ -1,9 +1,10 @@
 import React from 'react';
 import './style.css';
 
-function Modal({ closeModal, name, type, description, term, requirements, coordinator }) {
+function Modal({id, closeModal, name, type, description, term, requirements, coordinator }) {
   const baixarArquivo = () => {
     console.log("Baixando Arquivo")
+    console.log(id)
   }
   return (
     <div className='modalBackground'>

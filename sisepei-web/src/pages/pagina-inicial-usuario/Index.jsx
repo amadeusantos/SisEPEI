@@ -48,7 +48,7 @@ export function PaginaInicial() {
 
       {Array.isArray(filteredCards) && filteredCards.map((card) => (
         <Card
-          key={card.id}
+          id={card.id}
           name={card.name}
           type={card.type}
           description={card.description}
