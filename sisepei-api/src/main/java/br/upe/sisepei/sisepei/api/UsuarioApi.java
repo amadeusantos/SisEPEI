@@ -48,16 +48,6 @@ public class UsuarioApi {
 		}
 	}
 	
-	@PostMapping
-	public ResponseEntity<?> incluirUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
-		try {
-			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(converter(usuarioServico.incluirUsuario(usuarioDTO)));
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
-	
 	@PutMapping("/{id}")
 	public ResponseEntity<?> alterarUsuario(@PathVariable Long id, @Valid @RequestBody UsuarioDTO usuarioDTO) throws ValidacaoException {
 		try {
