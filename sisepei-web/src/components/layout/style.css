@@ -197,7 +197,7 @@
 }
 .modalProp {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   
 } 
 .modalProp span{
@@ -218,6 +218,20 @@
   text-overflow:ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.baixar{
+  width: 25% !important;
+  height: 50px !important;
+  display: flex !important;
+  margin: 0 !important; 
+  margin-left: 5px !important;
+  
+}
+.modalProp {
+  display: flex;
+  justify-content: start;
+  
 }
 
 .modalBox button{
