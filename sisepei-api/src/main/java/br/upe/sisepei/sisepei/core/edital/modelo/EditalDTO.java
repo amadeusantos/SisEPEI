@@ -5,7 +5,7 @@ import java.util.Date;
 
 //import br.upe.sisepei.sisepei.core.edital.modelo.TipoEnum;
 import br.upe.sisepei.sisepei.core.usuario.modelo.Usuario;
-import jakarta.validation.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data

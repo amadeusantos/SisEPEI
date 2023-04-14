@@ -3,6 +3,8 @@ package br.upe.sisepei.sisepei.api;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,7 @@ import br.upe.sisepei.sisepei.base.exception.ValidacaoException;
 import br.upe.sisepei.sisepei.core.usuario.UsuarioServico;
 import br.upe.sisepei.sisepei.core.usuario.modelo.Usuario;
 import br.upe.sisepei.sisepei.core.usuario.modelo.UsuarioDTO;
-import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/usuarios")

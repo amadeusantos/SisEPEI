@@ -2,6 +2,8 @@ package br.upe.sisepei.sisepei.core.edital.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,6 @@ import br.upe.sisepei.sisepei.base.exception.ValidacaoException;
 import br.upe.sisepei.sisepei.core.edital.EditalServico;
 import br.upe.sisepei.sisepei.core.edital.modelo.Edital;
 import br.upe.sisepei.sisepei.core.edital.modelo.EditalDTO;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/edital")

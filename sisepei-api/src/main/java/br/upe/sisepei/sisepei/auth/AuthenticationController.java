@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.upe.sisepei.sisepei.core.usuario.modelo.UsuarioDTO;
+import br.upe.sisepei.sisepei.core.usuario.UsuarioServico;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -15,19 +15,25 @@ import lombok.RequiredArgsConstructor;
 
 public class AuthenticationController {
 
-    private final AuthenticationService service;
+    // private final AuthenticationService service;
+
+    private final UsuarioServico servico;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
-        @RequestBody UsuarioDTO request
+        @RequestBody RegisterRequestDTO request
     ) {
-        return ResponseEntity.ok(service.register(request));
+        try{
+            return ResponseEntity.ok(servico.register(request));
+        } catch(Exception e){
+            return ResponseEntity.badRequest().body(new AuthenticationResponse(e.getMessage()));
+        }
     }
     
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> register(
         @RequestBody AuthenticationRequest request
         ) {
-            return ResponseEntity.ok(service.authenticate(request));
+            return ResponseEntity.ok(servico.authenticate(request));
     }
 }
