@@ -1,9 +1,4 @@
 
-  body {
-    font-family: Arial, sans-serif;
-    color: #333;
-  }
-  
  
   #divGeral {
     width: 80%;
@@ -12,27 +7,7 @@
     border: 2px solid #ccc;
     border-radius: 5px;
   }
-  
-  
-  h3 {
-    font-size: 1.5em;
-    text-align: center;
-  }
-  
-  
-  p {
-    font-size: 1.2em;
-    text-align: center;
-  }
-  
- 
-  label {
-    display: inline-block;
-    width: 100px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
+
   
   input[type="text"],
   input[type="email"],
@@ -42,18 +17,6 @@
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
-  }
-  
-  
-  button {
-    padding: 10px;
-    margin-top: 10px;
-    margin-right: 10px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
   }
   
 

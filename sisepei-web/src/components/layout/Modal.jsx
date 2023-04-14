@@ -16,7 +16,7 @@ function Modal({ closeModal, name, type, description }) {
             </div>
             <div className='modalProp'>
               <span>Descrição:</span>
-              <p>{description}</p>
+              <p>{description.substring(0, 850)}</p>
             </div>
           </div>
           <button onClick={() => closeModal(false)}>Fechar</button>
