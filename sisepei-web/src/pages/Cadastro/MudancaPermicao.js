@@ -54,14 +54,14 @@ export function MudancaPermicao(){
         }
     }
 
-    async function cadastrarCoordenador(event) {
+    async function cadastrarMudanca(event) {
         event.preventDefault();
 
         await api
         .post("/adm/mudarPoder", { 
             nome: nome,
             email: email,
-            tipo: tipo
+            tipos: tipo
         })
         .then(() => (navigate("/"),
             setNome(""),
@@ -71,6 +71,8 @@ export function MudancaPermicao(){
         ))
         .catch((err) => console.log(err));
     }
+
+    {/* Sobre os botoes de PODER: é mais facil fazer uma lista de nome em card com dois botoes do lado de cada um "retirar e colocar (poder)" e ai as que ja estiverem com poder o check bom fica com o tikzinho la */}
 
     return(
         <>
@@ -97,26 +99,27 @@ export function MudancaPermicao(){
                 <br/>
 
                 <fieldset id="setTipo" hidden={!mostrarCheckBox}>
-                    <input type="checkbox" id="adm" value={"Administrador"} checked={adm} />
+                    <input type="checkbox" id="adm" value={"Administrador"} checked={adm} 
+                    onChange={}/>
                     <label for="adm">Administrador</label>
                     <br/>
 
-                    <input type="checkbox" id="Coordenador de Extenção" value={"Coordenador de Extenção"} checked={ce} />
+                    <input type="checkbox" id="Coordenador de Extenção" value={"Coordenador de Extenção"} checked={ce} onChange={}/>
                     <label for="Coordenador de Extenção">Coordenador de Extenção</label>
                     <br/>
 
-                    <input type="checkbox" id="Coordenador de Pesquisa" value={"Coordenador de Pesquisa"} checked={cp} />
+                    <input type="checkbox" id="Coordenador de Pesquisa" value={"Coordenador de Pesquisa"} checked={cp} onChange={}/>
                     <label for="Coordenador de Pesquisa">Coordenador de Pesquisa</label>
                     <br/>
 
-                    <input type="checkbox" id="Coordenador de Inovação" value={"Coordenador de Inovação"} checked={ci} />
+                    <input type="checkbox" id="Coordenador de Inovação" value={"Coordenador de Inovação"} checked={ci} onChange={}/>
                     <label for="Coordenador de Inovação">Coordenador de Inovação</label>
                     <br/>
                 </fieldset>
 
                 <br/>
                 <button
-                onClick={(event) => cadastrarCoordenador(event)}
+                onClick={(event) => cadastrarMudanca(event)}
                 disabled={errBusca}
                 >Mudar Atribuição de Poder</button>
 

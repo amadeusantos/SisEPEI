@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../lib/Api";
 import './CadastroUsuarioGeral.css';
 
-
 export function CadastroUsuarioGeral(){
     //declaraçoes
     const navigate =  useNavigate();
@@ -36,7 +35,7 @@ export function CadastroUsuarioGeral(){
 
     return(
         <>
-            <div id="divGeral">
+            <form id="divGeral">
                 <h3>Cadastro de Usuario Geral</h3>
                 <p>Preencha o Cadastro com as informaçoes pertinentes</p>
 
@@ -49,7 +48,7 @@ export function CadastroUsuarioGeral(){
                 onClick={(event) => (setEmail(event.target.value) , setErrEmail(false))} />
                 {/* fazer uma logica ocm um botao para para verificar se no banco ja existe um emial igual a esse que o ccara esta tentando se cadastrar */}
                 {
-                errEmail && <span id="ErroEmail">ERRO: Email ja cadastrado!, utilize outro endereço de Email.</span>
+                errEmail ? <span id="ErroEmail">ERRO: Email ja cadastrado!, utilize outro endereço de Email.</span> : undefined
                 }{/* Esse texto do Span tem que ser VERMELHO!!! */}
                 <br/>
                 <label htmlFor="senha">Senha:</label>
@@ -61,10 +60,13 @@ export function CadastroUsuarioGeral(){
                  onClick={(event)=> setConfirmaSenha(event.target.value)} />
                 <br/>
                 <button
-                 disable={senha.length>6  && senha !== confirmaSenha }
+                 type="submit"
+                 disable={ senha.length>6  && senha !== confirmaSenha }
                  onClick={(event) => cadastrarUsuarioGeral(event)}
-                >Cadastrar</button> <button>Voltar</button>
-            </div>
+                >Cadastrar</button> 
+                <br/>
+            </form>
+            
         </>
     );
 }

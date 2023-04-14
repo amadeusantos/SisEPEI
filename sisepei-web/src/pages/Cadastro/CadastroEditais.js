@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../lib/Api";
 import "./CadastroEditais.css";
 
-
+//Usar formData pra lidar com o arquivo pdf que sej anexado e depois dar um append no arquivo pro
 export function CadastroEditais(){
     //declaraçoes
     const navigate =  useNavigate();
@@ -12,7 +12,7 @@ export function CadastroEditais(){
     const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
     const [requisitos, setRequisitos] = useState("");
-    const [edital, setEdital] = useState("");
+    const [edital, setEdital] = useState();
     const [prazo,setPrazo] = useState("");
     const [tipo, setTipo] = useState("");
     const [coordenador, setCoordenador] = useState(""); //Tem que ver como passar o coordenador, pq ele ja vai estar logado e nao necessariamente necessita colocar o nome dele denovo la ne.
@@ -20,6 +20,11 @@ export function CadastroEditais(){
 
     async function cadastrarEdital(event) {
         event.preventDefault();
+        //pelo oq eu vi somente isso aqui ja coloca o arquivo na request
+        let formData = new FormData();
+        formData.append(
+            edital
+            );
 
         await api
         .post("/edital", {
@@ -29,7 +34,7 @@ export function CadastroEditais(){
             edital: edital,
             prazo: prazo,
             tipo: tipo,
-            coordenador: coordenador
+            coordenador: coordenador 
         })
         .then(() => (navigate("/cadastro/concluido"),
             setTitulo(""),
@@ -43,8 +48,9 @@ export function CadastroEditais(){
         ))
         .catch((err) => setErrTitulo(true));
     }
-    
+     
     return(
+       
         <>
             <div id="divGeral">
                 <h3>Cadastro de Editais</h3>
@@ -57,7 +63,7 @@ export function CadastroEditais(){
 
                 <label htmlFor="tipo">Tipo:</label>
                 <select id="tipo" required
-                onChange={(event)=> setTitulo(event.target.value)}>
+                onChange={(event)=> setTipo(event.target.value)}>
                     <option selected >--- Selecione um Tipo ---</option>
                     <option value={"extencao"}>Extenção</option>
                     <option value={"inovacao"}>Inovação</option>
@@ -99,4 +105,5 @@ export function CadastroEditais(){
             </div>
         </>
     );
+     
 }
