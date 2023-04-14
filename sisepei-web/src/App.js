@@ -6,7 +6,7 @@ import { MudancaPermicao } from './pages/Cadastro/MudancaPermicao';
 import { CadastroEditais } from './pages/Cadastro/CadastroEditais';
 import Header from './Components/Header/Index';
 import Login from "./pages/Login/Login";
-import PaginaInicial from './Components/pages/pagina-inicial-usuario/Index';
+import PaginaInicial from './pages/pagina-inicial-usuario/Index';
 import React from 'react';
 
 function App() {
