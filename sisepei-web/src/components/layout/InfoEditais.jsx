@@ -9,20 +9,20 @@ export const Card = ({ name, type, description, showEditButton, showDeleteButton
     const closeModal = () => {
         setOpenModal(false);
       };
-      const deletar = () => {
-        console.log("Deletando...");
-        Axios
-          .delete("", {
-            cardId: id
-            //inserir informação do card aqui pra poder deletar, provavelmente vai ser o ID
-          })
-          .then((response) => {
-            console.log(response)
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } 
+    //   const deletar = () => {
+    //    console.log("Deletando...");
+    //     Axios
+    //       .delete("", {
+    //         cardId: id
+    //         //inserir informação do card aqui pra poder deletar, provavelmente vai ser o ID
+    //       })
+    //       .then((response) => {
+    //         console.log(response)
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
+    //   } 
   return (
       <div className="card-body">
         <div className="nomeedital">
