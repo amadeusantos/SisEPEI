@@ -42,10 +42,16 @@ export function CadastroUsuarioGeral(){
                 <label htmlFor="nome">Nome:</label>
                 <input id="nome" type="text" required
                 onClick={(event)=> setNome(event.target.value)} />
+                {/*
+                
+                todos esses onClick tem que virar onChange!!!
+                
+                */}
                 <br/>
                 <label htmlFor="email">Email:</label>
                 <input id="email" type="email" required
                 onClick={(event) => (setEmail(event.target.value) , setErrEmail(false))} />
+
                 {/* fazer uma logica ocm um botao para para verificar se no banco ja existe um emial igual a esse que o ccara esta tentando se cadastrar */}
                 {
                 errEmail ? <span id="ErroEmail">ERRO: Email ja cadastrado!, utilize outro endereço de Email.</span> : undefined
