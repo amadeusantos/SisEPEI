@@ -101,9 +101,11 @@ export function CadastroEditais(){
                 onClick={(event)=> setEdital(event.target.value)} />
                 <br/>
 
+                <div className="button-cadastro">
                 <button
                  onClick={(event) => (cadastrarEdital(event),setErrTitulo(false))}
                 >Cadastrar</button> <button>Voltar</button>
+                </div>
             </div>
         </>
     );
