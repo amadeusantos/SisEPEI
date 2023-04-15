@@ -8,6 +8,7 @@ import Header from './Components/Header/Index';
 import Login from "./pages/Login/Login";
 import PaginaInicial from './pages/pagina-inicial-usuario/Index';
 import React from 'react';
+import PaginaCoordenadorInovacao from './pages/pagina-inicial-de-coordenador-de-inovacao/pg-inova-cood';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/edital" element={<CadastroEditais />} />
         <Route path="/" element={<Login />} />
         <Route path="/paginainicial" element={<PaginaInicial/>} />
+        <Route path='/paginacoodenadorinovacao' element={<PaginaCoordenadorInovacao/>}/>
       </Routes>
     </div>
     </>
