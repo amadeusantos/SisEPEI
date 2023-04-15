@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { CadastroUsuarioGeral } from './pages/Cadastro/CadastroUsuarioGeral';
 import { CadastroConcluido } from './pages/Cadastro/CadastroConcluido';
 import { MudancaPermicao } from './pages/Cadastro/MudancaPermicao';
