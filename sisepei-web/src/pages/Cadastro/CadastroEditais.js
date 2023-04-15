@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../lib/Api";
 import "./CadastroEditais.css";
 
+//Se der errado: usar esse link como ref: https://www.bezkoder.com/react-file-upload-axios/
 //Usar formData pra lidar com o arquivo pdf que sej anexado e depois dar um append no arquivo pro
 export function CadastroEditais(){
     //declaraçoes
