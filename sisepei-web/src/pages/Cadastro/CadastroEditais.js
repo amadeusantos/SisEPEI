@@ -23,6 +23,7 @@ export function CadastroEditais(){
         //pelo oq eu vi somente isso aqui ja coloca o arquivo na request
         let formData = new FormData();
         formData.append(
+            titulo,
             edital
             );
 
@@ -31,10 +32,11 @@ export function CadastroEditais(){
             titulo: titulo,
             descricao: descricao,
             requisitos: requisitos,
-            edital: edital,
             prazo: prazo,
             tipo: tipo,
-            coordenador: coordenador 
+            coordenador: coordenador,
+            edital: formData
+
         })
         .then(() => (navigate("/cadastro/concluido"),
             setTitulo(""),
@@ -99,7 +101,6 @@ export function CadastroEditais(){
                 <br/>
 
                 <button
-                 disabled={ titulo.length < 5 }
                  onClick={(event) => (cadastrarEdital(event),setErrTitulo(false))}
                 >Cadastrar</button> <button>Voltar</button>
             </div>
