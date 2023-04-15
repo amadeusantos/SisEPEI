@@ -22,6 +22,5 @@ public class UsuarioRepresentation implements Serializable {
 	@JsonIgnore
 	private List<EditalRepresentation> editais;
 
-
 }
 

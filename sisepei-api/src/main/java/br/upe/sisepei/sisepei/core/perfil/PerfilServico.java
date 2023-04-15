@@ -48,7 +48,7 @@ public class PerfilServico {
 			throw new NaoEncontradoException("Usuário não encontrado!");
 		}
 
-		if (perfilExistente.get().getUsuarios().contains(usuario.get())) {
+		if (usuario.get().getPerfis().contains(perfilExistente.get())) {
 			throw new NaoEncontradoException("Usuário já possui esse perfil!");
 		}
 
@@ -70,7 +70,7 @@ public class PerfilServico {
 			throw new NaoEncontradoException("Usuário não encontrado!");
 		}
 
-		if (!perfilExistente.get().getUsuarios().contains(usuario.get())) {
+		if (!usuario.get().getPerfis().contains(perfilExistente.get())) {
 			throw new NaoEncontradoException("Usuário já não possui esse perfil!");
 		}
 

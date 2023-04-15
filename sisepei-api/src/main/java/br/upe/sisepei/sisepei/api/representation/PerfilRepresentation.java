@@ -16,8 +16,5 @@ public class PerfilRepresentation implements Serializable {
 	
 	private PerfilEnum nome;
 	
-	@JsonIgnore
-	List<UsuarioRepresentation> usuarios;
-	
 }
 

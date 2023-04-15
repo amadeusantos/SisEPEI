@@ -10,26 +10,19 @@ import lombok.Data;
 
 @Data
 public class EditalDTO {
-	
-	@NotBlank
+
 	private String titulo;
 
-	@NotBlank
 	private String descricao;
-	
-	@NotBlank
+
 	private String requisitos;
-	
-	@NotBlank
-	private File edital;
-	
-	@NotBlank
+
+	private byte[] edital;
+
 	private Date prazo;
-	
-	@NotBlank
+
 	private TipoEnum tipo;
-	
-	@NotBlank
+
 	private Usuario coordenador;
 
 }
