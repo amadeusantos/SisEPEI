@@ -23,6 +23,9 @@ const Login = () => {
             console.log(error);
         })
     };
+    const handleClick = () => {
+        navigate('/cadastro/usuario');
+    }
 
     return (
         <div className='frame'>
@@ -54,8 +57,8 @@ const Login = () => {
                         
                     </Form.Group>
                     <div className='buttons'>
-                        <Button variant="primary" id='entry-button' type="submit">Entrar</Button>
-                        <Button variant="primary" id='register-button' onClick='' >Cadastre-se</Button>
+                        <Button variant="primary" id="entry-button" type="submit" >Entrar</Button>
+                        <Button variant="primary" id="register-button" onClick={handleClick} >Cadastre-se</Button>
                     </div>
                 </Form>
                
