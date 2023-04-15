@@ -7,12 +7,11 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,28 +31,20 @@ public class UsuarioApi {
 
 	@Autowired
 	private UsuarioServico usuarioServico;
-	
+
+	@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
 	@GetMapping
 	public ResponseEntity<List<UsuarioRepresentation>> listarUsuarios() {
 		return ResponseEntity.ok(usuarioServico.listarUsuarios()
 				.stream().map(this::converter).collect(Collectors.toList()));
 	}
-	
+
+	@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
 	@GetMapping("/{id}")
 	public ResponseEntity<?> buscarUsuario(@PathVariable Long id) {
 		try {
 			return ResponseEntity.ok(converter(usuarioServico.buscarUsuario(id)));
 		} catch (NaoEncontradoException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
-	
-	@PostMapping
-	public ResponseEntity<?> incluirUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
-		try {
-			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(converter(usuarioServico.incluirUsuario(usuarioDTO)));
-		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
@@ -66,7 +57,8 @@ public class UsuarioApi {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
+
+	@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> excluirUsuario(@PathVariable Long id) {
 		try { 
