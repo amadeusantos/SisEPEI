@@ -1,7 +1,5 @@
 package br.upe.sisepei.sisepei.core.edital.modelo;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.Date;
 
 import javax.persistence.*;

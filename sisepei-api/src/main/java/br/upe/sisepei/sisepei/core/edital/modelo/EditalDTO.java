@@ -1,11 +1,8 @@
 package br.upe.sisepei.sisepei.core.edital.modelo;
 
-import java.io.File;
 import java.util.Date;
 
-//import br.upe.sisepei.sisepei.core.edital.modelo.TipoEnum;
 import br.upe.sisepei.sisepei.core.usuario.modelo.Usuario;
-import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data

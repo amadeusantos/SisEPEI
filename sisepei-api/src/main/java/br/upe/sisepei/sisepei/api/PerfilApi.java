@@ -7,6 +7,7 @@ import br.upe.sisepei.sisepei.core.perfil.modelo.PerfilEnum;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import br.upe.sisepei.sisepei.api.representation.PerfilRepresentation;
@@ -22,12 +23,12 @@ public class PerfilApi {
 	
 	@Autowired
 	private PerfilServico perfilServico;
-	
+
 	@GetMapping
 	public List<PerfilRepresentation> listarPerfis() {
 		return perfilServico.ListarPerfis().stream().map(this::converter).collect(Collectors.toList());
 	}
-
+	@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
 	@GetMapping("/{perfil}")
 	public ResponseEntity<?> ListarUsuariosDoPerfil(@PathVariable PerfilEnum perfil) {
 		try {
@@ -37,7 +38,7 @@ public class PerfilApi {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-
+	@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
 	@PutMapping("/usuarios/{perfil}/{usuarioId}")
 	public ResponseEntity<?> adicionarPerfilUsuario(@PathVariable PerfilEnum perfil, @PathVariable Long usuarioId) {
 		try {
@@ -48,7 +49,7 @@ public class PerfilApi {
 
 		return ResponseEntity.noContent().build();
 	}
-
+	@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
 	@DeleteMapping("/usuarios/{perfil}/{usuarioId}")
 	public ResponseEntity<?> removerPerfilUsuario(@PathVariable PerfilEnum perfil, @PathVariable Long usuarioId) {
 		try {

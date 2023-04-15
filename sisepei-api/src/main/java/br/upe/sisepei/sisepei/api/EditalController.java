@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import br.upe.sisepei.sisepei.base.exception.NaoEncontradoException;
@@ -43,6 +44,7 @@ public class EditalController {
 		}
 	}
 
+	@PreAuthorize("hasAnyRole('COORDENADOR_EXTENSAO', 'COORDENADOR_PESQUISA', 'COORDENADOR_INOVACAO')")
 	@PostMapping
 	public ResponseEntity<?> criarEdital(
 			@RequestHeader(name = "Authorization", required = true) String token,
@@ -73,6 +75,7 @@ public class EditalController {
 		}
 	}
 
+	@PreAuthorize("hasAnyRole('COORDENADOR_EXTENSAO', 'COORDENADOR_PESQUISA', 'COORDENADOR_INOVACAO')")
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateEdital(
 			@PathVariable Long id,
@@ -103,6 +106,7 @@ public class EditalController {
 	}
 
 
+	@PreAuthorize("hasAnyRole('COORDENADOR_EXTENSAO', 'COORDENADOR_PESQUISA', 'COORDENADOR_INOVACAO')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deletarEdital(@PathVariable Long id){
 		try {

@@ -28,7 +28,7 @@ public class SecurityConfiguration {
             .antMatchers("/api/auth/**")
             .permitAll()
             .anyRequest()
-            .permitAll()
+            .authenticated()
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
