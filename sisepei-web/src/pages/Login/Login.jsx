@@ -4,7 +4,7 @@ import { api } from '../../lib/Api';
 import { useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import './Login.css';
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 
 const Login = () => {
 
@@ -13,6 +13,8 @@ const Login = () => {
 
     const navigate =  useNavigate();
 
+    const Cookie =  Cookies();
+
     async function handleSubmit(e){
         e.preventDefault();
         
@@ -20,7 +22,7 @@ const Login = () => {
         
         .then((response) => 
         (
-            Cookies.set("token", response.data.token),//Antonio--salva o cookie na hora do login
+            Cookie.set("token", response.data , { expires: 1 }),//Antonio--salva o cookie na hora do login
             navigate('/intermedio')
         ))
 

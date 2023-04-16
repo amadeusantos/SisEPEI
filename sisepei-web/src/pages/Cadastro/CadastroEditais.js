@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../lib/Api";
 import "./CadastroEditais.css";
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 
 //Se der errado: usar esse link como ref: https://www.bezkoder.com/react-file-upload-axios/
 //Usar formData pra lidar com o arquivo pdf que sej anexado e depois dar um append no arquivo pro
@@ -10,26 +10,18 @@ export function CadastroEditais(){
     //declaraçoes
     const navigate =  useNavigate();
 
+    const cookie = Cookies.get('token');
+
     //constantes com useState que serao utilizadas
     const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
     const [requisitos, setRequisitos] = useState("");
     const [edital, setEdital] = useState();
     const [prazo,setPrazo] = useState("");
-    const [tipo, setTipo] = useState("");
-    const [coordenador, setCoordenador] = useState(""); //Tem que ver como passar o coordenador, pq ele ja vai estar logado e nao necessariamente necessita colocar o nome dele denovo la ne.
+    const [tipo, setTipo] = useState(cookie.tipo);
+    const [coordenador, setCoordenador] = useState(cookie.nome); 
     const [errTitulo, setErrTitulo] = useState(false);
-
-    useEffect(() => {
-
-        const token  = Cookies.get("token");
-       
-        setCoordenador(token.nome);
-
-        setTipo() //COMO SETAR O TIPO DO EDITAL??
-        
-    }, []);
-    
+  
     async function cadastrarEdital(event) {
         event.preventDefault();
         //pelo oq eu vi somente isso aqui ja coloca o arquivo na request

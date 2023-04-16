@@ -4,7 +4,7 @@ import { CadastroUsuarioGeral } from './pages/Cadastro/CadastroUsuarioGeral';
 import { MudancaPermicao } from './pages/Cadastro/MudancaPermicao';
 import { CadastroEditais } from './pages/Cadastro/CadastroEditais';
 
-import Header from './components/Header/Index';
+import Header from '../src/Components/Header/Index';
 
 import Login from "./pages/Login/Login";
 import React from 'react';
