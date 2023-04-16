@@ -4,6 +4,7 @@ import { api } from '../../lib/Api';
 import { useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import './Login.css';
+import Cookies from "js-cookie";
 
 const Login = () => {
 
@@ -17,7 +18,11 @@ const Login = () => {
         
         await api.post('/login', {email: email, senha: senha})
         
-        .then(() => navigate('/paginainicial'))
+        .then((response) => 
+        (
+            Cookies.set("token", response.data.token),//Antonio--salva o cookie na hora do login
+            navigate('/intermedio')
+        ))
 
         .catch((error) => {
             console.log(error);
