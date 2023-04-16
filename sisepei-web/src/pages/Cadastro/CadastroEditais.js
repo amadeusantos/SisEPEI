@@ -39,7 +39,7 @@ export function CadastroEditais(){
             edital: formData
 
         })
-        .then(() => (navigate("/cadastro/concluido"),
+        .then(() => alert("Usuario cadastrado com sucesso!"),
             setTitulo(""),
             setDescricao(""),
             setRequisitos(""),
@@ -48,8 +48,12 @@ export function CadastroEditais(){
             setTipo(""),
             setCoordenador(""),
             setErrTitulo(false)
-        ))
+        )
         .catch((err) => setErrTitulo(true));
+    }
+
+    const handleClick = () => {
+        navigate('/');
     }
      
     return(
@@ -107,8 +111,10 @@ export function CadastroEditais(){
                 <br/>
                 <button
                  onClick={(event) => (cadastrarEdital(event),setErrTitulo(false))}
-                >Cadastrar</button> <button>Voltar</button>
-                
+
+                >Cadastrar</button> 
+                <button onClick={handleClick}>Voltar</button>
+
             </div>
         </>
     );

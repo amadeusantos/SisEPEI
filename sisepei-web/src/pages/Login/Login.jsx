@@ -17,7 +17,7 @@ const Login = () => {
         
         await api.post('/login', {email: email, senha: senha})
         
-        .then(() => navigate('/home'))
+        .then(() => navigate('/paginainicial'))
 
         .catch((error) => {
             console.log(error);
