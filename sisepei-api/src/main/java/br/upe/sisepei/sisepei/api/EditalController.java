@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import br.upe.sisepei.sisepei.api.representation.EditalArquivoRepresentation;
 import br.upe.sisepei.sisepei.api.representation.EditalRepresentation;
 import br.upe.sisepei.sisepei.core.edital.modelo.TipoEnum;
 import org.modelmapper.ModelMapper;
@@ -46,6 +47,17 @@ public class EditalController {
 	public ResponseEntity<?> buscarEdital(@PathVariable Long id){
 		try {
 			return ResponseEntity.ok(converter(editalServico.buscarEdital(id)));
+		} catch (NaoEncontradoException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@GetMapping("arquivo/{id}")
+	public ResponseEntity<?> buscarEditalArquivo(@PathVariable Long id){
+		try {
+			EditalArquivoRepresentation arquivo = new EditalArquivoRepresentation();
+			arquivo.setEdital(editalServico.buscarEdital(id).getEdital());
+			return ResponseEntity.ok(arquivo);
 		} catch (NaoEncontradoException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -102,8 +114,10 @@ public class EditalController {
 			editalDTO.setRequisitos(requisitos);
 			editalDTO.setTipo(tipo);
 			byte[] convertImage;
-			convertImage =  arquivo.getBytes();
-			editalDTO.setEdital(convertImage);
+			if(arquivo.isEmpty()) {
+				convertImage = arquivo.getBytes();
+				editalDTO.setEdital(convertImage);
+			}
 			editalDTO.setPrazo(df.parse(prazo, Locale.getDefault()));
 			return ResponseEntity.ok(converter(editalServico.updateEdital(id, editalDTO, jwt)));
 		} catch(Exception e){
@@ -114,10 +128,14 @@ public class EditalController {
 
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deletarEdital(@PathVariable Long id){
+	public ResponseEntity<?> deletarEdital(
+			@PathVariable Long id,
+			@RequestHeader(name = "Authorization", required = true) String token
+			){
 		try {
-			editalServico.removerEdital(id);
-		} catch(NaoEncontradoException e) {
+			String jwt =  token.substring(7);
+			editalServico.removerEdital(id, jwt);
+		} catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 
