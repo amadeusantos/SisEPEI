@@ -32,6 +32,10 @@ public class EditalServico {
 		return repositorio.findAll();
 	}
 
+	public List<Edital> buscarEditaisTipo(TipoEnum tipo) {
+		return repositorio.findAllByTipo(tipo);
+	}
+
 	public Edital buscarEdital(Long id) throws NaoEncontradoException {
 		Optional<Edital> edital = repositorio.findById(id);
 		if(edital.isEmpty()) {
