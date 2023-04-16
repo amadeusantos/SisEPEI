@@ -38,19 +38,24 @@ export function EscolhaDePersonalidade(){
         <>
         <fieldset id="menu intermedio">
 
-            <button id="" type="button" onClick={navigate("")} //falta rota!!
+            <button id="" type="button" onClick={navigate("/paginainicialCoordExtensao")} 
             disabled={!ce}
             >Coordenador de Extensão</button>
 
-            <button id="" type="button" onClick={navigate("")} //falta rota!!
+            <button id="" type="button" onClick={navigate("/paginainicialCoordPesquisa")} 
             disabled={!cp}
             >Coordenador de Pesquisa</button>
 
             <button id="" type="button" onClick={navigate("/paginacoodenadorinovacao")}
             disabled={!ci}
             >Coordenador de Inovação</button>
-
-            <button id="" type="button" onClick={navigate("")} //falta rota!!
+            
+            {/**
+            //Aqui nesse link pro ADM tem que ver como vai ser pq ele nao tem pagina inicial ne,
+            //ai se precisar, so pra deixar as coisas funcinando, o adm fica somenmte com essa 
+            funcionalidade de mudar poder e pa
+             */}
+            <button id="" type="button" onClick={navigate("/adm/mudanca/permicao")} 
             disabled={!adm}
             >Administrador</button>
 
