@@ -17,6 +17,7 @@ import br.upe.sisepei.sisepei.core.perfil.PerfilServico;
 import br.upe.sisepei.sisepei.core.perfil.modelo.Perfil;
 import br.upe.sisepei.sisepei.core.usuario.modelo.Usuario;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/perfis")
 public class PerfilApi {
