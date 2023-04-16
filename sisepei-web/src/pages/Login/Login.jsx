@@ -17,12 +17,15 @@ const Login = () => {
         
         await api.post('/login', {email: email, senha: senha})
         
-        .then(() => navigate('/home'))
+        .then(() => navigate('/paginainicial'))
 
         .catch((error) => {
             console.log(error);
         })
     };
+    const handleClick = () => {
+        navigate('/cadastro/usuario');
+    }
 
     return (
         <div className='frame'>
@@ -54,8 +57,8 @@ const Login = () => {
                         
                     </Form.Group>
                     <div className='buttons'>
-                        <Button variant="primary" id='entry-button' type="submit">Entrar</Button>
-                        <Button variant="primary" id='register-button' onClick='' >Cadastre-se</Button>
+                        <Button variant="primary" id="entry-button" type="submit" >Entrar</Button>
+                        <Button variant="primary" id="register-button" onClick={handleClick} >Cadastre-se</Button>
                     </div>
                 </Form>
                

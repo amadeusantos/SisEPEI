@@ -3,17 +3,13 @@ package br.upe.sisepei.sisepei.core.usuario.modelo;
 import java.util.Collection;
 import java.util.List;
 
+import br.upe.sisepei.sisepei.core.edital.modelo.Edital;
+import br.upe.sisepei.sisepei.core.perfil.modelo.Perfil;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import br.upe.sisepei.sisepei.core.usuarioPerfil.modelo.UsuarioPerfil;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +20,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario implements UserDetails{
+public class Usuario implements UserDetails {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -37,13 +35,18 @@ public class Usuario implements UserDetails{
 
 	private String senha;
 
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
-	private List<UsuarioPerfil> perfis;
+	@OneToMany(mappedBy = "coordenador")
+	private List<Edital> editais;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name= "usuario_perfil",
+			joinColumns = @JoinColumn(name = "usuario_id"),
+			inverseJoinColumns =  @JoinColumn(name = "perfil_id"))
+	private List<Perfil> perfis;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		return perfis;
 	}
 
 	@Override
@@ -75,10 +78,5 @@ public class Usuario implements UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
-	
-
-
-	//@OneToMany(mappedBy = "Edital")
-	//private List<Edital> editais;
 
 }

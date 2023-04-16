@@ -1,16 +1,8 @@
 package br.upe.sisepei.sisepei.core.edital.modelo;
 
-import java.io.File;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import br.upe.sisepei.sisepei.core.usuario.modelo.Usuario;
 import lombok.Data;
@@ -32,8 +24,9 @@ public class Edital {
 	private String requisitos;
 	
 	private Date prazo;
-	
-	private File edital;
+
+	@Column(columnDefinition = "longblob")
+	private byte[] edital;
 	
 	private TipoEnum tipo;
 	

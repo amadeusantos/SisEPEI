@@ -2,28 +2,32 @@ package br.upe.sisepei.sisepei.core.perfil.modelo;
 
 import java.util.List;
 
-import br.upe.sisepei.sisepei.core.usuarioPerfil.modelo.UsuarioPerfil;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import br.upe.sisepei.sisepei.core.usuario.modelo.Usuario;
+
+import javax.persistence.*;
+
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 @Data
 @Entity
-public class Perfil {
+public class Perfil implements GrantedAuthority {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
-	@Column(unique = true)
-	private String nome;
-	
-	@OneToMany(mappedBy = "perfil", fetch = FetchType.EAGER)
-	private List<UsuarioPerfil> usuarios; 
-	
+	@Column(nullable = false, unique = true)
+	@Enumerated(EnumType.STRING)
+	private PerfilEnum nome;
+
+	@ManyToMany(mappedBy="perfis")
+	private List<Usuario> usuarios;
+
+	@Override
+	public String getAuthority() {
+		return nome.toString();
+	}
 }
