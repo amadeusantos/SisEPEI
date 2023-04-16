@@ -23,11 +23,13 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors().and()
             .csrf()
             .disable()
             .authorizeHttpRequests()
             .antMatchers("/api/auth/**")
             .permitAll()
+                .antMatchers(HttpMethod.GET, "/usuarios/perfil/**").authenticated()
                 .antMatchers(HttpMethod.GET, "/usuarios/**").hasAuthority("ADMINISTRADOR")
                 .antMatchers(HttpMethod.PUT, "/usuarios/**").hasAuthority("ADMINISTRADOR")
                 .antMatchers(HttpMethod.DELETE, "/usuarios/**").hasAuthority("ADMINISTRADOR")

@@ -1,6 +1,7 @@
 package br.upe.sisepei.sisepei.core.edital;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import br.upe.sisepei.sisepei.config.JwtService;
@@ -30,6 +31,10 @@ public class EditalServico {
 
 	public List<Edital> listarEditais(){
 		return repositorio.findAll();
+	}
+
+	public List<Edital> buscarEditaisTipo(TipoEnum tipo) {
+		return repositorio.findAllByTipo(tipo);
 	}
 
 	public Edital buscarEdital(Long id) throws NaoEncontradoException {
@@ -86,7 +91,9 @@ public class EditalServico {
 
 		editalExistente.setTitulo(edital.getTitulo());
 		editalExistente.setDescricao(edital.getDescricao());
-		editalExistente.setEdital(edital.getEdital());
+		if(edital.getEdital() != null) {
+			editalExistente.setEdital(edital.getEdital());
+		}
 		editalExistente.setRequisitos(edital.getRequisitos());
 		editalExistente.setTipo(edital.getTipo());
 		editalExistente.setPrazo(edital.getPrazo());
@@ -94,19 +101,24 @@ public class EditalServico {
 		return repositorio.save(editalExistente);
 	}
 
-	public void removerEdital(Long id) throws NaoEncontradoException{
+	public void removerEdital(Long id, String token) throws Exception {
 		Optional<Edital> edital = repositorio.findById(id);
+		var autor = jwtService.extractUserEmail(token);
 		if(edital.isEmpty()) {
 			throw new NaoEncontradoException("Não existe nenhum edital correspondente a esse id");
+		}
+
+		if (!Objects.equals(edital.get().getCoordenador().getEmail(), autor)) {
+			throw new Exception("Você só pode excluir seus editais");
 		}
 		repositorio.deleteById(id);
 	}
 
 	private boolean eCoordenador(TipoEnum eixo, Usuario coordenador) {
 		List<String> perfis= coordenador.getPerfis().stream().map(Perfil::getAuthority).toList();
-		if (eixo == TipoEnum.EXTENSÃO) {
+		if (eixo == TipoEnum.EXTENSAO) {
 			return perfis.contains("COORDENADOR_EXTENSAO");
-		} else if (eixo == TipoEnum.INOVAÇÃO) {
+		} else if (eixo == TipoEnum.INOVACAO) {
 			return perfis.contains("COORDENADOR_INOVACAO");
 		} else if (eixo == TipoEnum.PESQUISA) {
 			return perfis.contains("COORDENADOR_PESQUISA");
