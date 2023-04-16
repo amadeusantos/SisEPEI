@@ -56,8 +56,13 @@ export function CadastroEditais(){
        
         <>
             <div id="divGeral">
+                <div className="h3">
                 <h3>Cadastro de Editais</h3>
+                </div>
+
+                <div className="p">
                 <p>Preencha o campos abaixo com as informaçoes pertinentes sobre o Edital</p>
+                </div>
 
                 <label htmlFor="Coordenador">Coordenador:</label>
                 <input id="Coordenador" type="text" 
@@ -100,12 +105,10 @@ export function CadastroEditais(){
                 <input id="edital" type="file" accept=".doc,.docx,.pdf,.txt"
                 onClick={(event)=> setEdital(event.target.value)} />
                 <br/>
-
-                <div className="button-cadastro">
                 <button
                  onClick={(event) => (cadastrarEdital(event),setErrTitulo(false))}
                 >Cadastrar</button> <button>Voltar</button>
-                </div>
+                
             </div>
         </>
     );
