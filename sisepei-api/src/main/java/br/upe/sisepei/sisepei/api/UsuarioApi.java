@@ -34,6 +34,17 @@ public class UsuarioApi {
 				.stream().map(this::converter).collect(Collectors.toList()));
 	}
 
+	@GetMapping("/perfil")
+	public ResponseEntity<?> buscarUsuarioPerfil(
+			@RequestHeader(name = "Authorization", required = true) String token
+	) {
+		try {
+			String jwt = token.substring(7);
+			return ResponseEntity.ok(converter(usuarioServico.buscarUsuarioPerfil(jwt)));
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> buscarUsuario(@PathVariable Long id) {

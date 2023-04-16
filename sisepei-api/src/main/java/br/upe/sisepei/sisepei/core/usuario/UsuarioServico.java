@@ -36,6 +36,16 @@ public class UsuarioServico {
 	public List<Usuario> listarUsuarios() {
 		return repository.findAll();
 	}
+
+	public Usuario buscarUsuarioPerfil(String token) throws NaoEncontradoException {
+		String email = jwtService.extractUserEmail(token);
+		Optional<Usuario> usuario = repository.findByEmail(email);
+		if (usuario.isEmpty()) {
+			throw new NaoEncontradoException("Usuário não encontrado!");
+		}
+
+		return usuario.get();
+	}
 	
 	public Usuario buscarUsuario(Long id) throws NaoEncontradoException {
 		Optional<Usuario> usuario = repository.findById(id);
