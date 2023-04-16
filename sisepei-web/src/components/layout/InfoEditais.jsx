@@ -12,9 +12,9 @@ export const Card = ({id, name, coordinator, type, description, term, requiremen
   };
 
 
-    const closeModal = () => {
-        setOpenModal(false);
-      };
+    //const closeModal = () => {
+    //    setOpenModal(false);
+    //  };
       // const deletar = () => {
       //   console.log("Deletando...");
       //   Axios

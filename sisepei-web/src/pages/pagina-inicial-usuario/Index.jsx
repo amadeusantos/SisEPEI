@@ -1,10 +1,10 @@
 import React from 'react';
 import './Style.css';
-import SearchBar from '../../components/layout/SearchBar'
-import Card from '../../components/layout/InfoEditais';
+import SearchBar from '../../Components/layout/SearchBar'
+import Card from '../../Components/layout/InfoEditais';
 import { useEffect, useState } from 'react';
 import Axios from 'axios';
-import Filter from '../../components/layout/Filter';
+import Filter from '../../Components/layout/Filter';
 
 
 export function PaginaInicial() {
