@@ -8,6 +8,7 @@ import Login from "./pages/Login/Login";
 import PaginaInicial from './pages/pagina-inicial-usuario/Index';
 import React from 'react';
 import PaginaCoordenadorInovacao from './pages/pagina-inicial-de-coordenador-de-inovacao/pg-inova-cood';
+import { EscolhaDePersonalidade } from './pages/pagina-intermedio-login-dashboard/EscolhaDePersoladidade';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/paginainicial" element={<PaginaInicial/>} />
         <Route path='/paginacoodenadorinovacao' element={<PaginaCoordenadorInovacao/>}/>
+        <Route path='/intermedio' element={<EscolhaDePersonalidade />}/>
       </Routes>
     </div>
     </>
