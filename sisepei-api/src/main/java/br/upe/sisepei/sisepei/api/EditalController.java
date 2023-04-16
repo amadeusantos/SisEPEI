@@ -44,7 +44,7 @@ public class EditalController {
 		}
 	}
 
-	@PreAuthorize("hasAnyRole('COORDENADOR_EXTENSAO', 'COORDENADOR_PESQUISA', 'COORDENADOR_INOVACAO')")
+
 	@PostMapping
 	public ResponseEntity<?> criarEdital(
 			@RequestHeader(name = "Authorization", required = true) String token,
@@ -75,7 +75,7 @@ public class EditalController {
 		}
 	}
 
-	@PreAuthorize("hasAnyRole('COORDENADOR_EXTENSAO', 'COORDENADOR_PESQUISA', 'COORDENADOR_INOVACAO')")
+
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateEdital(
 			@PathVariable Long id,
@@ -106,7 +106,7 @@ public class EditalController {
 	}
 
 
-	@PreAuthorize("hasAnyRole('COORDENADOR_EXTENSAO', 'COORDENADOR_PESQUISA', 'COORDENADOR_INOVACAO')")
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deletarEdital(@PathVariable Long id){
 		try {

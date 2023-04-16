@@ -39,8 +39,13 @@ export function CadastroUsuarioGeral(){
     return(
         <>
             <form id="divGeral">
-                <h3>Cadastro de Usuario Geral</h3>
+                <div className="h3">
+                <h4>Cadastro de Usuario Geral</h4>
+                </div>
+
+                <div className="p">
                 <p>Preencha o Cadastro com as informaçoes pertinentes</p>
+                </div>
 
                 <label htmlFor="nome">Nome:</label>
                 <input id="nome" type="text" required
@@ -64,7 +69,7 @@ export function CadastroUsuarioGeral(){
                 <input id="senha" type="password" required
                  onClick={(event)=> setSenha(event.target.value)} />
                 <br/>
-                <label htmlFor="confirmaSenha">Comfirme sua senha:</label>
+                <label htmlFor="confirmaSenha">Confirme sua senha:</label>
                 <input id="confirmaSenha" type="password" required
                  onClick={(event)=> setConfirmaSenha(event.target.value)} />
                 <br/>

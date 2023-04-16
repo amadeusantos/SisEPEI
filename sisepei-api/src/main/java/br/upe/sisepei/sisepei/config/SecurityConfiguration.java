@@ -2,6 +2,7 @@ package br.upe.sisepei.sisepei.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,6 +28,14 @@ public class SecurityConfiguration {
             .authorizeHttpRequests()
             .antMatchers("/api/auth/**")
             .permitAll()
+                .antMatchers(HttpMethod.GET, "/usuarios/**").hasAuthority("ADMINISTRADOR")
+                .antMatchers(HttpMethod.PUT, "/usuarios/**").hasAuthority("ADMINISTRADOR")
+                .antMatchers(HttpMethod.DELETE, "/usuarios/**").hasAuthority("ADMINISTRADOR")
+                .antMatchers(HttpMethod.GET, "/edital/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/edital/**").hasAnyAuthority("COORDENADOR_INOVACAO", "COORDENADOR_PESQUISA", "COORDENADOR_EXTENSAO")
+                .antMatchers(HttpMethod.PUT, "/edital/**").hasAnyAuthority("COORDENADOR_INOVACAO", "COORDENADOR_PESQUISA", "COORDENADOR_EXTENSAO")
+                .antMatchers(HttpMethod.DELETE, "/edital/**").hasAnyAuthority("COORDENADOR_INOVACAO", "COORDENADOR_PESQUISA", "COORDENADOR_EXTENSAO")
+                .antMatchers("/perfis/**").hasAuthority("ADMINISTRADOR")
             .anyRequest()
             .authenticated()
             .and()

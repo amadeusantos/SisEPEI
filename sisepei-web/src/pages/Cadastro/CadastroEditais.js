@@ -71,8 +71,13 @@ export function CadastroEditais(){
        
         <>
             <div id="divGeral">
+                <div className="h3">
                 <h3>Cadastro de Editais</h3>
+                </div>
+
+                <div className="p">
                 <p>Preencha o campos abaixo com as informaçoes pertinentes sobre o Edital</p>
+                </div>
 
                 <label htmlFor="prazo">Prazo:</label>
                 <input id="prazo" type="date" 
@@ -99,11 +104,12 @@ export function CadastroEditais(){
                 <input id="edital" type="file" accept=".doc,.docx,.pdf,.txt"
                 onClick={(event)=> setEdital(event.target.value)} />
                 <br/>
-
                 <button
                  onClick={(event) => (cadastrarEdital(event),setErrTitulo(false))}
+
                 >Cadastrar</button> 
                 <button onClick={handleClick}>Voltar</button>
+
             </div>
         </>
     );

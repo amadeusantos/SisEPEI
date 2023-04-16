@@ -11,6 +11,25 @@ export const Card = ({id, name, coordinator, type, description, term, requiremen
     console.log(id)
   };
 
+
+    const closeModal = () => {
+        setOpenModal(false);
+      };
+      // const deletar = () => {
+      //   console.log("Deletando...");
+      //   Axios
+      //     .delete("", {
+      //       cardId: id
+      //       //inserir informação do card aqui pra poder deletar, provavelmente vai ser o ID
+      //     })
+      //     .then((response) => {
+      //       console.log(response)
+      //     })
+      //     .catch((error) => {
+      //       console.log(error);
+      //     });
+      // } 
+
   return (
     <div className="card-body">
       <div className="nomeedital">
