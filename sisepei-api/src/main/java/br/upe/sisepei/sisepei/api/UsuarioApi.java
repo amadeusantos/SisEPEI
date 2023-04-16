@@ -32,14 +32,14 @@ public class UsuarioApi {
 	@Autowired
 	private UsuarioServico usuarioServico;
 
-	@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
+
 	@GetMapping
 	public ResponseEntity<List<UsuarioRepresentation>> listarUsuarios() {
 		return ResponseEntity.ok(usuarioServico.listarUsuarios()
 				.stream().map(this::converter).collect(Collectors.toList()));
 	}
 
-	@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
+
 	@GetMapping("/{id}")
 	public ResponseEntity<?> buscarUsuario(@PathVariable Long id) {
 		try {
@@ -58,7 +58,7 @@ public class UsuarioApi {
 		}
 	}
 
-	@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> excluirUsuario(@PathVariable Long id) {
 		try { 
