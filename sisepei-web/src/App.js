@@ -8,6 +8,8 @@ import Login from "./pages/Login/Login";
 import PaginaInicial from './pages/pagina-inicial-usuario/Index';
 import React from 'react';
 import PaginaCoordenadorInovacao from './pages/pagina-inicial-de-coordenador-de-inovacao/pg-inova-cood';
+import PgCoordPesquisa from './pages/paginaInicialCoordPesquisa/Index';
+import PgCoordExtensao from './pages/pagina-coord-extensao/Index';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/paginainicial" element={<PaginaInicial/>} />
         <Route path='/paginacoodenadorinovacao' element={<PaginaCoordenadorInovacao/>}/>
+        <Route path="/paginainicialCoordPesquisa" element={<PgCoordPesquisa/>} />
+        <Route path="/paginainicialCoordExtensao" element={<PgCoordExtensao/>} />
       </Routes>
     </div>
     </>
