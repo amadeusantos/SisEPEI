@@ -40,7 +40,7 @@ export function PgCoordPesquisa() {
     <div id='page1'>
       <h1 className='welcome'>Bem vindo!</h1>
       <hr className='myhr' />
-      <h1 className='editaiswelcome'>Editais</h1>
+      <h1 className='editaiswelcome'>Editais de Pesquisa</h1>
 
       <div className='button-search'>
         <BotaoCadastrar />
