@@ -11,6 +11,8 @@ export function CadastroEditais(){
     //declaraçoes
     const navigate =  useNavigate();
 
+    const cookie = Cookies.get('token');
+
     //constantes com useState que serao utilizadas
     const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
