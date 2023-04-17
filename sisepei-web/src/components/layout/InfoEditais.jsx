@@ -6,10 +6,6 @@ import BotaoDeAcao from './BotaoDeAcao';
 export const Card = ({id, name, coordinator, type, description, term, requirements, showEditButton, showDeleteButton }) => {
   const [openModal, setOpenModal] = useState(false);
 
-  const closeModal = () => {
-    setOpenModal(false);
-    console.log(id)
-  };
 
 
     const closeModal = () => {

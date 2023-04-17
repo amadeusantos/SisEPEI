@@ -75,7 +75,7 @@ public class EditalController {
 	){
 		try {
 			String jwt =  token.substring(7);
-			DateFormatter df = new DateFormatter("dd/mm/yyyy");
+			DateFormatter df = new DateFormatter("yyyy-mm-dd");
 			EditalDTO editalDTO = new EditalDTO();
 			editalDTO.setTitulo(titulo);
 			editalDTO.setDescricao(descricao);
@@ -107,7 +107,7 @@ public class EditalController {
 	) throws ValidacaoException {
 		try{
 			String jwt =  token.substring(7);
-			DateFormatter df = new DateFormatter("dd/mm/yyyy");
+			DateFormatter df = new DateFormatter("yyyy-mm-dd");
 			EditalDTO editalDTO = new EditalDTO();
 			editalDTO.setTitulo(titulo);
 			editalDTO.setDescricao(descricao);
