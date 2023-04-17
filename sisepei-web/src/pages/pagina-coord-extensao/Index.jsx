@@ -13,18 +13,21 @@ export function PgCoordExtensao() {
   const [cardsData, setCardsData] = useState([]);
   useEffect(() => {
     console.log("Fetching cards...");
-    Axios
-      .get(``)
-      .then((response) => {
 
+    api.get(`edital/tipo/EXTENSAO`,  {
+      headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`
+      }
+    })
+      .then((response) => {
+        setCardsData(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-  const valorfiltroExtensao = "Extensão"
-  const filteredCards = cardsData.filter(card => card.name.toLowerCase().includes(searchTerm.toLowerCase())
-      && card.type.toLowerCase().includes(valorfiltroExtensao.toLowerCase()))  
+
+    const filteredCards = cardsData.filter(card => card.titulo.toLowerCase().includes(searchTerm.toLowerCase()));
   return ( 
     <div id='page1'>
       <h1 className='welcome'>Bem vindo!</h1>
@@ -35,21 +38,21 @@ export function PgCoordExtensao() {
         <BotaoCadastrar />
           <div className='search-filter'>
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-            <Filter/>
           </div>
       </div>
 
 
       {Array.isArray(filteredCards) && filteredCards.map((card) => (
         <Card
-          id={card.id}
-          name={card.name}
-          type={card.type}
-          description={card.description}
-          term={card.term}
-          requirements={card.requirements}
-          coordinator={card.coordinator}
-          showDeleteButton={true} showEditButton={true} showShowButton={true}
+        key={card.id}
+        id={card.id}
+        name={card.titulo}
+        type={card.tipo}
+        description={card.descricao}
+        term={card.prazo}
+        coordinator={card.coordenador.nome}
+        requirements={card.requisitos}
+        showDeleteButton={true} showEditButton={true} showShowButton={true}
         />
       ))}
 
