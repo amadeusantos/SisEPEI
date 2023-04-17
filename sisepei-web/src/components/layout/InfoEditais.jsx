@@ -3,9 +3,44 @@ import './style.css';
 import { useState } from 'react';
 import Modal from './Modal';
 import BotaoDeAcao from './BotaoDeAcao';
+import { useNavigate } from 'react-router-dom';
+
 export const Card = ({id, name, coordinator, type, description, term, requirements, showEditButton, showDeleteButton }) => {
   const [openModal, setOpenModal] = useState(false);
 
+
+  const [nameEdit, setNameEdit] = useState(name);
+  const [coordinatorEdit, setCoordinatorEdit] = useState(coordinator);
+  const [typeEdit, setTypeEdit] = useState(type);
+  const [descriptionEdit, setDescriptionEdit] = useState(description);
+  const [termEdit, setTermEdit] = useState(term);
+  const [requirementsEdit, setRequirementsEdit] = useState(requirements);
+
+
+  const navigate = useNavigate();
+
+  const handleEditClick = () => {
+    // Definir os valores dos estados com as informações do edital atual
+    setNameEdit(name);
+    setCoordinatorEdit(coordinator);
+    setTypeEdit(type);
+    setDescriptionEdit(description);
+    setTermEdit(term);
+    setRequirementsEdit(requirements);
+  
+    // Navegar para a página de edição do edital, passando as informações do edital como parâmetros
+    navigate(`/editaredital/${id}`, {
+      state: {
+        name: nameEdit,
+        coordinator: coordinatorEdit,
+        type: typeEdit,
+        description: descriptionEdit,
+        term: termEdit,
+        requirements: requirementsEdit
+      }
+    });
+  };
+  
 
     const closeModal = () => {
         setOpenModal(false);
@@ -42,18 +77,19 @@ export const Card = ({id, name, coordinator, type, description, term, requiremen
           </div>
         )}
         {showEditButton && (
-
           <div className="button-container">
-            <div ></div>
+            <div></div>
             <BotaoDeAcao
               src="https://cdn.discordapp.com/attachments/440326168491720705/1092098165030789140/pencil.png"
               alt="editar"
               label="Editar"
               className="BotaoDeAcao"
+              onClick={handleEditClick}
             />
-            <div ></div>
+            <div></div>
           </div>
         )}
+
         <BotaoDeAcao
           src='https://cdn.discordapp.com/attachments/440326168491720705/1092093148815167630/eye_1.png'
           alt='mostrar'

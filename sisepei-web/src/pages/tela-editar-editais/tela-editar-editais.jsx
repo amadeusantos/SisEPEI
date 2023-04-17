@@ -1,111 +1,146 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { api } from "../../lib/Api";
-import "./style.css";
+import "./EditarEdital.css";
+import Cookies from 'js-cookie';
+import FormData from "form-data";
 
-export function EditarEditais() {
+export function EdicaoEdital({ editalId }) {
+  // Declarações
   const navigate = useNavigate();
-  const { id } = useParams();
 
+  // Constantes com useState que serão utilizadas
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
   const [requisitos, setRequisitos] = useState("");
-  const [edital, setEdital] = useState("");
+  const [tipo] = useState("");
+  const [edital, setEdital] = useState();
   const [prazo, setPrazo] = useState("");
-  const [tipo, setTipo] = useState("");
-  const [coordenador, setCoordenador] = useState("");
   const [errTitulo, setErrTitulo] = useState(false);
 
   useEffect(() => {
-    async function getEdital() {
-      const response = await api.get(`/edital/${id}`);
-      const edital = response.data;
-      setTitulo(edital.titulo);
-      setDescricao(edital.descricao);
-      setRequisitos(edital.requisitos);
-      setEdital(edital.edital);
-      setPrazo(edital.prazo);
-      setTipo(edital.tipo);
-      setCoordenador(edital.coordenador);
-    }
+    // Função para buscar os dados do edital do backend e preencher os campos
+    const buscarEdital = async () => {
+      try {
+        const response = await api.get(`/edital/${editalId}`, {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token")}`
+          }
+        });
+        const { titulo, descricao, requisitos, prazo } = response.data;
+        setTitulo(titulo);
+        setDescricao(descricao);
+        setRequisitos(requisitos);
+        setPrazo(prazo);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    buscarEdital();
+  }, [editalId]);
 
-    getEdital();
-  }, [id]);
-
-  async function atualizarEdital(event) {
+  async function editarEdital(event) {
     event.preventDefault();
+    let bodyformData = new FormData();
 
+    bodyformData.append("titulo", titulo);
+    bodyformData.append("descricao", descricao);
+    bodyformData.append("requisitos", requisitos);
+    bodyformData.append("prazo", prazo);
+
+    console.log("1");
     await api
-      .put(`/edital/${id}`, {
-        titulo: titulo,
-        descricao: descricao,
-        requisitos: requisitos,
-        edital: edital,
-        prazo: prazo,
-        tipo: tipo,
-        coordenador: coordenador,
+      .put(`/edital/${editalId}`, bodyformData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${Cookies.get("token")}`
+        }
       })
-      .then(() =>
-        navigate("/cadastro/concluido", {
-          state: { mensagem: "Edital atualizado com sucesso!" },
-        })
-      )
-      .catch((err) => setErrTitulo(true));
+      .then(() => {
+        alert("Edital editado com sucesso!");
+        // Redirecionar para a página de listagem de editais após a edição
+        navigate('/listagem-editais');
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrTitulo(true);
+      });
   }
 
+  const handleClick = () => {
+    navigate('/');
+  }
   return (
     <>
-        <div id="divGeral">
-            <h3>Edição de Edital</h3>
-            <p>Edite as informações abaixo e clique em Salvar para atualizar o edital:</p>
-
-            <label htmlFor="Coordenador">Coordenador:</label>
-            <input id="Coordenador" type="text" value={coordenador} disabled />
-
-            <br />
-
-            <label htmlFor="tipo">Tipo:</label>
-            <select id="tipo" required value={tipo} onChange={(event) => setTipo(event.target.value)}>
-                <option value="">--- Selecione um Tipo ---</option>
-                <option value={"extencao"}>Extenção</option>
-                <option value={"inovacao"}>Inovação</option>
-                <option value={"pesquisa"}>Pesquisa</option>
-            </select>
-
-            <br />
-
-            <label htmlFor="prazo">Prazo:</label>
-            <input id="prazo" type="date" value={prazo} onChange={(event) => setPrazo(event.target.value)} />
-
-            <br />
-
-            <label htmlFor="titulo">Titulo:</label>
-            <input id="titulo" type="text" required value={titulo} onChange={(event) => setTitulo(event.target.value)} />
-            {errTitulo && <span id="errTitulo">Este Titulo ja esta em uso, tente novamente.</span>}
-            <br />
-
-            <label htmlFor="descricao">Descrição:</label>
-            <textarea id="descricao" required value={descricao} onChange={(event) => setDescricao(event.target.value)} />
-
-            <br />
-
-            <label htmlFor="requisitos">Requisitos:</label>
-            <textarea id="requisitos" required value={requisitos} onChange={(event) => setRequisitos(event.target.value)} />
-
-            <br />
-
-            <label htmlFor="edital">Edital:</label>
-            <input id="edital" type="file" accept=".doc,.docx,.pdf,.txt" onChange={(event) => setEdital(event.target.files[0])} />
-
-            <br />
-
-            <button disabled={titulo.length < 5} onClick={(event) => (atualizarEdital(event), setErrTitulo(false))}>
-                Salvar
-            </button>{""}
-            <button onClick={() => navigate("/editais")}>Cancelar</button>
+      <div id="divGeral">
+        <div className="h3">
+          <h3>Editar Edital</h3>
         </div>
+  
+        <div className="p">
+          <p>Edite as informações do Edital abaixo:</p>
+        </div>
+  
+        <label htmlFor="titulo">Título:</label>
+        <input
+          id="titulo"
+          type="text"
+          required
+          value={titulo}
+          onChange={(event) => setTitulo(event.target.value)}
+        />
+        {errTitulo && (
+          <span id="errTitulo">
+            Este Título já está em uso, tente novamente.
+          </span>
+        )}
+        <br />
+  
+        <label htmlFor="descricao">Descrição:</label>
+        <textarea
+          id="descricao"
+          required
+          value={descricao}
+          onChange={(event) => setDescricao(event.target.value)}
+        />
+        <br />
+  
+        <label htmlFor="requisitos">Requisitos:</label>
+        <textarea
+          id="requisitos"
+          required
+          value={requisitos}
+          onChange={(event) => setRequisitos(event.target.value)}
+        />
+        <br />
+  
+        <label htmlFor="tipo">Tipo:</label>
+        <select id="tipo" disabled>
+          <option value={tipo}>{tipo}</option>
+        </select>
+  
+        <label htmlFor="edital">Edital:</label>
+        <input
+          id="edital"
+          type="file"
+          accept=".doc,.docx,.pdf,.txt"
+          onChange={(event) => {
+            setEdital(event.target.files.item(0));
+          }}
+        />
+        <br />
+        <button
+          onClick={(event) => {
+            editarEdital(event);
+            setErrTitulo(false);
+          }}
+        >
+          Salvar Edital
+        </button>
+        <button onClick={handleClick}>Voltar</button>
+      </div>
     </>
-);
+  );
         }
 
-export default EditarEditais;
+export default EdicaoEdital;

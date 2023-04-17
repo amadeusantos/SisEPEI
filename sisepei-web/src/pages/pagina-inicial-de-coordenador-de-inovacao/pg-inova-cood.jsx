@@ -3,7 +3,6 @@ import './Style.css';
 import SearchBar from '../../Components/layout/SearchBar';
 import Card from '../../Components/layout/InfoEditais';
 import { useEffect, useState } from 'react';
-import Filter from '../../Components/layout/Filter';
 import { api } from '../../lib/Api';
 import Cookies from 'js-cookie';
 import BotaoCadastrar from '../../Components/layout/BotaoCadastrar';
