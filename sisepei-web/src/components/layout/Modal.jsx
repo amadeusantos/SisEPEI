@@ -1,10 +1,19 @@
 import React from 'react';
 import './style.css';
+import { api } from '../../lib/Api';
+import Cookies from 'js-cookie';
 
 function Modal({id, closeModal, name, type, description, term, requirements, coordinator }) {
-  const baixarArquivo = () => {
+  const baixarArquivo = async () => {
     console.log("Baixando Arquivo")
-    console.log(id)
+    await api.get("edital/arquivo/" + id,
+    {headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`
+     }}
+     ).then((resp) => {
+      console.log(decodeURI(resp.data.edital));
+  
+    })
   }
   return (
     <div className='modalBackground'>

@@ -18,13 +18,12 @@ const Login = () => {
     async function handleSubmit(e){
         e.preventDefault();
         
-        await api.post('/login', {email: email, senha: senha})
+        await api.post('api/auth/authenticate', {email: email, senha: senha})
         
-        .then((response) => 
-        (
-            Cookie.set("token", response.data , { expires: 1 }),//Antonio--salva o cookie na hora do login
-            navigate('/intermedio')
-        ))
+        .then((res) =>{
+            Cookies.set("token", res.data.token);
+            navigate('/paginainicial')
+        })
 
         .catch((error) => {
             console.log(error);
