@@ -1,5 +1,5 @@
 import React from 'react';
-import './Style.css';
+import './pg-inova-cood.css';
 import SearchBar from '../../Components/layout/SearchBar';
 import Card from '../../Components/layout/InfoEditais';
 import { useEffect, useState } from 'react';
