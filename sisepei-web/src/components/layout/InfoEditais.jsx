@@ -17,6 +17,10 @@ export const Card = ({id, name, coordinator, type, description, term, requiremen
       setShowModal(false);
     };
 
+    const closeModal = () => {
+      setOpenModal(false)
+    }
+
 
   return (
     <div className="card-body">
