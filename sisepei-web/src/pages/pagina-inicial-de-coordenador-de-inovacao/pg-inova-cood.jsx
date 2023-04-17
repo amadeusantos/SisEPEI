@@ -17,10 +17,9 @@ export function PaginaCoordenadorInovacao() {
     console.log("Fetching cards...");
     Axios
       //inserir o link no get
-      .get(``)
+      .get(`/{id}`)
       .then((response) => {
-        //comentei esse setCardsData porque ele impede que eu teste com os cards que tem ali em cima.
-        // setCardsData(response.data);
+        setCardsData(response.data);
       })
       .catch((error) => {
         console.log(error);
