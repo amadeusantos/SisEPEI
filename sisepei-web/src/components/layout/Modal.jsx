@@ -41,7 +41,7 @@ function Modal({id, closeModal, name, type, description, term, requirements, coo
           </div>
           <div className='modalProp'>
             <span>Descrição:</span>
-            <p>{description.substring(0, 600)}</p>
+            <p>{description.substring(0, 255)}</p>
           </div>
           <div className='modalProp'>
             <span>Baixar Edital:</span>

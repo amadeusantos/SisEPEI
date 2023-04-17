@@ -4,8 +4,18 @@ import { useState } from 'react';
 import Modal from './Modal';
 import BotaoDeAcao from './BotaoDeAcao';
 import { api } from '../../lib/Api';
+import DeleteModal from './DeleteModal';
 export const Card = ({id, name, coordinator, type, description, term, requirements, showEditButton, showDeleteButton }) => {
   const [openModal, setOpenModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+  
+    const handleConfirmDelete = () => {
+      setShowModal(false);
+    };
+  
+    const handleCancelDelete = () => {
+      setShowModal(false);
+    };
 
 
   return (
@@ -25,19 +35,6 @@ export const Card = ({id, name, coordinator, type, description, term, requiremen
 
       <div className="actions">
 
-        {showDeleteButton && (
-
-          <div className="button-container">
-            <div className="line"></div>
-            <BotaoDeAcao
-              src="https://cdn.discordapp.com/attachments/440326168491720705/1092108550400127108/delete.png"
-              alt="deletar"
-              label="Deletar"
-              className="BotaoDeAcao"
-            />
-            <div className="line"></div>
-          </div>
-        )}
         {showEditButton && (
 
           <div className="button-container">
@@ -51,6 +48,29 @@ export const Card = ({id, name, coordinator, type, description, term, requiremen
             <div className="line"></div>
           </div>
         )}
+
+         {showDeleteButton && (
+
+          <div className="button-container">
+            <div className="line"></div>
+            <BotaoDeAcao
+              src="https://cdn.discordapp.com/attachments/440326168491720705/1092108550400127108/delete.png"
+              alt="deletar"
+              label="Deletar"
+              onClick={() => setShowModal(true)}
+              className="BotaoDeAcao"
+            />
+              {showModal && (
+                <DeleteModal
+                  onConfirm={handleConfirmDelete}
+                  onCancel={handleCancelDelete}
+                />
+              )}
+            <div className="line"></div>
+          </div>
+          
+      )}
+
         <BotaoDeAcao
           src='https://cdn.discordapp.com/attachments/440326168491720705/1092093148815167630/eye_1.png'
           alt='mostrar'
