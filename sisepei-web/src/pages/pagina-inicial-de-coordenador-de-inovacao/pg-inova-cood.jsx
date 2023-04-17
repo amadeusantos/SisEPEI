@@ -3,7 +3,6 @@ import './Style.css';
 import SearchBar from '../../Components/layout/SearchBar';
 import Card from '../../Components/layout/InfoEditais';
 import { useEffect, useState } from 'react';
-import Filter from '../../Components/layout/Filter';
 import { api } from '../../lib/Api';
 import Cookies from 'js-cookie';
 import BotaoCadastrar from '../../Components/layout/BotaoCadastrar';
@@ -37,16 +36,12 @@ export function PaginaCoordenadorInovacao() {
       <h1 className='editaiswelcome'>Editais de Inovação</h1>
 
       <div className='button-search'>
-
+      <BotaoCadastrar/>
           <div className='search-filter'>
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-            <BotaoCadastrar/>
           </div>
 
       </div>
-
-      {/* Array.isArray vai checar se a data sendo recebida pelo back é um array, caso contrário não vai renderizar nada,
-      coloquei aqui pra não ficar dando erro, mas caso preciso é só remover. */}
 
       {Array.isArray(filteredCards) && filteredCards.map((card) => (
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../lib/Api";
 import "./CadastroEditais.css";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import FormData from "form-data";
 
 //Se der errado: usar esse link como ref: https://www.bezkoder.com/react-file-upload-axios/

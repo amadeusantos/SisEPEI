@@ -10,26 +10,23 @@ import Filter from '../../Components/layout/Filter';
 
 export function PgCoordPesquisa() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [cardsData, setCardsData] = useState([{ id: 1, name: "Edital 1", type: "Extensao", description: "Descrição 1" },
-  { id: 2, name: "Edital 2", type: "Pesquisa", description: "Descrição 2" },
-  { id: 3, name: "Edital 3", type: "Pesquisa", description: "Descrição 3" },
-  { id: 4, name: "Edital 4", type: "Extensao", description: "Descrição 4" },]);
-  useEffect(() => {
-    console.log("Fetching cards...");
-    Axios
-    //inserir o link no get
-      .get(``)
-      .then((response) => {
-        //comentei esse setCardsData porque ele impede que eu teste com os cards que tem ali em cima.
-        // setCardsData(response.data);
+  const [cardsData, setCardsData] = useState([]);
+    useEffect(() => {
+      console.log("Fetching cards...");
+      api.get(`edital/tipo/PESQUISA`,  {
+        headers: {
+            Authorization: `Bearer ${Cookies.get("token")}`
+        }
       })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-  const valorfiltroPesquisa = "Pesquisa"
-  const filteredCards = cardsData.filter(card => card.name.toLowerCase().includes(searchTerm.toLowerCase())
-      && card.type.toLowerCase().includes(valorfiltroPesquisa.toLowerCase()))  
+        .then((response) => {
+          setCardsData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }, []);
+  
+      const filteredCards = cardsData.filter(card => card.titulo.toLowerCase().includes(searchTerm.toLowerCase()));
   return ( 
     <div id='page1'>
       <h1 className='welcome'>Bem vindo!</h1>
@@ -40,21 +37,22 @@ export function PgCoordPesquisa() {
         <BotaoCadastrar />
           <div className='search-filter'>
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-            <Filter/>
           </div>
       </div>
 
-      {/* Array.isArray vai checar se a data sendo recebida pelo back é um array, caso contrário não vai renderizar nada,
-      coloquei aqui pra não ficar dando erro, mas caso preciso é só remover. */}
-
       {Array.isArray(filteredCards) && filteredCards.map((card) => (
-      <Card
+        <Card
         key={card.id}
-        name={card.name}
-        type={card.type}
-        description={card.description}
-      />
-    ))}
+        id={card.id}
+        name={card.titulo}
+        type={card.tipo}
+        description={card.descricao}
+        term={card.prazo}
+        coordinator={card.coordenador.nome}
+        requirements={card.requisitos}
+        showDeleteButton={true} showEditButton={true} showShowButton={true}
+        />
+      ))}
 
     </div>
   );

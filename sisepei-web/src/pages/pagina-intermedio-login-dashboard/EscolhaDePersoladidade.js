@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './EscolhaDePersonalidade.css';
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 export function EscolhaDePersonalidade(){
 

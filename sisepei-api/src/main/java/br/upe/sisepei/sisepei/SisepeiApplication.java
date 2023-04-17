@@ -9,5 +9,4 @@ public class SisepeiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SisepeiApplication.class, args);
 	}
-
 }

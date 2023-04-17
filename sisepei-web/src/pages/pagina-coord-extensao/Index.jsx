@@ -10,26 +10,24 @@ import Filter from '../../Components/layout/Filter';
 
 export function PgCoordExtensao() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [cardsData, setCardsData] = useState([{ id: 1, name: "Edital 1", type: "Pesquisa", description: "Descrição 1" },
-  { id: 2, name: "Edital 2", type: "Extensão", description: "Descrição 2" },
-  { id: 3, name: "Edital 3", type: "Pesquisa", description: "Descrição 3" },
-  { id: 4, name: "Edital 4", type: "Extensão", description: "Descrição 4" },]);
+  const [cardsData, setCardsData] = useState([]);
   useEffect(() => {
     console.log("Fetching cards...");
-    Axios
-    //inserir o link no get
-      .get(``)
+
+    api.get(`edital/tipo/EXTENSAO`,  {
+      headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`
+      }
+    })
       .then((response) => {
-        //comentei esse setCardsData porque ele impede que eu teste com os cards que tem ali em cima.
-        // setCardsData(response.data);
+        setCardsData(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-  const valorfiltroExtensao = "Extensão"
-  const filteredCards = cardsData.filter(card => card.name.toLowerCase().includes(searchTerm.toLowerCase())
-      && card.type.toLowerCase().includes(valorfiltroExtensao.toLowerCase()))  
+
+    const filteredCards = cardsData.filter(card => card.titulo.toLowerCase().includes(searchTerm.toLowerCase()));
   return ( 
     <div id='page1'>
       <h1 className='welcome'>Bem vindo!</h1>
@@ -40,21 +38,23 @@ export function PgCoordExtensao() {
         <BotaoCadastrar />
           <div className='search-filter'>
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-            <Filter/>
           </div>
       </div>
 
-      {/* Array.isArray vai checar se a data sendo recebida pelo back é um array, caso contrário não vai renderizar nada,
-      coloquei aqui pra não ficar dando erro, mas caso preciso é só remover. */}
 
       {Array.isArray(filteredCards) && filteredCards.map((card) => (
-      <Card
+        <Card
         key={card.id}
-        name={card.name}
-        type={card.type}
-        description={card.description}
-      />
-    ))}
+        id={card.id}
+        name={card.titulo}
+        type={card.tipo}
+        description={card.descricao}
+        term={card.prazo}
+        coordinator={card.coordenador.nome}
+        requirements={card.requisitos}
+        showDeleteButton={true} showEditButton={true} showShowButton={true}
+        />
+      ))}
 
     </div>
   );
