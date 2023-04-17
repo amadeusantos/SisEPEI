@@ -38,14 +38,14 @@ export const Card = ({id, name, coordinator, type, description, term, requiremen
         {showEditButton && (
 
           <div className="button-container">
-            <div className="line"></div>
+            <div ></div>
             <BotaoDeAcao
               src="https://cdn.discordapp.com/attachments/440326168491720705/1092098165030789140/pencil.png"
               alt="editar"
               label="Editar"
               className="BotaoDeAcao"
             />
-            <div className="line"></div>
+            <div ></div>
           </div>
         )}
 

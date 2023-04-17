@@ -11,8 +11,7 @@ import PaginaCoordenadorInovacao from './pages/pagina-inicial-de-coordenador-de-
 import PgCoordPesquisa from './pages/paginaInicialCoordPesquisa/Index';
 import PgCoordExtensao from './pages/pagina-coord-extensao/Index';
 import { EscolhaDePersonalidade } from './pages/pagina-intermedio-login-dashboard/EscolhaDePersoladidade';
-
-
+import EditarEditais from './pages/tela-editar-editais/tela-editar-editais';
 
 
 
@@ -31,6 +30,7 @@ function App() {
         <Route path='/intermedio' element={<EscolhaDePersonalidade />}/>
         <Route path="/paginainicialcoordpesquisa" element={<PgCoordPesquisa/>} />
         <Route path="/paginainicialcoordextensao" element={<PgCoordExtensao/>} />
+        <Route path="/editaredital" element={<EditarEditais/>} />
       </Routes>
     </div>
     </>

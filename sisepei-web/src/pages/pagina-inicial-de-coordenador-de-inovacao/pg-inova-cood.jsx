@@ -3,8 +3,9 @@ import './Style.css';
 import SearchBar from '../../Components/layout/SearchBar';
 import Card from '../../Components/layout/InfoEditais';
 import { useEffect, useState } from 'react';
-import Axios from 'axios';
-import Filter from '../../Components/layout/Filter';
+import { api } from '../../lib/Api';
+import Cookies from 'js-cookie';
+import BotaoCadastrar from '../../Components/layout/BotaoCadastrar';
 
 
 export function PaginaCoordenadorInovacao() {
@@ -12,8 +13,12 @@ export function PaginaCoordenadorInovacao() {
   const [cardsData, setCardsData] = useState([]);
   useEffect(() => {
     console.log("Fetching cards...");
-    Axios
-      .get(`/{id}`)
+    
+    api.get(`edital/tipo/INOVACAO`,  {
+      headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`
+      }
+    })
       .then((response) => {
         setCardsData(response.data);
       })
@@ -22,35 +27,37 @@ export function PaginaCoordenadorInovacao() {
       });
   }, []);
 
-    const valorfiltroInovacao = "inovação"
-    const filteredCards = cardsData.filter(card => card.name.toLowerCase().includes(searchTerm.toLowerCase())
-        && card.type.toLowerCase().includes(valorfiltroInovacao.toLowerCase()))
+    const filteredCards = cardsData.filter(card => card.titulo.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
-    <div id='page1'>
+      <div id='page1'>
       <h1 className='welcome'>Bem vindo!</h1>
       <hr className='myhr' />
       <h1 className='editaiswelcome'>Editais de Inovação</h1>
 
       <div className='button-search'>
-        <div className='search-filter'>
+      <BotaoCadastrar/>
+          <div className='search-filter'>
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          <Filter />
-        </div>
+          </div>
+
       </div>
 
       {Array.isArray(filteredCards) && filteredCards.map((card) => (
-        <Card
-          id={card.id}
-          name={card.name}
-          type={card.type}
-          description={card.description}
-          term={card.term}
-          requirements={card.requirements}
-          coordinator={card.coordinator}
-          showDeleteButton={false} showEditButton={false} showShowButton={true}
-        />
-      ))}
+
+      <Card
+        key={card.id}
+        id={card.id}
+        name={card.titulo}
+        type={card.tipo}
+        description={card.descricao}
+        term={card.prazo}
+        coordinator={card.coordenador.nome}
+        requirements={card.requisitos}
+        showDeleteButton={true} showEditButton={true} showShowButton={true}
+      />
+    ))}
+
 
     </div>
   );
