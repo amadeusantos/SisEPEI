@@ -17,10 +17,9 @@ export function PaginaCoordenadorInovacao() {
     console.log("Fetching cards...");
     Axios
       //inserir o link no get
-      .get(``)
+      .get(`/{id}`)
       .then((response) => {
-        //comentei esse setCardsData porque ele impede que eu teste com os cards que tem ali em cima.
-        // setCardsData(response.data);
+        setCardsData(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -43,9 +42,6 @@ export function PaginaCoordenadorInovacao() {
           <Filter />
         </div>
       </div>
-
-      {/* Array.isArray vai checar se a data sendo recebida pelo back é um array, caso contrário não vai renderizar nada,
-      coloquei aqui pra não ficar dando erro, mas caso preciso é só remover. */}
 
       {Array.isArray(filteredCards) && filteredCards.map((card) => (
         <Card

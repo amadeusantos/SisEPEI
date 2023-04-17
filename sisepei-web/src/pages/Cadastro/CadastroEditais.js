@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../lib/Api";
 import "./CadastroEditais.css";
@@ -10,8 +10,6 @@ import FormData from "form-data";
 export function CadastroEditais(){
     //declaraçoes
     const navigate =  useNavigate();
-
-    const cookie = Cookies.get('token');
 
     //constantes com useState que serao utilizadas
     const [titulo, setTitulo] = useState("");

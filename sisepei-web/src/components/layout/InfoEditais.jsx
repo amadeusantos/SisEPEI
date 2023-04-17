@@ -3,28 +3,29 @@ import './style.css';
 import { useState } from 'react';
 import Modal from './Modal';
 import BotaoDeAcao from './BotaoDeAcao';
+import { api } from '../../lib/Api';
 export const Card = ({id, name, coordinator, type, description, term, requirements, showEditButton, showDeleteButton }) => {
   const [openModal, setOpenModal] = useState(false);
 
 
 
-    //const closeModal = () => {
-    //    setOpenModal(false);
-    //  };
-      // const deletar = () => {
-      //   console.log("Deletando...");
-      //   Axios
-      //     .delete("", {
-      //       cardId: id
-      //       //inserir informação do card aqui pra poder deletar, provavelmente vai ser o ID
-      //     })
-      //     .then((response) => {
-      //       console.log(response)
-      //     })
-      //     .catch((error) => {
-      //       console.log(error);
-      //     });
-      // } 
+    const closeModal = () => {
+        setOpenModal(false);
+      };
+       const deletar = () => {
+         console.log("Deletando...");
+         api
+           .delete("", {
+             cardId: id
+             //inserir informação do card aqui pra poder deletar, provavelmente vai ser o ID
+           })
+           .then((response) => {
+             console.log(response)
+           })
+           .catch((error) => {
+             console.log(error);
+           });
+       } 
 
   return (
     <div className="card-body">
