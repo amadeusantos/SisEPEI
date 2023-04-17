@@ -4,6 +4,7 @@ import { api } from '../../lib/Api';
 import { useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import './Login.css';
+import Cookies from 'js-cookie';
 
 const Login = () => {
 
@@ -12,17 +13,25 @@ const Login = () => {
 
     const navigate =  useNavigate();
 
+    const Cookie =  Cookies();
+
     async function handleSubmit(e){
         e.preventDefault();
         
-        await api.post('/login', {email: email, senha: senha})
+        await api.post('api/auth/authenticate', {email: email, senha: senha})
         
-        .then(() => navigate('/home'))
+        .then((res) =>{
+            Cookies.set("token", res.data.token);
+            navigate('/paginainicial')
+        })
 
         .catch((error) => {
             console.log(error);
         })
     };
+    const handleClick = () => {
+        navigate('/cadastro/usuario');
+    }
 
     return (
         <div className='frame'>
@@ -54,8 +63,8 @@ const Login = () => {
                         
                     </Form.Group>
                     <div className='buttons'>
-                        <Button variant="primary" id='entry-button' type="submit">Entrar</Button>
-                        <Button variant="primary" id='register-button' onClick='' >Cadastre-se</Button>
+                        <Button variant="primary" id="entry-button" type="submit" >Entrar</Button>
+                        <Button variant="primary" id="register-button" onClick={handleClick} >Cadastre-se</Button>
                     </div>
                 </Form>
                

@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.upe.sisepei.sisepei.auth.AuthenticationRequest;
@@ -35,17 +33,22 @@ public class UsuarioServico {
 	@Autowired
 	private final AuthenticationManager authenticationManager;
 	
-	private UsuarioRepositorio usuarioRepositorio;
-
-	
-//	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-	
 	public List<Usuario> listarUsuarios() {
-		return usuarioRepositorio.findAll();
+		return repository.findAll();
+	}
+
+	public Usuario buscarUsuarioPerfil(String token) throws NaoEncontradoException {
+		String email = jwtService.extractUserEmail(token);
+		Optional<Usuario> usuario = repository.findByEmail(email);
+		if (usuario.isEmpty()) {
+			throw new NaoEncontradoException("Usuário não encontrado!");
+		}
+
+		return usuario.get();
 	}
 	
 	public Usuario buscarUsuario(Long id) throws NaoEncontradoException {
-		Optional<Usuario> usuario = usuarioRepositorio.findById(id);
+		Optional<Usuario> usuario = repository.findById(id);
 		if (usuario.isEmpty()) {
 			throw new NaoEncontradoException("Usuário não encontrado!");
 		}
@@ -71,17 +74,6 @@ public class UsuarioServico {
         
     }
 
-	public Usuario incluirUsuario(UsuarioDTO usuarioDTO) throws ValidacaoException {
-		if (usuarioRepositorio.existsByEmail(usuarioDTO.getEmail())) {
-			throw new ValidacaoException("Email já cadastrado por outro usuário!");
-		}
-		
-		Usuario usuario = converterDTO(usuarioDTO);
-		usuario.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
-				
-		return usuarioRepositorio.save(usuario);
-	}
-
 	public AuthenticationResponse authenticate(AuthenticationRequest request) {
 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getSenha()));
 		var user = repository.findByEmail(request.getEmail())
@@ -93,33 +85,33 @@ public class UsuarioServico {
 }
 	
 	public Usuario alterarUsuario(Long id, UsuarioDTO usuarioDTO) throws NaoEncontradoException, ValidacaoException {
-		Optional<Usuario> usuarioExistente = usuarioRepositorio.findById(id);
+		Optional<Usuario> usuarioExistente = repository.findById(id);
 		
 		if (usuarioExistente.isEmpty()) {
 			throw new NaoEncontradoException("Usuário não encontrado!");
 		}
 		
 		if (!(usuarioExistente.get().getEmail().equals(usuarioDTO.getEmail()))
-				&& usuarioRepositorio.existsByEmail(usuarioDTO.getEmail())) {
+				&& repository.existsByEmail(usuarioDTO.getEmail())) {
 			throw new ValidacaoException("Email já cadastrado por outro usuário!");
 		}
 		
 		Usuario usuario = converterDTO(usuarioDTO);
 		usuario.setId(id);
-//		usuario.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
+		usuario.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
 		
 		usuario.setPerfis(usuarioExistente.get().getPerfis());
-//		usuario.setEditais(usuarioExistente.get().getEditais());
+		usuario.setEditais(usuarioExistente.get().getEditais());
 		
-		return usuarioRepositorio.save(usuario);
+		return repository.save(usuario);
 	}
 	
 	public void excluirUsuario(Long id) throws NaoEncontradoException {
-		if (!usuarioRepositorio.existsById(id)) {
+		if (!repository.existsById(id)) {
 			throw new NaoEncontradoException("Usuário não encontrado!");
 		}
-		
-		usuarioRepositorio.deleteById(id);
+
+		repository.deleteById(id);
 	}
 	
 	

@@ -3,6 +3,7 @@ package br.upe.sisepei.sisepei.api.representation;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
@@ -15,11 +16,11 @@ public class UsuarioRepresentation implements Serializable {
 	private String nome;
 	
 	private String email;
-	
-	private List<UsuarioPerfilRepresentation> perfis;
-	
-//	@JsonIgnore
-//	private List<EditalRepresentation> editais;
-	
+
+	private List<PerfilRepresentation> perfis;
+
+	@JsonIgnore
+	private List<EditalRepresentation> editais;
+
 }
 
