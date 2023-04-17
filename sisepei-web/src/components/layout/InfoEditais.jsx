@@ -3,13 +3,10 @@ import './style.css';
 import { useState } from 'react';
 import Modal from './Modal';
 import BotaoDeAcao from './BotaoDeAcao';
+import { api } from '../../lib/Api';
 export const Card = ({id, name, coordinator, type, description, term, requirements, showEditButton, showDeleteButton }) => {
   const [openModal, setOpenModal] = useState(false);
 
-  const closeModal = () => {
-    setOpenModal(false);
-    console.log(id)
-  };
 
   return (
     <div className="card-body">

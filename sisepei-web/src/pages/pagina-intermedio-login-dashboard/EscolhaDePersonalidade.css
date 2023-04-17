@@ -1,0 +1,28 @@
+#menu intermedio {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+  
+  #menu intermedio button {
+    background-color: blue;
+    color: green;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  #menu intermedio button:disabled {
+    opacity: 0.1;
+    cursor: not-allowed;
+  }

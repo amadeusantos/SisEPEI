@@ -4,6 +4,7 @@ import { api } from '../../lib/Api';
 import { useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import './Login.css';
+import Cookies from 'js-cookie';
 
 const Login = () => {
 
@@ -15,9 +16,12 @@ const Login = () => {
     async function handleSubmit(e){
         e.preventDefault();
         
-        await api.post('/login', {email: email, senha: senha})
+        await api.post('api/auth/authenticate', {email: email, senha: senha})
         
-        .then(() => navigate('/paginainicial'))
+        .then((res) =>{
+            Cookies.set("token", res.data.token);
+            navigate('/paginainicial')
+        })
 
         .catch((error) => {
             console.log(error);

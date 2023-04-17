@@ -17,6 +17,7 @@ import br.upe.sisepei.sisepei.core.perfil.PerfilServico;
 import br.upe.sisepei.sisepei.core.perfil.modelo.Perfil;
 import br.upe.sisepei.sisepei.core.usuario.modelo.Usuario;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/perfis")
 public class PerfilApi {
@@ -28,7 +29,7 @@ public class PerfilApi {
 	public List<PerfilRepresentation> listarPerfis() {
 		return perfilServico.ListarPerfis().stream().map(this::converter).collect(Collectors.toList());
 	}
-	@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
+
 	@GetMapping("/{perfil}")
 	public ResponseEntity<?> ListarUsuariosDoPerfil(@PathVariable PerfilEnum perfil) {
 		try {
@@ -38,7 +39,7 @@ public class PerfilApi {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
+
 	@PutMapping("/usuarios/{perfil}/{usuarioId}")
 	public ResponseEntity<?> adicionarPerfilUsuario(@PathVariable PerfilEnum perfil, @PathVariable Long usuarioId) {
 		try {
@@ -49,7 +50,6 @@ public class PerfilApi {
 
 		return ResponseEntity.noContent().build();
 	}
-	@PreAuthorize("hasAnyRole('ADMINISTRADOR')")
 	@DeleteMapping("/usuarios/{perfil}/{usuarioId}")
 	public ResponseEntity<?> removerPerfilUsuario(@PathVariable PerfilEnum perfil, @PathVariable Long usuarioId) {
 		try {
