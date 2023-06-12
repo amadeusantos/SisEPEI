@@ -18,13 +18,13 @@ public class AuthenticationController {
     private final UsuarioServico servico;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity<?> register(
         @RequestBody RegisterRequestDTO request
     ) {
         try{
             return ResponseEntity.ok(servico.register(request));
         } catch(Exception e){
-            return ResponseEntity.badRequest().body(new AuthenticationResponse(e.getMessage()));
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
     

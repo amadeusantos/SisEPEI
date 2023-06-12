@@ -13,18 +13,6 @@ export function PgCoordExtensao() {
   const [cardsData, setCardsData] = useState([]);
   useEffect(() => {
     console.log("Fetching cards...");
-
-    api.get(`edital/tipo/EXTENSAO`,  {
-      headers: {
-          Authorization: `Bearer ${Cookies.get("token")}`
-      }
-    })
-      .then((response) => {
-        setCardsData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }, []);
 
     const filteredCards = cardsData.filter(card => card.titulo.toLowerCase().includes(searchTerm.toLowerCase()));
