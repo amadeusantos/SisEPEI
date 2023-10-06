@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import br.upe.sisepei.core.notice.model.AxleEnum;
-import br.upe.sisepei.core.perfil.modelo.Perfil;
+import br.upe.sisepei.core.profile.model.Profile;
 import br.upe.sisepei.core.usuario.modelo.Usuario;
 import br.upe.sisepei.utils.exceptions.NaoEncontradoException;
 import br.upe.sisepei.utils.exceptions.ValidacaoException;
@@ -74,7 +74,7 @@ public class NoticeService {
 	}
 
 	private boolean isCoordinator(AxleEnum axle, Usuario coordinator) {
-		List<String> role = coordinator.getPerfis().stream().map(Perfil::getAuthority).toList();
+		List<String> role = coordinator.getProfiles().stream().map(Profile::getAuthority).toList();
 		if (axle == AxleEnum.EXTENSAO) {
 			return role.contains("COORDENADOR_EXTENSAO");
 		} else if (axle == AxleEnum.INOVACAO) {

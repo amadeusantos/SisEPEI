@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import br.upe.sisepei.core.notice.model.Notice;
-import br.upe.sisepei.core.perfil.modelo.Perfil;
+import br.upe.sisepei.core.profile.model.Profile;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,11 +41,11 @@ public class Usuario implements UserDetails {
 	@JoinTable(name= "usuario_perfil",
 			joinColumns = @JoinColumn(name = "usuario_id"),
 			inverseJoinColumns =  @JoinColumn(name = "perfil_id"))
-	private List<Perfil> perfis;
+	private List<Profile> profiles;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return perfis;
+		return profiles;
 	}
 
 	@Override

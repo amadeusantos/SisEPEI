@@ -1,4 +1,4 @@
-package br.upe.sisepei.core.perfil.modelo;
+package br.upe.sisepei.core.profile.model;
 
 import java.util.List;
 
@@ -10,9 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 @Data
 @Entity
-public class Perfil implements GrantedAuthority {
-
-	private static final long serialVersionUID = 1L;
+public class Profile implements GrantedAuthority {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -20,13 +18,13 @@ public class Perfil implements GrantedAuthority {
 	
 	@Column(nullable = false, unique = true)
 	@Enumerated(EnumType.STRING)
-	private PerfilEnum nome;
+	private ProfileEnum name;
 
-	@ManyToMany(mappedBy="perfis")
-	private List<Usuario> usuarios;
+	@ManyToMany(mappedBy= "profiles")
+	private List<Usuario> users;
 
 	@Override
 	public String getAuthority() {
-		return nome.toString();
+		return name.toString();
 	}
 }

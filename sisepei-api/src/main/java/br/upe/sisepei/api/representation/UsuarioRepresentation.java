@@ -17,7 +17,7 @@ public class UsuarioRepresentation implements Serializable {
 	
 	private String email;
 
-	private List<PerfilRepresentation> perfis;
+	private List<ProfileRepresentation> perfis;
 
 	@JsonIgnore
 	private List<NoticeRepresentation> editais;

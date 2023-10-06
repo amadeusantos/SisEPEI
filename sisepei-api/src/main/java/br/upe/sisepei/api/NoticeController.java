@@ -7,7 +7,6 @@ import br.upe.sisepei.api.representation.NoticeRepresentation;
 import br.upe.sisepei.core.notice.model.AxleEnum;
 import br.upe.sisepei.core.usuario.modelo.Usuario;
 import br.upe.sisepei.utils.exceptions.NaoEncontradoException;
-import br.upe.sisepei.utils.exceptions.ValidacaoException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
