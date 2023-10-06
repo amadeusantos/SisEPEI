@@ -1,4 +1,4 @@
-package br.upe.sisepei.core.usuario.modelo;
+package br.upe.sisepei.core.user.model;
 
 import java.util.Collection;
 import java.util.List;
@@ -19,28 +19,26 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario implements UserDetails {
-
-	private static final long serialVersionUID = 1L;
+public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
-	private String nome;
+	private String name;
 
 	@Column(unique = true)
 	private String email;
 
-	private String senha;
+	private String password;
 
 	@OneToMany(mappedBy = "coordinator")
-	private List<Notice> editais;
+	private List<Notice> notices;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name= "usuario_perfil",
-			joinColumns = @JoinColumn(name = "usuario_id"),
-			inverseJoinColumns =  @JoinColumn(name = "perfil_id"))
+	@ManyToMany
+	@JoinTable(name= "users_profiles",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns =  @JoinColumn(name = "profile_id"))
 	private List<Profile> profiles;
 
 	@Override
@@ -50,7 +48,7 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return senha;
+		return password;
 	}
 
 	@Override

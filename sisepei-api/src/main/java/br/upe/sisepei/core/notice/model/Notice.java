@@ -2,7 +2,7 @@ package br.upe.sisepei.core.notice.model;
 
 import java.util.Date;
 
-import br.upe.sisepei.core.usuario.modelo.Usuario;
+import br.upe.sisepei.core.user.model.User;
 import jakarta.persistence.*;
 
 import lombok.Data;
@@ -29,6 +29,6 @@ public class Notice {
 	private AxleEnum axle;
 	
 	@ManyToOne(optional = false)
-	private Usuario coordinator;
+	private User coordinator;
 
 }

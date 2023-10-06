@@ -12,9 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import br.upe.sisepei.api.representation.ProfileRepresentation;
-import br.upe.sisepei.api.representation.UsuarioRepresentation;
+import br.upe.sisepei.api.representation.UserRepresentation;
 import br.upe.sisepei.core.profile.ProfileService;
-import br.upe.sisepei.core.usuario.modelo.Usuario;
+import br.upe.sisepei.core.user.model.User;
 
 @CrossOrigin
 @RestController
@@ -65,9 +65,9 @@ public class ProfileController {
 		return modelMapper.map(profile, ProfileRepresentation.class);
 	}
 
-	private UsuarioRepresentation convertToUser(Usuario usuario) {
+	private UserRepresentation convertToUser(User user) {
 		ModelMapper modelMapper = new ModelMapper();
-		return modelMapper.map(usuario, UsuarioRepresentation.class);
+		return modelMapper.map(user, UserRepresentation.class);
 	}
 	
 }

@@ -2,7 +2,7 @@ package br.upe.sisepei.core.profile.model;
 
 import java.util.List;
 
-import br.upe.sisepei.core.usuario.modelo.Usuario;
+import br.upe.sisepei.core.user.model.User;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -21,7 +21,7 @@ public class Profile implements GrantedAuthority {
 	private ProfileEnum name;
 
 	@ManyToMany(mappedBy= "profiles")
-	private List<Usuario> users;
+	private List<User> users;
 
 	@Override
 	public String getAuthority() {

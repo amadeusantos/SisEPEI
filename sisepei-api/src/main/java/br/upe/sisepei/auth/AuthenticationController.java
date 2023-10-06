@@ -3,7 +3,7 @@ package br.upe.sisepei.auth;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import br.upe.sisepei.core.usuario.UsuarioServico;
+import br.upe.sisepei.core.user.UserService;
 import lombok.RequiredArgsConstructor;
 
 @CrossOrigin
@@ -15,7 +15,7 @@ public class AuthenticationController {
 
     // private final AuthenticationService service;
 
-    private final UsuarioServico servico;
+    private final UserService servico;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(

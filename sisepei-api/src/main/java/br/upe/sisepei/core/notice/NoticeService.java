@@ -5,7 +5,7 @@ import java.util.List;
 
 import br.upe.sisepei.core.notice.model.AxleEnum;
 import br.upe.sisepei.core.profile.model.Profile;
-import br.upe.sisepei.core.usuario.modelo.Usuario;
+import br.upe.sisepei.core.user.model.User;
 import br.upe.sisepei.utils.exceptions.NaoEncontradoException;
 import br.upe.sisepei.utils.exceptions.ValidacaoException;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class NoticeService {
 		return repository.findById(id).orElseThrow(() -> new NaoEncontradoException("Notice not found"));
 	}
 
-	public Notice createNotice(NoticeDTO noticeDTO, Usuario coordinator, MultipartFile file) throws IOException, ValidacaoException {
+	public Notice createNotice(NoticeDTO noticeDTO, User coordinator, MultipartFile file) throws IOException, ValidacaoException {
 
 		if (isCoordinator(noticeDTO.getAxle(), coordinator)) {
 			throw  new ValidacaoException("User not authorized to create notice for axle");
@@ -47,7 +47,7 @@ public class NoticeService {
 	}
 
 	//TODO AS: IOException
-	public Notice updateNotice(Long id, NoticeDTO noticeDTO, Usuario coordinator, MultipartFile file) throws NaoEncontradoException, ValidacaoException, IOException {
+	public Notice updateNotice(Long id, NoticeDTO noticeDTO, User coordinator, MultipartFile file) throws NaoEncontradoException, ValidacaoException, IOException {
 		Notice notice = findNoticeById(id);
 
 		if (!notice.getCoordinator().getEmail().equals(coordinator.getEmail())) {
@@ -64,7 +64,7 @@ public class NoticeService {
 		return repository.save(notice);
 	}
 
-	public void deleteNotice(Long id, Usuario coordinator) throws Exception {
+	public void deleteNotice(Long id, User coordinator) throws Exception {
 		Notice notice = findNoticeById(id);
 
 		if (!notice.getCoordinator().getEmail().equals(coordinator.getEmail())) {
@@ -73,7 +73,7 @@ public class NoticeService {
 		repository.deleteById(id);
 	}
 
-	private boolean isCoordinator(AxleEnum axle, Usuario coordinator) {
+	private boolean isCoordinator(AxleEnum axle, User coordinator) {
 		List<String> role = coordinator.getProfiles().stream().map(Profile::getAuthority).toList();
 		if (axle == AxleEnum.EXTENSAO) {
 			return role.contains("COORDENADOR_EXTENSAO");

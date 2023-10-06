@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import br.upe.sisepei.api.representation.NoticeRepresentation;
 import br.upe.sisepei.core.notice.model.AxleEnum;
-import br.upe.sisepei.core.usuario.modelo.Usuario;
+import br.upe.sisepei.core.user.model.User;
 import br.upe.sisepei.utils.exceptions.NaoEncontradoException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -60,7 +60,7 @@ public class NoticeController {
 
 	@PostMapping(consumes = {"multipart/form-data"})
 	public ResponseEntity<?> createNotice(
-			@AuthenticationPrincipal Usuario coordinator,
+			@AuthenticationPrincipal User coordinator,
 			@RequestBody NoticeDTO noticeDTO,
 			@RequestPart(value = "file") MultipartFile file
 	){
@@ -76,7 +76,7 @@ public class NoticeController {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateNotice(
 			@PathVariable Long id,
-			@AuthenticationPrincipal Usuario coordinator,
+			@AuthenticationPrincipal User coordinator,
 			@RequestBody NoticeDTO noticeDTO,
 			@RequestPart(value = "file") MultipartFile file
 	) {
@@ -91,7 +91,7 @@ public class NoticeController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteNotice(
-			@AuthenticationPrincipal Usuario coordinator,
+			@AuthenticationPrincipal User coordinator,
 			@PathVariable Long id
 			){
 		try {

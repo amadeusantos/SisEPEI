@@ -20,6 +20,6 @@ public class NoticeRepresentation {
 
     private AxleEnum axle;
 
-    private UsuarioRepresentation coordinator;
+    private UserRepresentation coordinator;
 
 }
