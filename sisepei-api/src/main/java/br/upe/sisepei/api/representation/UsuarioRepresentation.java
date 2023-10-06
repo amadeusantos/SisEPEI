@@ -20,7 +20,7 @@ public class UsuarioRepresentation implements Serializable {
 	private List<PerfilRepresentation> perfis;
 
 	@JsonIgnore
-	private List<EditalRepresentation> editais;
+	private List<NoticeRepresentation> editais;
 
 }
 

@@ -3,12 +3,11 @@ package br.upe.sisepei.core.usuario.modelo;
 import java.util.Collection;
 import java.util.List;
 
-import br.upe.sisepei.core.edital.modelo.Edital;
+import br.upe.sisepei.core.notice.model.Notice;
 import br.upe.sisepei.core.perfil.modelo.Perfil;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,8 +34,8 @@ public class Usuario implements UserDetails {
 
 	private String senha;
 
-	@OneToMany(mappedBy = "coordenador")
-	private List<Edital> editais;
+	@OneToMany(mappedBy = "coordinator")
+	private List<Notice> editais;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name= "usuario_perfil",
