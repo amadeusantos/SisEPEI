@@ -1,4 +1,4 @@
-package br.upe.sisepei.auth;
+package br.upe.sisepei.core.user.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequestDTO {
+public class RegisterDTO {
 
     @NotBlank
-    private String nome;
+    private String name;
 
     @Email
     private String email;
 
     @NotBlank
-    private String senha;
+    private String password;
 
 }

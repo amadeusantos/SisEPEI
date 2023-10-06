@@ -2,16 +2,16 @@ package br.upe.sisepei.core.user;
 
 import java.util.List;
 
-import br.upe.sisepei.utils.exceptions.NaoEncontradoException;
-import br.upe.sisepei.utils.exceptions.ValidacaoException;
+import br.upe.sisepei.utils.exceptions.NotFoundException;
+import br.upe.sisepei.utils.exceptions.ValidationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.upe.sisepei.auth.AuthenticationRequest;
-import br.upe.sisepei.auth.AuthenticationResponse;
-import br.upe.sisepei.auth.RegisterRequestDTO;
+import br.upe.sisepei.core.user.model.LoginDTO;
+import br.upe.sisepei.api.representation.AuthenticationResponse;
+import br.upe.sisepei.core.user.model.RegisterDTO;
 import br.upe.sisepei.config.JwtService;
 import br.upe.sisepei.core.user.model.User;
 import br.upe.sisepei.core.user.model.UserDTO;
@@ -33,24 +33,24 @@ public class UserService {
 		return repository.findAll();
 	}
 
-	public User findUserProfiles(String token) throws NaoEncontradoException {
+	public User findUserProfiles(String token) throws NotFoundException {
 		String email = jwtService.extractUserEmail(token);
-		return repository.findByEmail(email).orElseThrow(() -> new NaoEncontradoException("User not found"));
+		return repository.findByEmail(email).orElseThrow(() -> new NotFoundException("User not found"));
 	}
 	
-	public User findUserById(Long id) throws NaoEncontradoException {
-		return repository.findById(id).orElseThrow(() -> new NaoEncontradoException("User not found"));
+	public User findUserById(Long id) throws NotFoundException {
+		return repository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
 	}
 	
     
-    public AuthenticationResponse register(RegisterRequestDTO request) throws ValidacaoException {
+    public AuthenticationResponse register(RegisterDTO request) throws ValidationException {
         if (repository.existsByEmail(request.getEmail())) {
-			throw new ValidacaoException("Email already registered");
+			throw new ValidationException("Email already registered");
 		}
             var user = User.builder()
-               .name(request.getNome())
+               .name(request.getName())
                .email(request.getEmail())
-               .password(passwordEncoder.encode(request.getSenha()))
+               .password(passwordEncoder.encode(request.getPassword()))
                .build();
            repository.save(user);
            var jwtToken = jwtService.generateToken(user);
@@ -60,8 +60,8 @@ public class UserService {
         
     }
 
-	public AuthenticationResponse authenticate(AuthenticationRequest request) {
-		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getSenha()));
+	public AuthenticationResponse authenticate(LoginDTO request) {
+		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 		var user = repository.findByEmail(request.getEmail())
 			.orElseThrow();
 		var jwtToken = jwtService.generateToken(user);
@@ -70,16 +70,16 @@ public class UserService {
 			.build();
 }
 	
-	public User updateUser(Long id, UserDTO userDTO) throws NaoEncontradoException {
+	public User updateUser(Long id, UserDTO userDTO) throws NotFoundException {
 		User user = findUserById(id);
 		user.setName(userDTO.getName());
 
 		return repository.save(user);
 	}
 	
-	public void deleteUser(Long id) throws NaoEncontradoException {
+	public void deleteUser(Long id) throws NotFoundException {
 		if (!repository.existsById(id)) {
-			throw new NaoEncontradoException("User not found");
+			throw new NotFoundException("User not found");
 		}
 
 		repository.deleteById(id);

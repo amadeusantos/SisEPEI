@@ -3,7 +3,7 @@ package br.upe.sisepei.api;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.upe.sisepei.utils.exceptions.NaoEncontradoException;
+import br.upe.sisepei.utils.exceptions.NotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -46,7 +46,7 @@ public class UserController {
 	public ResponseEntity<?> findUserById(@PathVariable Long id) {
 		try {
 			return ResponseEntity.ok(convertToUserRepresentation(userService.findUserById(id)));
-		} catch (NaoEncontradoException e) {
+		} catch (NotFoundException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
@@ -60,19 +60,17 @@ public class UserController {
 		}
 	}
 
-
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable Long id) {
 		try { 
 			userService.deleteUser(id);
-		} catch (NaoEncontradoException e) {
+		} catch (NotFoundException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		
 		return ResponseEntity.noContent().build();
 	}
-	
-	
+
 	private UserRepresentation convertToUserRepresentation(User user) {
 		ModelMapper modelMapper = new ModelMapper();
 		return modelMapper.map(user, UserRepresentation.class);

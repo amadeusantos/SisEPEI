@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import br.upe.sisepei.core.profile.model.Profile;
 import br.upe.sisepei.core.profile.model.ProfileEnum;
-import br.upe.sisepei.utils.exceptions.NaoEncontradoException;
+import br.upe.sisepei.utils.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +34,7 @@ public class ProfileController {
 		try {
 			return ResponseEntity.ok(profileService.ListUsersByProfile(profileEnum).stream()
 					.map(this::convertToUser).collect(Collectors.toList()));
-		} catch (NaoEncontradoException e) {
+		} catch (NotFoundException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
@@ -43,7 +43,7 @@ public class ProfileController {
 	public ResponseEntity<?> AddProfileToUser(@PathVariable ProfileEnum profileEnum, @PathVariable Long userId) {
 		try {
 			profileService.addProfileToUser(profileEnum, userId);
-		} catch (NaoEncontradoException e) {
+		} catch (NotFoundException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 
@@ -53,7 +53,7 @@ public class ProfileController {
 	public ResponseEntity<?> removeProfileToUser(@PathVariable ProfileEnum profile, @PathVariable Long userId) {
 		try {
 			profileService.removeProfileToUser(profile, userId);
-		} catch (NaoEncontradoException e) {
+		} catch (NotFoundException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 

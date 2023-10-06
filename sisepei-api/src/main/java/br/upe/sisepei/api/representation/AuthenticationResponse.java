@@ -1,4 +1,4 @@
-package br.upe.sisepei.auth;
+package br.upe.sisepei.api.representation;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

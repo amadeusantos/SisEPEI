@@ -6,8 +6,8 @@ import java.util.List;
 import br.upe.sisepei.core.notice.model.AxleEnum;
 import br.upe.sisepei.core.profile.model.Profile;
 import br.upe.sisepei.core.user.model.User;
-import br.upe.sisepei.utils.exceptions.NaoEncontradoException;
-import br.upe.sisepei.utils.exceptions.ValidacaoException;
+import br.upe.sisepei.utils.exceptions.NotFoundException;
+import br.upe.sisepei.utils.exceptions.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -30,14 +30,14 @@ public class NoticeService {
 		return repository.findAllByAxle(axle);
 	}
 
-	public Notice findNoticeById(Long id) throws NaoEncontradoException {
-		return repository.findById(id).orElseThrow(() -> new NaoEncontradoException("Notice not found"));
+	public Notice findNoticeById(Long id) throws NotFoundException {
+		return repository.findById(id).orElseThrow(() -> new NotFoundException("Notice not found"));
 	}
 
-	public Notice createNotice(NoticeDTO noticeDTO, User coordinator, MultipartFile file) throws IOException, ValidacaoException {
+	public Notice createNotice(NoticeDTO noticeDTO, User coordinator, MultipartFile file) throws IOException, ValidationException {
 
 		if (isCoordinator(noticeDTO.getAxle(), coordinator)) {
-			throw  new ValidacaoException("User not authorized to create notice for axle");
+			throw  new ValidationException("User not authorized to create notice for axle");
 		}
 
 		Notice notice = convertToModel(noticeDTO);
@@ -47,11 +47,11 @@ public class NoticeService {
 	}
 
 	//TODO AS: IOException
-	public Notice updateNotice(Long id, NoticeDTO noticeDTO, User coordinator, MultipartFile file) throws NaoEncontradoException, ValidacaoException, IOException {
+	public Notice updateNotice(Long id, NoticeDTO noticeDTO, User coordinator, MultipartFile file) throws NotFoundException, ValidationException, IOException {
 		Notice notice = findNoticeById(id);
 
 		if (!notice.getCoordinator().getEmail().equals(coordinator.getEmail())) {
-			throw  new ValidacaoException("User not authorized to edit notice");
+			throw  new ValidationException("User not authorized to edit notice");
 		}
 
 		if (!file.isEmpty()) {

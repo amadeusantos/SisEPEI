@@ -1,5 +1,8 @@
-package br.upe.sisepei.auth;
+package br.upe.sisepei.api;
 
+import br.upe.sisepei.core.user.model.LoginDTO;
+import br.upe.sisepei.api.representation.AuthenticationResponse;
+import br.upe.sisepei.core.user.model.RegisterDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,16 +16,14 @@ import lombok.RequiredArgsConstructor;
 
 public class AuthenticationController {
 
-    // private final AuthenticationService service;
-
-    private final UserService servico;
+    private final UserService service;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(
-        @RequestBody RegisterRequestDTO request
+        @RequestBody RegisterDTO request
     ) {
         try{
-            return ResponseEntity.ok(servico.register(request));
+            return ResponseEntity.ok(service.register(request));
         } catch(Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -30,8 +31,8 @@ public class AuthenticationController {
     
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> register(
-        @RequestBody AuthenticationRequest request
+        @RequestBody LoginDTO request
         ) {
-            return ResponseEntity.ok(servico.authenticate(request));
+            return ResponseEntity.ok(service.authenticate(request));
     }
 }

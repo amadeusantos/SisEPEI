@@ -1,4 +1,4 @@
-package br.upe.sisepei.auth;
+package br.upe.sisepei.core.user.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,12 +12,12 @@ import jakarta.validation.constraints.Email;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
+public class LoginDTO {
 
     @Email
     private String email;
 
     @NotBlank
-    private String senha;
+    private String password;
 
 }

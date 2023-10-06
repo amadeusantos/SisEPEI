@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import br.upe.sisepei.api.representation.NoticeRepresentation;
 import br.upe.sisepei.core.notice.model.AxleEnum;
 import br.upe.sisepei.core.user.model.User;
-import br.upe.sisepei.utils.exceptions.NaoEncontradoException;
+import br.upe.sisepei.utils.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -44,7 +44,7 @@ public class NoticeController {
 	public ResponseEntity<?> findNoticeById(@PathVariable Long id){
 		try {
 			return ResponseEntity.ok(convertToRepresentation(noticeService.findNoticeById(id)));
-		} catch (NaoEncontradoException e) {
+		} catch (NotFoundException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
@@ -53,7 +53,7 @@ public class NoticeController {
 	public ResponseEntity<?> getNoticeFile(@PathVariable Long id){
 		try {
 			return ResponseEntity.ok(noticeService.findNoticeById(id).getFile());
-		} catch (NaoEncontradoException e) {
+		} catch (NotFoundException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
