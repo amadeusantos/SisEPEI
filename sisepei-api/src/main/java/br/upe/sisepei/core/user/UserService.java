@@ -43,7 +43,7 @@ public class UserService {
 	}
 	
     
-    public AuthenticationResponse register(RegisterDTO request) throws ValidationException {
+    public AuthenticationResponse register(RegisterDTO request) {
         if (repository.existsByEmail(request.getEmail())) {
 			throw new ValidationException("Email already registered");
 		}
@@ -70,14 +70,14 @@ public class UserService {
 			.build();
 }
 	
-	public User updateUser(Long id, UserDTO userDTO) throws NotFoundException {
+	public User updateUser(Long id, UserDTO userDTO) {
 		User user = findUserById(id);
 		user.setName(userDTO.getName());
 
 		return repository.save(user);
 	}
 	
-	public void deleteUser(Long id) throws NotFoundException {
+	public void deleteUser(Long id) {
 		if (!repository.existsById(id)) {
 			throw new NotFoundException("User not found");
 		}

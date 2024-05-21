@@ -3,7 +3,10 @@ package br.upe.sisepei.api;
 import br.upe.sisepei.core.user.model.LoginDTO;
 import br.upe.sisepei.api.representation.AuthenticationResponse;
 import br.upe.sisepei.core.user.model.RegisterDTO;
+import jakarta.validation.Valid;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import br.upe.sisepei.core.user.UserService;
@@ -20,13 +23,14 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(
-        @RequestBody RegisterDTO request
+        @Valid @RequestBody RegisterDTO registerDTO,
+        BindingResult bindingResult
     ) {
-        try{
-            return ResponseEntity.ok(service.register(request));
-        } catch(Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(String.join("; ", bindingResult.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage).toList()));
         }
+            return ResponseEntity.ok(service.register(registerDTO));
     }
     
     @PostMapping("/authenticate")

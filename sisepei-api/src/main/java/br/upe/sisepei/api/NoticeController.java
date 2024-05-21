@@ -7,11 +7,14 @@ import br.upe.sisepei.api.representation.NoticeRepresentation;
 import br.upe.sisepei.core.notice.model.AxleEnum;
 import br.upe.sisepei.core.user.model.User;
 import br.upe.sisepei.utils.exceptions.NotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import br.upe.sisepei.core.notice.NoticeService;
@@ -61,9 +64,14 @@ public class NoticeController {
 	@PostMapping(consumes = {"multipart/form-data"})
 	public ResponseEntity<?> createNotice(
 			@AuthenticationPrincipal User coordinator,
-			@RequestBody NoticeDTO noticeDTO,
-			@RequestPart(value = "file") MultipartFile file
+			@Valid @RequestBody NoticeDTO noticeDTO,
+			@RequestPart(value = "file") MultipartFile file,
+			BindingResult bindingResult
 	){
+		if (bindingResult.hasErrors()) {
+			return ResponseEntity.badRequest().body(String.join("; ", bindingResult.getAllErrors().stream()
+					.map(DefaultMessageSourceResolvable::getDefaultMessage).toList()));
+		}
 		try {
 			return ResponseEntity.status(HttpStatus.CREATED)
 					.body(convertToRepresentation(noticeService.createNotice(noticeDTO, coordinator, file)));
@@ -77,9 +85,14 @@ public class NoticeController {
 	public ResponseEntity<?> updateNotice(
 			@PathVariable Long id,
 			@AuthenticationPrincipal User coordinator,
-			@RequestBody NoticeDTO noticeDTO,
-			@RequestPart(value = "file") MultipartFile file
+			@Valid @RequestBody NoticeDTO noticeDTO,
+			@RequestPart(value = "file", required = false) MultipartFile file,
+			BindingResult bindingResult
 	) {
+		if (bindingResult.hasErrors()) {
+			return ResponseEntity.badRequest().body(String.join("; ", bindingResult.getAllErrors().stream()
+					.map(DefaultMessageSourceResolvable::getDefaultMessage).toList()));
+		}
 		try{
 			return ResponseEntity.ok(convertToRepresentation(noticeService.updateNotice(id, noticeDTO, coordinator, file)));
 		} catch(Exception e){

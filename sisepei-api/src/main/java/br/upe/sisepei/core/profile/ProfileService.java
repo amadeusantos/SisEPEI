@@ -22,12 +22,12 @@ public class ProfileService {
 		return profileRepository.findAll();
 	}
 
-	public List<User> ListUsersByProfile(ProfileEnum profileEnum) throws NotFoundException {
+	public List<User> ListUsersByProfile(ProfileEnum profileEnum) {
 		return profileRepository.findByName(profileEnum)
 				.orElseThrow(() -> new NotFoundException("Profile not found")).getUsers();
 	}
 
-	public void addProfileToUser(ProfileEnum profileEnum, Long userId) throws NotFoundException {
+	public void addProfileToUser(ProfileEnum profileEnum, Long userId) {
 		Profile profile = profileRepository
 				.findByName(profileEnum).orElseThrow(() -> new NotFoundException("Profile not found"));
 
@@ -43,7 +43,7 @@ public class ProfileService {
 		userRepository.save(user);
 	}
 
-	public void removeProfileToUser(ProfileEnum profileEnum, Long userId) throws NotFoundException {
+	public void removeProfileToUser(ProfileEnum profileEnum, Long userId) {
 		Profile profile = profileRepository
 				.findByName(profileEnum).orElseThrow(() -> new NotFoundException("Profile not found"));
 

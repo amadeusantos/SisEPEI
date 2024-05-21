@@ -30,7 +30,7 @@ public class NoticeService {
 		return repository.findAllByAxle(axle);
 	}
 
-	public Notice findNoticeById(Long id) throws NotFoundException {
+	public Notice findNoticeById(Long id) {
 		return repository.findById(id).orElseThrow(() -> new NotFoundException("Notice not found"));
 	}
 
@@ -47,15 +47,19 @@ public class NoticeService {
 	}
 
 	//TODO AS: IOException
-	public Notice updateNotice(Long id, NoticeDTO noticeDTO, User coordinator, MultipartFile file) throws NotFoundException, ValidationException, IOException {
+	public Notice updateNotice(Long id, NoticeDTO noticeDTO, User coordinator, MultipartFile file) {
 		Notice notice = findNoticeById(id);
 
 		if (!notice.getCoordinator().getEmail().equals(coordinator.getEmail())) {
 			throw  new ValidationException("User not authorized to edit notice");
 		}
 
-		if (!file.isEmpty()) {
-			notice.setFile(file.getBytes());
+		try {
+			if (!file.isEmpty()) {
+				notice.setFile(file.getBytes());
+			}
+		} catch (IOException ioException) {
+			throw new ValidationException(ioException.getMessage());
 		}
 
 		ModelMapper modelMapper = new ModelMapper();
