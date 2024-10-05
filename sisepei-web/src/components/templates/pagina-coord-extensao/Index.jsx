@@ -1,51 +1,37 @@
 import React from 'react';
 import './Style.css';
-import SearchBar from '../../components/layout/SearchBar';
-import Card from '../../components/layout/InfoEditais';
+import BotaoCadastrar from '../../atoms/BotaoCadastrar';
+import SearchBar from '../../atoms/SearchBar';
+import Card from '../../atoms/InfoEditais';
 import { useEffect, useState } from 'react';
-import { api } from '../../lib/Api';
-import Cookies from 'js-cookie';
-import BotaoCadastrar from '../../components/layout/BotaoCadastrar';
+import Axios from 'axios';
+import Filter from '../../atoms/Filter';
 
 
-export function PaginaCoordenadorInovacao() {
+export function PgCoordExtensao() {
   const [searchTerm, setSearchTerm] = useState('')
   const [cardsData, setCardsData] = useState([]);
   useEffect(() => {
     console.log("Fetching cards...");
-    
-    api.get(`edital/tipo/INOVACAO`,  {
-      headers: {
-          Authorization: `Bearer ${Cookies.get("token")}`
-      }
-    })
-      .then((response) => {
-        setCardsData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }, []);
 
     const filteredCards = cardsData.filter(card => card.titulo.toLowerCase().includes(searchTerm.toLowerCase()));
-
-  return (
-      <div id='page1'>
+  return ( 
+    <div id='page1'>
       <h1 className='welcome'>Bem vindo!</h1>
       <hr className='myhr' />
-      <h1 className='editaiswelcome'>Editais de Inovação</h1>
+      <h1 className='editaiswelcome'>Editais de Extensão</h1>
 
       <div className='button-search'>
-      <BotaoCadastrar/>
+        <BotaoCadastrar />
           <div className='search-filter'>
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           </div>
-
       </div>
 
-      {Array.isArray(filteredCards) && filteredCards.map((card) => (
 
-      <Card
+      {Array.isArray(filteredCards) && filteredCards.map((card) => (
+        <Card
         key={card.id}
         id={card.id}
         name={card.titulo}
@@ -55,12 +41,11 @@ export function PaginaCoordenadorInovacao() {
         coordinator={card.coordenador.nome}
         requirements={card.requisitos}
         showDeleteButton={true} showEditButton={true} showShowButton={true}
-      />
-    ))}
-
+        />
+      ))}
 
     </div>
   );
 }
 
-export default PaginaCoordenadorInovacao;
+export default PgCoordExtensao;

@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import { api } from '../../lib/Api';
+import { api } from '../../services/Api';
 import Cookies from 'js-cookie';
 
 function Modal({id, closeModal, name, type, description, term, requirements, coordinator }) {

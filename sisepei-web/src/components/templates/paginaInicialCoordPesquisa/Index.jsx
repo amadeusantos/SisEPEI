@@ -1,26 +1,26 @@
 import React from 'react';
 import './Style.css';
-import BotaoCadastrar from '../../components/layout/BotaoCadastrar';
-import SearchBar from '../../components/layout/SearchBar';
-import Card from '../../components/layout/InfoEditais';
+import BotaoCadastrar from '../../atoms/BotaoCadastrar';
+import SearchBar from '../../atoms/SearchBar';
+import Card from '../../atoms/InfoEditais';
 import { useEffect, useState } from 'react';
 import Axios from 'axios';
-import Filter from '../../components/layout/Filter';
+import Filter from '../../atoms/Filter';
 
 
-export function PgCoordExtensao() {
+export function PgCoordPesquisa() {
   const [searchTerm, setSearchTerm] = useState('')
   const [cardsData, setCardsData] = useState([]);
-  useEffect(() => {
-    console.log("Fetching cards...");
-  }, []);
-
-    const filteredCards = cardsData.filter(card => card.titulo.toLowerCase().includes(searchTerm.toLowerCase()));
+    useEffect(() => {
+      console.log("Fetching cards...");
+    }, []);
+  
+      const filteredCards = cardsData.filter(card => card.titulo.toLowerCase().includes(searchTerm.toLowerCase()));
   return ( 
     <div id='page1'>
       <h1 className='welcome'>Bem vindo!</h1>
       <hr className='myhr' />
-      <h1 className='editaiswelcome'>Editais de Extensão</h1>
+      <h1 className='editaiswelcome'>Editais de Pesquisa</h1>
 
       <div className='button-search'>
         <BotaoCadastrar />
@@ -28,7 +28,6 @@ export function PgCoordExtensao() {
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           </div>
       </div>
-
 
       {Array.isArray(filteredCards) && filteredCards.map((card) => (
         <Card
@@ -48,4 +47,4 @@ export function PgCoordExtensao() {
   );
 }
 
-export default PgCoordExtensao;
+export default PgCoordPesquisa;

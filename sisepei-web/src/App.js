@@ -1,17 +1,17 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import { CadastroUsuarioGeral } from './pages/Cadastro/CadastroUsuarioGeral';
-import { MudancaPermicao } from './pages/Cadastro/MudancaPermicao';
-import { CadastroEditais } from './pages/Cadastro/CadastroEditais';
-import Header from './components/Header/Index';
-import Login from "./pages/Login/Login";
-import PaginaInicial from './pages/pagina-inicial-usuario/Index';
+import { CadastroUsuarioGeral } from './components/templates/Cadastro/CadastroUsuarioGeral';
+import { MudancaPermicao } from './components/templates/Cadastro/MudancaPermicao';
+import { CadastroEditais } from './components/templates/Cadastro/CadastroEditais';
+import Header from './components/molecules/Header/Index';
+import Login from "./components/templates/Login/Login";
+import PaginaInicial from './components/templates/pagina-inicial-usuario/Index';
 import React from 'react';
-import PaginaCoordenadorInovacao from './pages/pagina-inicial-de-coordenador-de-inovacao/pg-inova-cood';
-import PgCoordPesquisa from './pages/paginaInicialCoordPesquisa/Index';
-import PgCoordExtensao from './pages/pagina-coord-extensao/Index';
-import { EscolhaDePersonalidade } from './pages/pagina-intermedio-login-dashboard/EscolhaDePersoladidade';
-import EditarEditais from './pages/tela-editar-editais/tela-editar-editais';
+import PaginaCoordenadorInovacao from './components/templates/pagina-inicial-de-coordenador-de-inovacao/pg-inova-cood';
+import PgCoordPesquisa from './components/templates/paginaInicialCoordPesquisa/Index';
+import PgCoordExtensao from './components/templates/pagina-coord-extensao/Index';
+import { EscolhaDePersonalidade } from './components/templates/pagina-intermedio-login-dashboard/EscolhaDePersoladidade';
+import EditarEditais from './components/templates/tela-editar-editais/tela-editar-editais';
 
 
 

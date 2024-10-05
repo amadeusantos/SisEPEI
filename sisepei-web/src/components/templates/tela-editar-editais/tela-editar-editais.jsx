@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { api } from "../../lib/Api";
+import { api } from "../../../services/Api";
 import "./style.css";
 
 export function EditarEditais() {

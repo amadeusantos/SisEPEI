@@ -3,7 +3,6 @@ import './style.css';
 import { useState } from 'react';
 import Modal from './Modal';
 import BotaoDeAcao from './BotaoDeAcao';
-import { api } from '../../lib/Api';
 import DeleteModal from './DeleteModal';
 export const Card = ({id, name, coordinator, type, description, term, requirements, showEditButton, showDeleteButton }) => {
   const [openModal, setOpenModal] = useState(false);

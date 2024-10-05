@@ -1,11 +1,11 @@
 import React from 'react';
 import './Style.css';
-import SearchBar from '../../components/layout/SearchBar'
-import Card from '../../components/layout/InfoEditais';
+import SearchBar from '../../atoms/SearchBar'
+import Card from '../../atoms/InfoEditais';
 import { useEffect, useState } from 'react';
-import Filter from '../../components/layout/Filter';
+import Filter from '../../atoms/Filter';
 import Cookies from 'js-cookie';
-import { api } from '../../lib/Api';
+import { api } from '../../../services/Api';
 
 
 export function PaginaInicial() {

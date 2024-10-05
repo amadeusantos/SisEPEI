@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { api } from "../../lib/Api";
+import { api } from "../../../services/Api";
 import "./CadastroEditais.css";
 import Cookies from "js-cookie";
 import FormData from "form-data";
