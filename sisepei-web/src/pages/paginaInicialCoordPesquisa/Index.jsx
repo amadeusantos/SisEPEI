@@ -1,11 +1,11 @@
 import React from 'react';
 import './Style.css';
-import BotaoCadastrar from '../../Components/layout/BotaoCadastrar';
-import SearchBar from '../../Components/layout/SearchBar';
-import Card from '../../Components/layout/InfoEditais';
+import BotaoCadastrar from '../../components/layout/BotaoCadastrar';
+import SearchBar from '../../components/layout/SearchBar';
+import Card from '../../components/layout/InfoEditais';
 import { useEffect, useState } from 'react';
 import Axios from 'axios';
-import Filter from '../../Components/layout/Filter';
+import Filter from '../../components/layout/Filter';
 
 
 export function PgCoordPesquisa() {

@@ -1,11 +1,11 @@
 import React from 'react';
 import './Style.css';
-import SearchBar from '../../Components/layout/SearchBar';
-import Card from '../../Components/layout/InfoEditais';
+import SearchBar from '../../components/layout/SearchBar';
+import Card from '../../components/layout/InfoEditais';
 import { useEffect, useState } from 'react';
 import { api } from '../../lib/Api';
 import Cookies from 'js-cookie';
-import BotaoCadastrar from '../../Components/layout/BotaoCadastrar';
+import BotaoCadastrar from '../../components/layout/BotaoCadastrar';
 
 
 export function PaginaCoordenadorInovacao() {

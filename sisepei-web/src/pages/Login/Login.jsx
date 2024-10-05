@@ -16,7 +16,7 @@ const Login = () => {
     async function handleSubmit(e){
         e.preventDefault();
         
-        await api.post('api/auth/authenticate', {email: email, senha: senha})
+        await api.post('api/auth/authenticate', {email: email, password: senha})
         
         .then((res) =>{
             Cookies.set("token", res.data.token);
