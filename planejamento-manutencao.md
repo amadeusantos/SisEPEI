@@ -153,3 +153,92 @@ class UserJPARepository implements UserRepository {
 }
 ```
 Agora, os casos de uso terão dependências puras, isolando o core da aplicação. A classe ``UserJPARepository`` pode, também, ser um singleton.
+
+## Front-end
+
+Para a aplicação web, planejamos fazer uso de modularização, modelo proposto por Juntao QIU, no blog do Martin Fowler.
+
+![alt text](image.png)
+
+Não vamos chegar a usar a camada de domínio, faremos uso apenas das camadas de **state** (ou store), **fetchers** (ou service) e **components**. Essa divisão irá fazer com que os componentes da aplicação respeitem o paradigma declarativo que o React prega. Eles ficarão mais puros. Segue um exemplo de componente atual:
+
+```javascript
+export function CadastroEditais(){
+    const [titulo, setTitulo] = useState("");
+    const [descricao, setDescricao] = useState("");
+    const [requisitos, setRequisitos] = useState("");
+    const [edital, setEdital] = useState();
+    const [prazo,setPrazo] = useState("");
+    const [tipo, setTipo] = useState("");
+    const [errTitulo, setErrTitulo] = useState(false);
+
+    async function cadastrarEdital(event) {
+        event.preventDefault();
+        let bodyformData = new FormData();
+        
+        bodyformData.append("titulo", titulo);
+        bodyformData.append("arquivo", edital);
+        bodyformData.append("descricao", descricao);
+        bodyformData.append("requisitos", requisitos);
+        bodyformData.append("prazo", prazo);
+        bodyformData.append("tipo", tipo);
+
+        await api
+        .post("/edital", bodyformData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${Cookies.get("token")}`
+            }
+          }
+        )
+        .then(() => alert("Usuario cadastrado com sucesso!"),
+            setErrTitulo(false)
+        )
+        .catch((err) => {
+            console.log(err)
+            setErrTitulo(true)
+        });
+    }
+
+    return(
+		<div id="divGeral">
+			.........
+		</div>
+    );
+}
+```
+A ideia é que sejam criadas as funções para comunicação com backend fora dos componentes. Sendo essas chamadas de fetchers. Além disso, hooks seriam criados para fazer o controle dos dados, chamando a camada de fetchers.
+
+```javascript
+export function CadastroEditais(){
+    const [titulo, setTitulo] = useState("");
+    const [descricao, setDescricao] = useState("");
+    const [requisitos, setRequisitos] = useState("");
+    const [edital, setEdital] = useState();
+    const [prazo,setPrazo] = useState("");
+    const [tipo, setTipo] = useState("");
+    const [errTitulo, setErrTitulo] = useState(false);
+	const { mutate } = useCadastrarEdital();
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        
+
+        mutate({
+			titulo,
+			edital,
+			descricao,
+			requisitos,
+			prazo,
+			tipo
+		})
+    }
+
+    return(
+		<div id="divGeral">
+			.........
+		</div>
+    );
+}
+```
+Pensamos também em fazer uso do *React Query*. Essa ferramenta provê uma API completa para controle de HTTP state, a qual permite gerenciar cache e retentativas.
