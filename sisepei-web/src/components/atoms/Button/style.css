@@ -1,0 +1,25 @@
+.button {
+  min-width: 140px;
+  border-radius: 16px !important;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 500;
+  border: none !important;
+  padding: 10px 20px;
+}
+
+.primary {
+  background-color: var(--button-primary) !important;
+}
+
+.primary:hover {
+  background-color: var(--button-primary-hover) !important;
+}
+.secundary {
+  background-color: var(--button-secundary) !important;
+}
+
+.secundary:hover {
+  background-color: var(--button-secundary-hover) !important;
+}
+

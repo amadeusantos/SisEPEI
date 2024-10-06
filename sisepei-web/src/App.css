@@ -1,0 +1,14 @@
+.app {
+    --primary: #7991CF;
+    --secundary: #E6E7ED;
+    --text-color: #1C3245;
+    --button-primary: #266196;
+    --button-secundary: #48BC62;
+    --button-primary-hover: #1C3245;
+    --button-secundary-hover: #268852;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}

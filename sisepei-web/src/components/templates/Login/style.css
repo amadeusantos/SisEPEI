@@ -1,0 +1,23 @@
+.frame{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  background-color: #ffff;
+  padding: 50px;
+  margin: auto;
+
+}
+.intro{
+  padding: 30px;
+  border-radius: 15px;
+  text-align: start;
+  color: #1C3245;
+  width: 50%;
+}
+
+#paragrafo{
+  font-size: 20px;
+  color: #081329;
+
+}

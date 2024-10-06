@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
+import { Login } from "../components/templates";
 import { CadastroUsuarioGeral } from "../components/templates/Cadastro/CadastroUsuarioGeral";
 import { MudancaPermicao } from "../components/templates/Cadastro/MudancaPermicao";
 import { CadastroEditais } from "../components/templates/Cadastro/CadastroEditais";
-import Login from "../components/templates/Login/Login";
 import PaginaInicial from "../components/templates/pagina-inicial-usuario/Index";
 import React from "react";
 import PaginaCoordenadorInovacao from "../components/templates/pagina-inicial-de-coordenador-de-inovacao/pg-inova-cood";
