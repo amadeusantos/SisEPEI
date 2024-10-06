@@ -10,7 +10,6 @@
     "bootstrap": "^5.2.3",
     "form-data": "^4.0.0",
     "js-cookie": "^3.0.1",
-    "js-cookies": "^1.0.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-cookie": "^4.1.1",
@@ -24,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "auditjs": "npx auditjs ossi -w ./node_modules -q -j > vulnerabilities/$(date +'%Y-%m-%d').json"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "auditjs": "^4.0.45",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.3.1"
