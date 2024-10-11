@@ -6,11 +6,11 @@ import { InputText } from "../../molecules";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import "./style.css";
+import { Title } from "../../atoms";
 
 export function LoginForm() {
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
@@ -18,7 +18,7 @@ export function LoginForm() {
     console.log(e);
 
     await api
-      .post("api/auth/authenticate", { email: email, password: senha })
+      .post("api/auth/authenticate", { email: email, password: password })
 
       .then((res) => {
         Cookies.set("token", res.data.token);
@@ -34,11 +34,11 @@ export function LoginForm() {
   };
   return (
     <div className="login">
-      <h1 className="title">Login</h1>
+      <Title>Login</Title>
       <br />
       <Form action="" onSubmit={handleSubmit} className="form">
         <InputText
-          label="email"
+          label="Email"
           name="email"
           value={email}
           onChange={setEmail}
@@ -47,10 +47,10 @@ export function LoginForm() {
           placeholder="Digite aqui seu email"
         />
         <InputText
-          label="senha"
+          label="Senha"
           name="password"
-          value={senha}
-          onChange={setSenha}
+          value={password}
+          onChange={setPassword}
           type="password"
           required
           placeholder="Digite aqui sua senha"
