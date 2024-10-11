@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import { Login } from "../components/templates";
-import { CadastroUsuarioGeral } from "../components/templates/Cadastro/CadastroUsuarioGeral";
 import { MudancaPermicao } from "../components/templates/Cadastro/MudancaPermicao";
 import { CadastroEditais } from "../components/templates/Cadastro/CadastroEditais";
 import PaginaInicial from "../components/templates/pagina-inicial-usuario/Index";
@@ -10,11 +9,12 @@ import PgCoordPesquisa from "../components/templates/paginaInicialCoordPesquisa/
 import PgCoordExtensao from "../components/templates/pagina-coord-extensao/Index";
 import { EscolhaDePersonalidade } from "../components/templates/pagina-intermedio-login-dashboard/EscolhaDePersoladidade";
 import EditarEditais from "../components/templates/tela-editar-editais/tela-editar-editais";
+import { Register } from "../components/templates/Register";
 
 export default function Router() {
   return (
     <Routes>
-      <Route path="/cadastro/usuario" element={<CadastroUsuarioGeral />} />
+      <Route path="/cadastro/usuario" element={<Register />} />
       <Route path="/adm/mudanca/permicao" element={<MudancaPermicao />} />
       <Route path="/edital" element={<CadastroEditais />} />
       <Route path="/" element={<Login />} />
