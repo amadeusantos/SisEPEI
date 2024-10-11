@@ -4,7 +4,7 @@ import "./style.css";
 
 export function Login() {
   return (
-    <div className="frame">
+    <main className="frame">
       <div className="intro">
         <h2>
           <strong>O que é?</strong>
@@ -17,7 +17,7 @@ export function Login() {
         <br />
       </div>
       <LoginForm />
-    </div>
+    </main>
   );
 }
 

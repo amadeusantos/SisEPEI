@@ -14,7 +14,7 @@ import Form from "react-bootstrap/Form";
  * 
  * @returns {React.FC} The rendered input field component.
  */
-export function InputText({
+export function TextField({
   label,
   required,
   placeholder,
@@ -40,4 +40,4 @@ export function InputText({
   );
 }
 
-export default InputText;
+export default TextField;

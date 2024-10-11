@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button, SubTitle, Title } from "../../atoms";
-import { InputText } from "../../molecules";
+import { TextField } from "../../molecules";
 import { Alert, Form } from "react-bootstrap";
 import "./style.css";
 
@@ -93,13 +93,13 @@ export function RegisterForm() {
   }
 
   const handleClick = () => {
-    navigate("/");
+    navigate("/login");
   };
   return (
     <Form id="divGeral" onSubmit={registerUser} action="">
       <Title>Cadastro de Usuario Geral</Title>
       <SubTitle>Preencha o Cadastro com as informações pertinentes</SubTitle>
-      <InputText
+      <TextField
         label="Nome"
         name="name"
         type="name"
@@ -107,7 +107,7 @@ export function RegisterForm() {
         value={name}
         required
       />
-      <InputText
+      <TextField
         label="Email"
         name="email"
         type="email"
@@ -115,7 +115,7 @@ export function RegisterForm() {
         value={email}
         required
       />
-      <InputText
+      <TextField
         label="Senha"
         name="password"
         onChange={setPassword}
@@ -123,7 +123,7 @@ export function RegisterForm() {
         type="password"
         required
       />
-      <InputText
+      <TextField
         label="Confirme sua senha"
         name="confirmPassword"
         onChange={setConfirmPassword}

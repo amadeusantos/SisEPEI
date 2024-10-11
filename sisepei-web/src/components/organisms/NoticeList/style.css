@@ -1,0 +1,11 @@
+.button-search {
+  display: flex;
+  align-items: center;
+  margin-bottom: 75px;
+  justify-content: right;
+  justify-content: space-between;
+}
+
+.container-list-notice {
+  padding: 20px 16em;
+}

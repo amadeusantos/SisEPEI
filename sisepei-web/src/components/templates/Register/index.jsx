@@ -3,9 +3,9 @@ import "./style.css";
 
 export function Register() {
   return (
-    <div>
+    <main>
       <RegisterForm />
-    </div>
+    </main>
   );
 }
 

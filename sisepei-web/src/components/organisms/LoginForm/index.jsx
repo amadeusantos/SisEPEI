@@ -2,7 +2,7 @@ import Button from "../../atoms/Button";
 import { api } from "../../../services/Api";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
-import { InputText } from "../../molecules";
+import { TextField } from "../../molecules";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import "./style.css";
@@ -37,7 +37,7 @@ export function LoginForm() {
       <Title>Login</Title>
       <br />
       <Form action="" onSubmit={handleSubmit} className="form">
-        <InputText
+        <TextField
           label="Email"
           name="email"
           value={email}
@@ -46,7 +46,7 @@ export function LoginForm() {
           required
           placeholder="Digite aqui seu email"
         />
-        <InputText
+        <TextField
           label="Senha"
           name="password"
           value={password}
