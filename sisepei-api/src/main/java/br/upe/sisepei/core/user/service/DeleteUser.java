@@ -1,6 +1,7 @@
 package br.upe.sisepei.core.user.service;
 
-import br.upe.sisepei.core.user.repository.UserRepository;
+import br.upe.sisepei.core.user.repository.UserJPARepository;
+import br.upe.sisepei.core.user.repository.interfaces.IUserRepository;
 import br.upe.sisepei.utils.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,13 +10,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DeleteUser {
 
-    private final UserRepository userRepository;
+    private final IUserRepository IUserRepository = UserJPARepository.getInstance();
 
     public void execute(Long id) {
-        if (!userRepository.existsById(id)) {
+        if (!IUserRepository.existsById(id)) {
             throw new NotFoundException("User not found");
         }
 
-        userRepository.deleteById(id);
+        IUserRepository.deleteById(id);
     }
 }

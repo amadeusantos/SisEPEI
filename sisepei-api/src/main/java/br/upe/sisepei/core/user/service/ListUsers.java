@@ -1,6 +1,7 @@
 package br.upe.sisepei.core.user.service;
 
-import br.upe.sisepei.core.user.repository.UserRepository;
+import br.upe.sisepei.core.user.repository.UserJPARepository;
+import br.upe.sisepei.core.user.repository.interfaces.IUserRepository;
 import br.upe.sisepei.core.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ListUsers {
 
-    private final UserRepository userRepository;
+    private final IUserRepository IUserRepository = UserJPARepository.getInstance();
 
     public List<User> execute() {
-        return userRepository.findAll();
+        return IUserRepository.findAll();
     }
 }

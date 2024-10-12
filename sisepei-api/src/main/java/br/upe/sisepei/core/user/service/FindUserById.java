@@ -1,6 +1,7 @@
 package br.upe.sisepei.core.user.service;
 
-import br.upe.sisepei.core.user.repository.UserRepository;
+import br.upe.sisepei.core.user.repository.UserJPARepository;
+import br.upe.sisepei.core.user.repository.interfaces.IUserRepository;
 import br.upe.sisepei.core.user.model.User;
 import br.upe.sisepei.utils.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -10,9 +11,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class FindUserById {
 
-    private final UserRepository userRepository;
+    private final IUserRepository IUserRepository = UserJPARepository.getInstance();
 
     public User execute(Long id) throws NotFoundException {
-        return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
+        return IUserRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
     }
 }
