@@ -1,4 +1,4 @@
-package br.upe.sisepei.core.profile;
+package br.upe.sisepei.core.profile.respository;
 
 import java.util.Optional;
 

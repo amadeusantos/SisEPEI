@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import br.upe.sisepei.api.representation.NoticeRepresentation;
 import br.upe.sisepei.core.notice.model.AxleEnum;
+import br.upe.sisepei.core.notice.service.*;
 import br.upe.sisepei.core.user.model.User;
 import br.upe.sisepei.utils.exceptions.NotFoundException;
 import jakarta.validation.Valid;
@@ -17,7 +18,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import br.upe.sisepei.core.notice.NoticeService;
 import br.upe.sisepei.core.notice.model.Notice;
 import br.upe.sisepei.core.notice.model.NoticeDTO;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,25 +28,39 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/notices")
 public class NoticeController {
 
-	private final NoticeService noticeService;
+	private final ListNotices listNotices;
+	private final FindNoticesByAxle findNoticesByAxle;
+	private final FindNoticeById findNoticeById;
+	private final CreateNotice createNotice;
+	private final DeleteNotice deleteNotice;
+	private final UpdateNotice updateNotice;
 
 	@GetMapping
 	public ResponseEntity<List<NoticeRepresentation>> listNotices(){
-		return ResponseEntity.ok(noticeService.listNotices().stream()
-				.map(this::convertToRepresentation).collect(Collectors.toList()));
-
+		return ResponseEntity.ok(
+				listNotices
+				.execute()
+				.stream()
+				.map(this::convertToRepresentation)
+				.collect(Collectors.toList())
+		);
 	}
 
 	@GetMapping("axle/{axle}")
 	public ResponseEntity<List<NoticeRepresentation>> listNoticesByAxle(@PathVariable AxleEnum axle) {
-		return ResponseEntity.ok(noticeService.findNoticesByAxle(axle).stream()
-				.map(this::convertToRepresentation).collect(Collectors.toList()));
+		return ResponseEntity.ok(
+				findNoticesByAxle
+						.execute(axle)
+						.stream()
+						.map(this::convertToRepresentation)
+						.collect(Collectors.toList())
+				);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findNoticeById(@PathVariable Long id){
 		try {
-			return ResponseEntity.ok(convertToRepresentation(noticeService.findNoticeById(id)));
+			return ResponseEntity.ok(convertToRepresentation(findNoticeById.execute(id)));
 		} catch (NotFoundException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -55,7 +69,7 @@ public class NoticeController {
 	@GetMapping("/{id}/file")
 	public ResponseEntity<?> getNoticeFile(@PathVariable Long id){
 		try {
-			return ResponseEntity.ok(noticeService.findNoticeById(id).getFile());
+			return ResponseEntity.ok(findNoticeById.execute(id).getFile());
 		} catch (NotFoundException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -74,7 +88,7 @@ public class NoticeController {
 		}
 		try {
 			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(convertToRepresentation(noticeService.createNotice(noticeDTO, coordinator, file)));
+					.body(convertToRepresentation(createNotice.execute(noticeDTO, coordinator, file)));
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -94,13 +108,11 @@ public class NoticeController {
 					.map(DefaultMessageSourceResolvable::getDefaultMessage).toList()));
 		}
 		try{
-			return ResponseEntity.ok(convertToRepresentation(noticeService.updateNotice(id, noticeDTO, coordinator, file)));
+			return ResponseEntity.ok(convertToRepresentation(updateNotice.execute(id, noticeDTO, coordinator, file)));
 		} catch(Exception e){
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-
-
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteNotice(
@@ -108,7 +120,7 @@ public class NoticeController {
 			@PathVariable Long id
 			){
 		try {
-			noticeService.deleteNotice(id, coordinator);
+			deleteNotice.execute(id, coordinator);
 		} catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -116,9 +128,9 @@ public class NoticeController {
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
+	// TODO: Remover
 	private NoticeRepresentation convertToRepresentation(Notice notice) {
 		ModelMapper modelMapper = new ModelMapper();
 		return modelMapper.map(notice, NoticeRepresentation.class);
 	}
-
 }

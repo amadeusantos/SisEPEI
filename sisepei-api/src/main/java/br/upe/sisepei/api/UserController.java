@@ -3,6 +3,7 @@ package br.upe.sisepei.api;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.upe.sisepei.core.user.service.*;
 import br.upe.sisepei.utils.exceptions.NotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import br.upe.sisepei.api.representation.UserRepresentation;
-import br.upe.sisepei.core.user.UserService;
 import br.upe.sisepei.core.user.model.User;
 import br.upe.sisepei.core.user.model.UserDTO;
 
@@ -22,12 +22,20 @@ import br.upe.sisepei.core.user.model.UserDTO;
 @RequestMapping("/users")
 public class UserController {
 
-	private final UserService userService;
+	private final ListUsers listUsers;
+	private final FindUsersProfiles findUsersProfiles;
+	private final FindUserById findUserById;
+	private final UpdateUser updateUser;
+	private final DeleteUser deleteUser;
 
 	@GetMapping
 	public ResponseEntity<List<UserRepresentation>> listUser() {
-		return ResponseEntity.ok(userService.listUsers()
-				.stream().map(this::convertToUserRepresentation).collect(Collectors.toList()));
+		return ResponseEntity.ok(
+				listUsers
+						.execute()
+						.stream()
+						.map(this::convertToUserRepresentation)
+						.collect(Collectors.toList()));
 	}
 
 	@GetMapping("/profile")
@@ -36,7 +44,7 @@ public class UserController {
 	) {
 		try {
 			String jwt = token.substring(7);
-			return ResponseEntity.ok(convertToUserRepresentation(userService.findUserProfiles(jwt)));
+			return ResponseEntity.ok(convertToUserRepresentation(findUsersProfiles.execute(jwt)));
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -45,7 +53,7 @@ public class UserController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findUserById(@PathVariable Long id) {
 		try {
-			return ResponseEntity.ok(convertToUserRepresentation(userService.findUserById(id)));
+			return ResponseEntity.ok(convertToUserRepresentation(findUserById.execute(id)));
 		} catch (NotFoundException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -54,7 +62,7 @@ public class UserController {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO userDTO) {
 		try {
-			return ResponseEntity.ok(convertToUserRepresentation(userService.updateUser(id, userDTO)));
+			return ResponseEntity.ok(convertToUserRepresentation(updateUser.execute(id, userDTO)));
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -63,7 +71,7 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable Long id) {
 		try { 
-			userService.deleteUser(id);
+			deleteUser.execute(id);
 		} catch (NotFoundException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -71,6 +79,7 @@ public class UserController {
 		return ResponseEntity.noContent().build();
 	}
 
+	// TODO Remover
 	private UserRepresentation convertToUserRepresentation(User user) {
 		ModelMapper modelMapper = new ModelMapper();
 		return modelMapper.map(user, UserRepresentation.class);
