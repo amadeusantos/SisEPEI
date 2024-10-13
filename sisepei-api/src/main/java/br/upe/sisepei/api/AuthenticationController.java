@@ -26,13 +26,9 @@ public class AuthenticationController {
         @Valid @RequestBody RegisterDTO registerDTO,
         BindingResult bindingResult
     ) {
-        if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body(String.join("; ", bindingResult.getAllErrors().stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage).toList()));
-        }
-            return ResponseEntity.ok(service.register(registerDTO));
+        return ResponseEntity.ok(service.register(registerDTO));
     }
-    
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> register(
         @RequestBody LoginDTO request

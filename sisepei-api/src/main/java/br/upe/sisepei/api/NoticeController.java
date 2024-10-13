@@ -1,5 +1,6 @@
 package br.upe.sisepei.api;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,39 +46,22 @@ public class NoticeController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findNoticeById(@PathVariable Long id){
-		try {
-			return ResponseEntity.ok(convertToRepresentation(noticeService.findNoticeById(id)));
-		} catch (NotFoundException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		return ResponseEntity.ok(convertToRepresentation(noticeService.findNoticeById(id)));
 	}
 
 	@GetMapping("/{id}/file")
 	public ResponseEntity<?> getNoticeFile(@PathVariable Long id){
-		try {
-			return ResponseEntity.ok(noticeService.findNoticeById(id).getFile());
-		} catch (NotFoundException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		return ResponseEntity.ok(noticeService.findNoticeById(id).getFile());
 	}
 
 	@PostMapping(consumes = {"multipart/form-data"})
 	public ResponseEntity<?> createNotice(
 			@AuthenticationPrincipal User coordinator,
 			@Valid @RequestBody NoticeDTO noticeDTO,
-			@RequestPart(value = "file") MultipartFile file,
-			BindingResult bindingResult
-	){
-		if (bindingResult.hasErrors()) {
-			return ResponseEntity.badRequest().body(String.join("; ", bindingResult.getAllErrors().stream()
-					.map(DefaultMessageSourceResolvable::getDefaultMessage).toList()));
-		}
-		try {
-			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(convertToRepresentation(noticeService.createNotice(noticeDTO, coordinator, file)));
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+			@RequestPart(value = "file") MultipartFile file
+	) throws IOException {
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(convertToRepresentation(noticeService.createNotice(noticeDTO, coordinator, file)));
 	}
 
 
@@ -86,32 +70,17 @@ public class NoticeController {
 			@PathVariable Long id,
 			@AuthenticationPrincipal User coordinator,
 			@Valid @RequestBody NoticeDTO noticeDTO,
-			@RequestPart(value = "file", required = false) MultipartFile file,
-			BindingResult bindingResult
+			@RequestPart(value = "file", required = false) MultipartFile file
 	) {
-		if (bindingResult.hasErrors()) {
-			return ResponseEntity.badRequest().body(String.join("; ", bindingResult.getAllErrors().stream()
-					.map(DefaultMessageSourceResolvable::getDefaultMessage).toList()));
-		}
-		try{
-			return ResponseEntity.ok(convertToRepresentation(noticeService.updateNotice(id, noticeDTO, coordinator, file)));
-		} catch(Exception e){
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		return ResponseEntity.ok(convertToRepresentation(noticeService.updateNotice(id, noticeDTO, coordinator, file)));
 	}
-
-
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteNotice(
 			@AuthenticationPrincipal User coordinator,
 			@PathVariable Long id
-			){
-		try {
-			noticeService.deleteNotice(id, coordinator);
-		} catch(Exception e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+			) throws Exception {
+		noticeService.deleteNotice(id, coordinator);
 
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}

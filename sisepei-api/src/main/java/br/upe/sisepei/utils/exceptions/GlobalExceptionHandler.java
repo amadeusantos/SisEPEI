@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.io.IOException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -15,7 +17,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ExceptionResponse> handleValidationException(ValidationException exception) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                .body(new ExceptionResponse(403, exception.getMessage()));
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .body(new ExceptionResponse(422, exception.getMessage()));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionResponse> handleGenericException(Exception exception) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ExceptionResponse(500, "Internal Server Error"));
+    }
+
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<ExceptionResponse> handleIOException(IOException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ExceptionResponse(400, "I/O Error"));
     }
 }
