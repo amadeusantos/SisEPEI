@@ -31,31 +31,19 @@ public class ProfileController {
 
 	@GetMapping("/{profileEnum}")
 	public ResponseEntity<?> ListUsersByProfile(@PathVariable ProfileEnum profileEnum) {
-		try {
-			return ResponseEntity.ok(profileService.ListUsersByProfile(profileEnum).stream()
-					.map(this::convertToUser).collect(Collectors.toList()));
-		} catch (NotFoundException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		return ResponseEntity.ok(profileService.ListUsersByProfile(profileEnum).stream()
+				.map(this::convertToUser).collect(Collectors.toList()));
 	}
 
 	@PutMapping("/users/{profileEnum}/{userId}")
 	public ResponseEntity<?> AddProfileToUser(@PathVariable ProfileEnum profileEnum, @PathVariable Long userId) {
-		try {
-			profileService.addProfileToUser(profileEnum, userId);
-		} catch (NotFoundException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		profileService.addProfileToUser(profileEnum, userId);
 
 		return ResponseEntity.noContent().build();
 	}
 	@DeleteMapping("/users/{profile}/{userId}")
 	public ResponseEntity<?> removeProfileToUser(@PathVariable ProfileEnum profile, @PathVariable Long userId) {
-		try {
-			profileService.removeProfileToUser(profile, userId);
-		} catch (NotFoundException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		profileService.removeProfileToUser(profile, userId);
 
 		return ResponseEntity.noContent().build();
 	}

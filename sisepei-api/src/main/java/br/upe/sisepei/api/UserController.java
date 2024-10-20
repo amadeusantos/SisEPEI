@@ -34,39 +34,23 @@ public class UserController {
 	public ResponseEntity<?> findUserProfiles(
 			@RequestHeader(name = "Authorization") String token
 	) {
-		try {
-			String jwt = token.substring(7);
-			return ResponseEntity.ok(convertToUserRepresentation(userService.findUserProfiles(jwt)));
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		String jwt = token.substring(7);
+		return ResponseEntity.ok(convertToUserRepresentation(userService.findUserProfiles(jwt)));
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findUserById(@PathVariable Long id) {
-		try {
-			return ResponseEntity.ok(convertToUserRepresentation(userService.findUserById(id)));
-		} catch (NotFoundException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		return ResponseEntity.ok(convertToUserRepresentation(userService.findUserById(id)));
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO userDTO) {
-		try {
-			return ResponseEntity.ok(convertToUserRepresentation(userService.updateUser(id, userDTO)));
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		return ResponseEntity.ok(convertToUserRepresentation(userService.updateUser(id, userDTO)));
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable Long id) {
-		try { 
-			userService.deleteUser(id);
-		} catch (NotFoundException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		userService.deleteUser(id);
 		
 		return ResponseEntity.noContent().build();
 	}
