@@ -1,6 +1,7 @@
 package br.upe.sisepei.core.user.model;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import br.upe.sisepei.core.notice.model.Notice;
@@ -74,6 +75,10 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public List<Profile> getProfiles() {
+		return profiles != null ? profiles : Collections.emptyList();
 	}
 
 }
