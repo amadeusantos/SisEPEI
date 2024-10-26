@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { api } from "../../../services/Api";
+import { api } from "../../../services/api";
 import "./style.css";
 
 export function EditarEditais() {
@@ -62,8 +62,6 @@ export function EditarEditais() {
             <label htmlFor="Coordenador">Coordenador:</label>
             <input id="Coordenador" type="text" value={coordenador} disabled />
 
-            <br />
-
             <label htmlFor="tipo">Tipo:</label>
             <select id="tipo" required value={tipo} onChange={(event) => setTipo(event.target.value)}>
                 <option value="">--- Selecione um Tipo ---</option>
@@ -72,32 +70,21 @@ export function EditarEditais() {
                 <option value={"pesquisa"}>Pesquisa</option>
             </select>
 
-            <br />
-
             <label htmlFor="prazo">Prazo:</label>
             <input id="prazo" type="date" value={prazo} onChange={(event) => setPrazo(event.target.value)} />
-
-            <br />
 
             <label htmlFor="titulo">Titulo:</label>
             <input id="titulo" type="text" required value={titulo} onChange={(event) => setTitulo(event.target.value)} />
             {errTitulo && <span id="errTitulo">Este Titulo ja esta em uso, tente novamente.</span>}
-            <br />
 
             <label htmlFor="descricao">Descrição:</label>
             <textarea id="descricao" required value={descricao} onChange={(event) => setDescricao(event.target.value)} />
 
-            <br />
-
             <label htmlFor="requisitos">Requisitos:</label>
             <textarea id="requisitos" required value={requisitos} onChange={(event) => setRequisitos(event.target.value)} />
 
-            <br />
-
             <label htmlFor="edital">Edital:</label>
             <input id="edital" type="file" accept=".doc,.docx,.pdf,.txt" onChange={(event) => setEdital(event.target.files[0])} />
-
-            <br />
 
             <button disabled={titulo.length < 5} onClick={(event) => (atualizarEdital(event), setErrTitulo(false))}>
                 Salvar

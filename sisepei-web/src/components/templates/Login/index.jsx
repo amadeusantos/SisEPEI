@@ -9,12 +9,10 @@ export function Login() {
         <h2>
           <strong>O que é?</strong>
         </h2>
-        <br />
         <p id="paragrafo">
           O SisPEI - Sistema de Editais de Pesquisa, Extensão e Inovação é um
           sistema de gestão de editais.
         </p>
-        <br />
       </div>
       <LoginForm />
     </main>

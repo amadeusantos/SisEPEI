@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { api } from "../../../services/Api";
 
 export function MudancaPermicao(){
     //declaraçoes
@@ -19,83 +18,6 @@ export function MudancaPermicao(){
     const [ci, setCi] = useState(false);
     const [cp, setCp] = useState(false);
 
-
-    async function buscaCoordenador(event) {
-        event.preventDefault();
-        
-        //Esse link de busca pode estar errado
-        await api
-        .get("/adm/mudanca/permicao/busca", {
-            nome: nome,
-            email: email
-        })
-        .then((res) => (
-            setNome(res.data.nome),
-            setEmail(res.data.email),
-            setPerfis(res.data.perfis),
-            setMostrarCheckBox(true),
-            Poderes(perfis),
-            setAcertoBusca(true)
-        ) )
-        .catch((err) => (console.log(err) , setErrBusca(true)));
-    }
-
-    function Poderes(perfis) { 
-        for (let index = 0; index < perfis.length; index++) {
-            if(perfis[index] === "ADMINISTRADOR"){
-                setAdm(true);
-            }
-            if(perfis[index] === "COORDENADOR_EXTENSAO"){
-                setCe(true);
-            }
-            if(perfis[index] === "COORDENADOR_PESQUISA"){
-                setCp(true);
-            }
-            if(perfis[index] === "COORDENADOR_INOVACAO"){
-                setCi(true);
-            }
-        }
-    }
-
-    async function cadastrarMudanca(event) {
-        event.preventDefault();
-
-        organizaTipos();
-
-        await api
-        .post("/adm/mudarPoder", { 
-            nome: nome,
-            email: email,
-            perfis: perfis
-        })
-        .then(() => (navigate("/"),
-            setNome(""),
-            setEmail(""),
-            setPerfis([]),
-            setErrBusca(false)
-        ))
-        .catch((err) => console.log(err));
-    }
-
-    function organizaTipos() { 
-        
-        setPerfis([]); //seto a lista de string pra vazia e vo concatenando oq eu quero que seja adicionado
-
-        if(adm){
-            perfis.concat("ADMINISTRADOR");
-        }
-        if(ce){
-            perfis.concat("COORDENADOR_EXTENSAO");
-        }
-        if(ci){
-            perfis.concat("COORDENADOR_INOVACAO");
-        }
-        if(cp){
-            perfis.concat("COORDENADOR_PESQUISA");
-        }
-
-        setPerfis(perfis);
-    }
 
     {/* Sobre os botoes de PODER: é mais facil fazer uma lista de nome em card com dois botoes do lado de cada um "retirar e colocar (poder)" e ai as que ja estiverem com poder o check bom fica com o tikzinho la */}
 

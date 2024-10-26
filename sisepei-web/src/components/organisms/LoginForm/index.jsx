@@ -1,10 +1,10 @@
 import Button from "../../atoms/Button";
-import { api } from "../../../services/Api";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { TextField } from "../../molecules";
 import { useState } from "react";
 import Cookies from "js-cookie";
+import { login } from "../../../services/AuthenticationService";
 import "./style.css";
 import { Title } from "../../atoms";
 
@@ -15,19 +15,7 @@ export function LoginForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(e);
-
-    await api
-      .post("api/auth/authenticate", { email: email, password: password })
-
-      .then((res) => {
-        Cookies.set("token", res.data.token);
-        navigate("/paginainicial");
-      })
-
-      .catch((error) => {
-        console.log(error);
-      });
+    await login({ email, password });
   }
   const handleClick = () => {
     navigate("/cadastro/usuario");

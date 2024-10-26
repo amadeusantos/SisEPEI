@@ -5,14 +5,16 @@ import { Plus } from "@phosphor-icons/react";
 import { useState, useEffect } from "react";
 import Filter from "../../molecules/Filter";
 import "./style.css";
-import { useSearchParams } from "react-router-dom";
-import { api } from "../../../services/Api";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export function NoticeList() {
+  const navigation = useNavigate();
   const [order, setOrder] = useState("");
   const [filter, setFilter] = useState("");
   const [cardsData, setCardsData] = useState([]);
+
+  const navigationCreateNotice = () => navigation("new/notices")
 
   const filteredCards = cardsData
     .filter(
@@ -35,40 +37,14 @@ export function NoticeList() {
       }
     });
 
-  useEffect(() => {
-    api
-      .get("usuarios/perfil", {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("token")}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data.perfis);
-        Poderes(res.data.perfis);
-      });
-    console.log("Fetching cards...");
-    api
-
-      .get(`edital`, {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("token")}`,
-        },
-      })
-      .then((response) => {
-        //comentei esse setCardsData porque ele impede que eu teste com os cards que tem ali em cima.
-        setCardsData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="container-list-notice">
       <Title>Editais</Title>
 
       <div className="button-search">
-        <Button color="terciary">
+        <Button color="terciary" onClick={navigationCreateNotice}>
           <Plus size={24} weight="bold" />
           Cadastrar edital
         </Button>
