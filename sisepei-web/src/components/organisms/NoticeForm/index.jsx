@@ -7,6 +7,7 @@ import { Button, Field, SubTitle, Title } from "../../atoms";
 import { TextField } from "../../molecules";
 import { DateField } from "../../molecules/DateField";
 import { SelectField } from "../../molecules/SelectField";
+import { api } from "../../../services/api"
 
 export function NoticeForm() {
   //declaraçoes
@@ -39,7 +40,6 @@ export function NoticeForm() {
     bodyformData.append("prazo", prazo);
     bodyformData.append("tipo", tipo);
 
-    console.log("1");
     await api
       .post("/edital", bodyformData, {
         headers: {
@@ -198,7 +198,7 @@ export function NoticeForm() {
             <input
               type="file"
               multiple
-              accept=".pdf,.docx,.odt"
+              accept=".pdf,.docx,.odt,.txt"
               onChange={handleFileSelect}
               style={{ display: "none" }}
               id="fileInput"

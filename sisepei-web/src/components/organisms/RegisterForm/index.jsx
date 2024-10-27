@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button, SubTitle, Title } from "../../atoms";
 import { TextField } from "../../molecules";
 import { Alert, Form } from "react-bootstrap";
+import { api } from "../../../services/api";
 import "./style.css";
 
 export function RegisterForm() {
