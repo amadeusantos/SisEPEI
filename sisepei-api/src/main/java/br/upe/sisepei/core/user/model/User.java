@@ -36,7 +36,7 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy = "coordinator")
 	private List<Notice> notices;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name= "users_profiles",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns =  @JoinColumn(name = "profile_id"))
