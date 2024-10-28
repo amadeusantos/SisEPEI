@@ -7,20 +7,27 @@ import Filter from "../../molecules/Filter";
 import "./style.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Cookies from "js-cookie";
+import { listNotices } from "../../../services/NoticeService";
+import { useNoticeList } from "./useNoticeList";
 
 export function NoticeList() {
   const navigation = useNavigate();
   const [order, setOrder] = useState("");
   const [filter, setFilter] = useState("");
   const [cardsData, setCardsData] = useState([]);
+  const { data, error, isLoading, isError } = useNoticeList();
 
-  const navigationCreateNotice = () => navigation("new/notices")
+  const navigationCreateNotice = () => navigation("new/notices");
 
-  const filteredCards = cardsData
+  if (isLoading) {
+    return;
+  }
+
+  const filteredCards = data
     .filter(
       (card) =>
-        card.titulo.toLowerCase().includes(filter.toLowerCase()) ||
-        card.tipo.toLowerCase().includes(filter.toLowerCase())
+        card.title.toLowerCase().includes(filter.toLowerCase()) ||
+        card.axle.toLowerCase().includes(filter.toLowerCase())
     )
     .sort((a, b) => {
       switch (order) {
@@ -37,7 +44,12 @@ export function NoticeList() {
       }
     });
 
-  useEffect(() => {}, []);
+  const listNoticesQuery = async () => {
+    const data = await listNotices();
+    console.log(data)
+    setCardsData(data);
+  };
+
 
   return (
     <div className="container-list-notice">
@@ -56,12 +68,12 @@ export function NoticeList() {
           <Card
             key={card.id}
             id={card.id}
-            name={card.titulo}
-            type={card.tipo}
-            description={card.descricao}
-            term={card.prazo}
-            coordinator={card.coordenador.nome}
-            requirements={card.requisitos}
+            name={card.title}
+            type={card.axle}
+            description={card.description}
+            term={card.time}
+            coordinator={card.coordinator.name}
+            requirements={card.requirements}
             showDeleteButton={false}
             showEditButton={false}
             showShowButton={true}

@@ -5,7 +5,7 @@ export const api = axios.create({
   baseURL: "http://localhost:8080/",
 });
 
-export async function request(method, url, { token, body }) {
+export async function request(method, url, { token, body }={}) {
   let result = new APiException(500, "No connection");
   return await api
     .request({
@@ -18,6 +18,7 @@ export async function request(method, url, { token, body }) {
       result = response.data
     )
     .catch((err) => {
+      console.log(err)
       throw new APiException(err.response.status, err.response.data);
     });
 }

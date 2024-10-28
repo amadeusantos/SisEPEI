@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { request } from "../services/api";
+import { request } from "./api";
+import Cookies from "js-cookie";
 
 /**
  * Fetches a paginated list of notices based on the provided page, size, and optional filter by axle.
@@ -13,13 +14,11 @@ import { request } from "../services/api";
  *
  * @throws {APIException} Throws an error if the request fails or the server responds with an error.
  */
-export async function paginationNotices({ page = 1, size = 10, axle = undefined }) {
-  let uri = `?page=${page}&size=${size}`;
+export async function listNotices() {
+  let uri = `notices`;
+  const token = Cookies.get("token");
 
-  if (axle) {
-    uri += `&axle=${axle}`;
-  }
-  return await request("GET", uri);
+  return await request("GET", uri, { token });
 }
 
 const noticeSchema = z.object({
@@ -28,6 +27,7 @@ const noticeSchema = z.object({
   requirements: z.string(),
   date: z.coerce.date(),
   axle: z.enum(["EXTENSAO", "PESQUISA", "INOVACAO"]),
+  file: z.string(),
 });
 
 /**
@@ -51,14 +51,16 @@ export async function createNotice({
   requirements,
   date,
   axle,
+  file,
 }) {
-  const token = Cookies.get('token');
+  const token = Cookies.get("token");
   const body = noticeSchema.parse({
     title,
     description,
     requirements,
     date,
     axle,
+    file,
   });
 
   return await request("POST", "notices", { body, token });
