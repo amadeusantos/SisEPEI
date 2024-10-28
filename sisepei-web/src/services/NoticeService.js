@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { request } from "../services/api";
 
 /**
  * Fetches a paginated list of notices based on the provided page, size, and optional filter by axle.
@@ -51,6 +52,7 @@ export async function createNotice({
   date,
   axle,
 }) {
+  const token = Cookies.get('token');
   const body = noticeSchema.parse({
     title,
     description,
@@ -58,5 +60,6 @@ export async function createNotice({
     date,
     axle,
   });
-  return await request("POST", "", { body });
+
+  return await request("POST", "notices", { body, token });
 }

@@ -21,7 +21,7 @@ const credentialsSchema = z.object({
  */
 export async function login({ email, password }) {
   const body = credentialsSchema.parse({ email, password });
-  const { token } = await request("POST", "/auth/authenticate", { body });
+  const { token } = await request("POST", "/api/auth/authenticate", { body });
   Cookies.set("token", token);
 }
 
