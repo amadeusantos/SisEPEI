@@ -1,6 +1,8 @@
 package br.upe.sisepei.api;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,13 +57,14 @@ public class NoticeController {
 		return ResponseEntity.ok(noticeService.findNoticeById(id).getFile());
 	}
 
-	@PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+	@PostMapping
 	public ResponseEntity<?> createNotice(
 			@AuthenticationPrincipal User coordinator,
-			@ModelAttribute NoticeDTO noticeDTO
+			@RequestBody NoticeDTO noticeDTO
 	) throws IOException {
+		byte[] file = noticeDTO.getFile().getBytes(StandardCharsets.UTF_8);
 		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(convertToRepresentation(noticeService.createNotice(noticeDTO, coordinator, noticeDTO.getFile())));
+				.body(convertToRepresentation(noticeService.createNotice(noticeDTO, coordinator, file)));
 	}
 
 

@@ -1,13 +1,18 @@
 package br.upe.sisepei.core.notice.model;
 
+import java.util.Base64;
 import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class NoticeDTO {
 
 	@NotBlank(message = "Enter a title")
@@ -24,7 +29,7 @@ public class NoticeDTO {
 	@NotNull(message = "Enter a axle valid")
 	private AxleEnum axle;
 
-	@NotNull(message = "Enter a valid file")
-	private MultipartFile file;
+	@NotBlank(message = "")
+	private String file;
 
 }

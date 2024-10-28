@@ -1,12 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
-import Cookies from "js-cookie";
 import FormData from "form-data";
 import { Button, Field, SubTitle, Title } from "../../atoms";
 import { TextField } from "../../molecules";
 import { DateField } from "../../molecules/DateField";
 import { SelectField } from "../../molecules/SelectField";
+import { createNotice } from "../../../services/NoticeService";
+
+const fileToBase64 = async (file) => {
+  return new Promise(resolve => {
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      resolve(event.target.result);
+    };
+    reader.readAsDataURL(file);
+  });
+};
 
 export function NoticeForm() {
   const navigate = useNavigate();
@@ -23,27 +33,10 @@ export function NoticeForm() {
 
     let bodyformData = new FormData();
 
-    bodyformData.append("title", titulo)
-    bodyformData.append("description", descricao)
-    bodyformData.append("requirements", requisitos)
-    bodyformData.append("time", prazo)
-    bodyformData.append("axle", tipo)
-    bodyformData.append("file", edital);
+    const file = await fileToBase64(edital);
 
-    await fetch("http://localhost:8080/notices", {
-      method: 'POST',
-      body: bodyformData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${Cookies.get("token")}`
-      },
-    })
-      .then(
-        () => alert("Usuario cadastrado com sucesso!"),
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+    await createNotice({title: titulo, description: descricao, requirements: requisitos, file, axle: tipo, date: prazo});
+    handleClick();
   }
 
   const handleClick = () => {

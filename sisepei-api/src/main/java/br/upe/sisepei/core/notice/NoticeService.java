@@ -34,7 +34,7 @@ public class NoticeService {
 		return repository.findById(id).orElseThrow(() -> new NotFoundException("Notice not found"));
 	}
 
-	public Notice createNotice(NoticeDTO noticeDTO, User coordinator, MultipartFile file) throws IOException, ValidationException {
+	public Notice createNotice(NoticeDTO noticeDTO, User coordinator, byte[] file) throws IOException, ValidationException {
 
 		if (isCoordinator(noticeDTO.getAxle(), coordinator)) {
 			throw  new ValidationException("User not authorized to create notice for axle");
@@ -42,7 +42,7 @@ public class NoticeService {
 
 		Notice notice = convertToModel(noticeDTO);
 		notice.setCoordinator(coordinator);
-		notice.setFile(file.getBytes());
+		notice.setFile(file);
 		return repository.save(notice);
 	}
 
