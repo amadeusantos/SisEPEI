@@ -5,6 +5,7 @@ import java.util.Date;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class NoticeDTO {
@@ -22,5 +23,8 @@ public class NoticeDTO {
 
 	@NotNull(message = "Enter a axle valid")
 	private AxleEnum axle;
+
+	@NotNull(message = "Enter a valid file")
+	private MultipartFile file;
 
 }

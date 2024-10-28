@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
@@ -54,14 +55,13 @@ public class NoticeController {
 		return ResponseEntity.ok(noticeService.findNoticeById(id).getFile());
 	}
 
-	@PostMapping(consumes = {"multipart/form-data"})
+	@PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
 	public ResponseEntity<?> createNotice(
 			@AuthenticationPrincipal User coordinator,
-			@Valid @RequestBody NoticeDTO noticeDTO,
-			@RequestPart(value = "file") MultipartFile file
+			@ModelAttribute NoticeDTO noticeDTO
 	) throws IOException {
 		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(convertToRepresentation(noticeService.createNotice(noticeDTO, coordinator, file)));
+				.body(convertToRepresentation(noticeService.createNotice(noticeDTO, coordinator, noticeDTO.getFile())));
 	}
 
 

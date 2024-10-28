@@ -7,59 +7,42 @@ import { Button, Field, SubTitle, Title } from "../../atoms";
 import { TextField } from "../../molecules";
 import { DateField } from "../../molecules/DateField";
 import { SelectField } from "../../molecules/SelectField";
-import { api } from "../../../services/api"
 
 export function NoticeForm() {
-  //declaraçoes
   const navigate = useNavigate();
 
-  //constantes com useState que serao utilizadas
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
   const [requisitos, setRequisitos] = useState("");
   const [edital, setEdital] = useState();
   const [prazo, setPrazo] = useState("");
   const [tipo, setTipo] = useState("");
-  const [errTitulo, setErrTitulo] = useState(false);
-
-  const tipos = {
-    COORDENADOR_EXTENSAO: "EXTENSAO",
-    COORDENADOR_PESQUISA: "PESQUISA",
-    COORDENADOR_INOVACAO: "INOVACAO",
-  };
 
   async function cadastrarEdital(event) {
     event.preventDefault();
-    //pelo oq eu vi somente isso aqui ja coloca o arquivo na request
+
     let bodyformData = new FormData();
 
-    bodyformData.append("titulo", titulo);
-    bodyformData.append("arquivo", edital);
-    bodyformData.append("descricao", descricao);
-    bodyformData.append("requisitos", requisitos);
-    bodyformData.append("prazo", prazo);
-    bodyformData.append("tipo", tipo);
+    bodyformData.append("title", titulo)
+    bodyformData.append("description", descricao)
+    bodyformData.append("requirements", requisitos)
+    bodyformData.append("time", prazo)
+    bodyformData.append("axle", tipo)
+    bodyformData.append("file", edital);
 
-    await api
-      .post("/edital", bodyformData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          // Authorization: `Bearer ${Cookies.get("token")}`
-        },
-      })
+    await fetch("http://localhost:8080/notices", {
+      method: 'POST',
+      body: bodyformData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${Cookies.get("token")}`
+      },
+    })
       .then(
         () => alert("Usuario cadastrado com sucesso!"),
-        // setTitulo(""),
-        // setDescricao(""),
-        // setRequisitos(""),
-        // setEdital(""),
-        // setPrazo(""),
-        // setTipo(""),
-        setErrTitulo(false)
       )
       .catch((err) => {
         console.log(err);
-        setErrTitulo(true);
       });
   }
 
@@ -72,14 +55,12 @@ export function NoticeForm() {
     e.stopPropagation();
   };
 
-  // Função chamada quando o arquivo é solto na área
   const handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     const droppedFiles = Array.from(e.dataTransfer.files);
 
-    // Filtrando os arquivos permitidos
     const acceptedFiles = droppedFiles.filter((file) =>
       [
         "application/pdf",
@@ -88,11 +69,9 @@ export function NoticeForm() {
       ].includes(file.type)
     );
 
-    // Armazenando os arquivos
     setEdital(acceptedFiles[0]);
   };
 
-  // Função chamada quando o usuário clica para selecionar arquivos
   const handleFileSelect = (e) => {
     const selectedFiles = Array.from(e.target.files);
 
