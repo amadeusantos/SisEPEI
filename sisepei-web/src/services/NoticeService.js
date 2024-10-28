@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { request } from "./api";
 
 /**
  * Fetches a paginated list of notices based on the provided page, size, and optional filter by axle.
@@ -12,12 +13,9 @@ import { z } from "zod";
  *
  * @throws {APIException} Throws an error if the request fails or the server responds with an error.
  */
-export async function paginationNotices({ page = 1, size = 10, axle = undefined }) {
-  let uri = `?page=${page}&size=${size}`;
+export async function listNotices() {
+  let uri = `notices`;
 
-  if (axle) {
-    uri += `&axle=${axle}`;
-  }
   return await request("GET", uri);
 }
 
