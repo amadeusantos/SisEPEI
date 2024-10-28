@@ -15,11 +15,16 @@ export function LoginForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     await login({ email, password });
+
+    navigate("/");
   }
+
   const handleClick = () => {
     navigate("/cadastro/usuario");
   };
+
   return (
     <div className="login">
       <Title>Login</Title>
