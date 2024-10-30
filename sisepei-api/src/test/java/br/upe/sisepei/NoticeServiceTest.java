@@ -33,9 +33,7 @@ class NoticeServiceTest {
     @Mock
     private NoticeRepository repository;
 
-    @Mock
-    private MultipartFile file;
-
+    private byte[] file;
     private User coordinator;
     private NoticeDTO noticeDTO;
     private Notice notice;
@@ -46,6 +44,7 @@ class NoticeServiceTest {
         coordinator = new User();
         noticeDTO = new NoticeDTO();
         notice = new Notice();
+        file = new byte[]{1, 2, 3, 4};
     }
 
     @Test
@@ -84,7 +83,6 @@ class NoticeServiceTest {
     void testCreateNotice() throws IOException, ValidationException {
         noticeDTO.setAxle(AxleEnum.EXTENSAO);
         when(repository.save(any(Notice.class))).thenReturn(notice);
-        when(file.getBytes()).thenReturn(new byte[0]);
 
         var result = noticeService.createNotice(noticeDTO, coordinator, file);
 
@@ -102,8 +100,6 @@ class NoticeServiceTest {
         profile.setUsers(users);
         profile.setName(COORDENADOR_EXTENSAO);
         coordinator.setProfiles(Collections.singletonList(profile));
-
-        when(file.getBytes()).thenReturn(new byte[0]);
 
         Exception exception = assertThrows(ValidationException.class, () -> {
             noticeService.createNotice(noticeDTO, coordinator, file);
