@@ -102,14 +102,15 @@
     justify-content: center;
     flex-direction: column;
 }
-.edit-container button.BotaoDeAcao img {
+.edit-container button.BotaoDeAcao svg {
   width: 100%;
   height: 100%;
   transform: scale(0.7); 
   transition: all 0.2s ease-in-out;
+  color: var(--button-primary-hover);
 }
 
-.edit-container button.BotaoDeAcao:hover img {
+.edit-container button.BotaoDeAcao:hover svg {
   transform: scale(1.0);
 }
 

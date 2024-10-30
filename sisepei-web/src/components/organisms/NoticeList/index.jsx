@@ -23,6 +23,10 @@ export function NoticeList() {
     return;
   }
 
+  if (isError && (error.status == 403 || error.status == 401)) {
+    return navigation("/login")
+  }
+
   const filteredCards = data
     .filter(
       (card) =>

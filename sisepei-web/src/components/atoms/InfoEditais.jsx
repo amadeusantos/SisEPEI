@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Modal from './Modal';
 import BotaoDeAcao from './BotaoDeAcao';
 import DeleteModal from './DeleteModal';
+import { Eye, PencilSimple, Trash } from '@phosphor-icons/react';
 export const Card = ({id, name, coordinator, type, description, term, requirements, showEditButton, showDeleteButton }) => {
   const [openModal, setOpenModal] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -38,12 +39,12 @@ export const Card = ({id, name, coordinator, type, description, term, requiremen
 
       <div className="actions">
 
-        {showEditButton && (
+        {(
 
           <div className="button-container">
             <div ></div>
             <BotaoDeAcao
-              src="https://cdn.discordapp.com/attachments/440326168491720705/1092098165030789140/pencil.png"
+              src={<PencilSimple size={42} weight="fill" />}
               alt="editar"
               label="Editar"
               className="BotaoDeAcao"
@@ -52,12 +53,11 @@ export const Card = ({id, name, coordinator, type, description, term, requiremen
           </div>
         )}
 
-         {showDeleteButton && (
+         {(
 
           <div className="button-container">
-            <div className="line"></div>
             <BotaoDeAcao
-              src="https://cdn.discordapp.com/attachments/440326168491720705/1092108550400127108/delete.png"
+              src={<Trash size={42} weight="fill" />}
               alt="deletar"
               label="Deletar"
               onClick={() => setShowModal(true)}
@@ -69,13 +69,12 @@ export const Card = ({id, name, coordinator, type, description, term, requiremen
                   onCancel={handleCancelDelete}
                 />
               )}
-            <div className="line"></div>
           </div>
           
       )}
 
         <BotaoDeAcao
-          src='https://cdn.discordapp.com/attachments/440326168491720705/1092093148815167630/eye_1.png'
+          src={<Eye size={42} weight="fill" />}
           alt='mostrar'
           label='Mostrar'
           onClick={() => setOpenModal(true)}

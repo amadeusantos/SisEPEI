@@ -5,7 +5,7 @@ export function useNoticeList() {
   const { data, error, isLoading, isError } = useQuery({
     queryKey: ["listNotices"],
     queryFn: listNotices,
-    gcTime: 15 * 1000,
+    retry: false,
   });
 
   return { data, error, isLoading, isError };

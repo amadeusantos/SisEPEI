@@ -1,5 +1,5 @@
 import axios from "axios";
-import { APiException } from "./exception";
+import { APiException } from "./exception"
 
 export const api = axios.create({
   baseURL: "http://localhost:8080/",
