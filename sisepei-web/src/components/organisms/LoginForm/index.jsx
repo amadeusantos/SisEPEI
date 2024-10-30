@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { TextField } from "../../molecules";
 import { useState } from "react";
-import Cookies from "js-cookie";
 import { login } from "../../../services/AuthenticationService";
 import "./style.css";
 import { Title } from "../../atoms";

@@ -89,7 +89,10 @@ export function RegisterForm() {
         email: email,
         password: password,
       })
-      .then(() => alert("Usuario cadastrado com sucesso!"))
+      .then(() => {
+        alert("Usuário cadastrado com sucesso!")
+        navigate("/login")
+      })
       .catch((err) => setErrors((values) => [...values, err.data.message]));
   }
 
@@ -98,7 +101,7 @@ export function RegisterForm() {
   };
   return (
     <Form id="divGeral" onSubmit={registerUser} action="">
-      <Title>Cadastro de Usuario Geral</Title>
+      <Title>Cadastro de Usuário Geral</Title>
       <SubTitle>Preencha o Cadastro com as informações pertinentes</SubTitle>
       <TextField
         label="Nome"
