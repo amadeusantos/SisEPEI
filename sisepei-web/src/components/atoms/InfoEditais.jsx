@@ -1,26 +1,33 @@
-import React from 'react';
+import { Eye, PencilSimple, Trash } from '@phosphor-icons/react';
+import React, { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+
 import './style.css';
-import { useState } from 'react';
 import Modal from './Modal';
 import BotaoDeAcao from './BotaoDeAcao';
 import DeleteModal from './DeleteModal';
-import { Eye, PencilSimple, Trash } from '@phosphor-icons/react';
-export const Card = ({id, name, coordinator, type, description, term, requirements, showEditButton, showDeleteButton }) => {
+import { deleteNotice } from '../../services/NoticeService'
+
+export const Card = ({ id, name, coordinator, type, description, term, requirements, showEditButton, showDeleteButton }) => {
   const [openModal, setOpenModal] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-  
-    const handleConfirmDelete = () => {
-      setShowModal(false);
-    };
-  
-    const handleCancelDelete = () => {
-      setShowModal(false);
-    };
+  const [showModal, setShowModal] = useState(false);
+  const queryClient = useQueryClient();
 
-    const closeModal = () => {
-      setOpenModal(false)
-    }
+  const handleConfirmDelete = async () => {
+    await deleteNotice(id)
+      .then(_ => { queryClient.invalidateQueries(["listNotices"]) })
+      .catch(_ => { alert('Algum erro ocorreu!') })
 
+    setShowModal(false);
+  };
+
+  const handleCancelDelete = () => {
+    setShowModal(false);
+  };
+
+  const closeModal = () => {
+    setOpenModal(false)
+  }
 
   return (
     <div className="card-body">
@@ -53,7 +60,7 @@ export const Card = ({id, name, coordinator, type, description, term, requiremen
           </div>
         )}
 
-         {(
+        {(
 
           <div className="button-container">
             <BotaoDeAcao
@@ -63,15 +70,15 @@ export const Card = ({id, name, coordinator, type, description, term, requiremen
               onClick={() => setShowModal(true)}
               className="BotaoDeAcao"
             />
-              {showModal && (
-                <DeleteModal
-                  onConfirm={handleConfirmDelete}
-                  onCancel={handleCancelDelete}
-                />
-              )}
+            {showModal && (
+              <DeleteModal
+                onConfirm={handleConfirmDelete}
+                onCancel={handleCancelDelete}
+              />
+            )}
           </div>
-          
-      )}
+
+        )}
 
         <BotaoDeAcao
           src={<Eye size={42} weight="fill" />}
@@ -83,7 +90,7 @@ export const Card = ({id, name, coordinator, type, description, term, requiremen
       </div>
       {openModal && (
         <Modal
-          id ={id}
+          id={id}
           closeModal={closeModal}
           name={name}
           type={type}

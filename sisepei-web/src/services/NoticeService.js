@@ -65,3 +65,9 @@ export async function createNotice({
 
   return await request("POST", "notices", { body, token });
 }
+
+export async function deleteNotice(id) {
+  const token = Cookies.get("token");
+
+  return await request("DELETE", `notices/${id}`, { token })
+}

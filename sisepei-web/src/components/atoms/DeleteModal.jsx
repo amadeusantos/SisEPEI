@@ -1,16 +1,17 @@
 import React from 'react';
 import './style.css';
-  
+import Button from '../atoms/Button/index'
+
 const DeleteModal = ({ onConfirm, onCancel }) => {
   return (
     <div className='modalBackground'>
       <div className='modalBox'>
         <div className='modalContent'>
           <h3>Deletar Edital</h3>
-            <p>Deseja realmente deletar este edital?</p>
+          <p>Deseja realmente deletar este edital?</p>
           <div className="modal-buttons">
-            <button onClick={onCancel}>Cancelar</button>
-            <button onClick={onConfirm}>Deletar</button>
+            <Button onClick={onCancel}>Cancelar</Button>
+            <Button onClick={onConfirm}>Deletar</Button>
           </div>
         </div>
       </div>

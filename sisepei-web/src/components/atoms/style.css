@@ -1,9 +1,7 @@
-
-  
 .h1 {
   font-family: 'Inter', sans-serif;
 }
-  
+
 .my-button {
   transition: background-color 0.4s ease-out;
   background-color: #7991CF;
@@ -19,28 +17,28 @@
   align-items: center;
   text-align: center;
 }
-  
+
 .my-button:hover {
   background-color: #1c2231 !important;
 }
-  
+
 .my-button:active {
   transform: translateY(2px);
 }
-  
 
-  
+
+
 .search-bar {
   display: flex;
   background-repeat: no-repeat;
 }
 
 .search-bar input {
-  font-family: 'Inter', sans-serif; 
+  font-family: 'Inter', sans-serif;
 
 }
 
-.filter button{
+.filter button {
   background-color: #D9D9D9;
   border: none;
   margin-left: 10px;
@@ -53,11 +51,11 @@
   justify-content: center;
 }
 
-.filter button:hover{
+.filter button:hover {
   background-color: #7991CF;
 }
 
-.filter button img{
+.filter button img {
   transform: scale(0.7);
 }
 
@@ -65,7 +63,7 @@
 
 .card-body {
   margin-bottom: 20px;
-  margin-left:250px;
+  margin-left: 250px;
   margin-right: 250px;
   border-radius: 20px;
   padding: 10px;
@@ -75,37 +73,43 @@
   background-color: #E6E7ED;
   border: none;
   min-height: 120px;
-    
-}
-.nomeedital, .type, .description{
-    margin-top: 0px;
-    font-family: 'Inter', sans-serif; 
-    margin-left: 20px;
+
 }
 
-.nomeedital, .type, .description h3{
+.nomeedital,
+.type,
+.description {
+  margin-top: 0px;
+  font-family: 'Inter', sans-serif;
+  margin-left: 20px;
+}
+
+.nomeedital,
+.type,
+.description h3 {
   margin-top: 5px;
 
 }
 
 .description {
-    overflow-wrap: break-word;
-    max-width: 500px;
-    flex-grow: 1;
-    }
-
-.actions button{
-    border: none;
-    background-color:transparent;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+  overflow-wrap: break-word;
+  max-width: 500px;
+  flex-grow: 1;
 }
+
+.actions button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .edit-container button.BotaoDeAcao svg {
   width: 100%;
   height: 100%;
-  transform: scale(0.7); 
+  transform: scale(0.7);
   transition: all 0.2s ease-in-out;
   color: var(--button-primary-hover);
 }
@@ -120,20 +124,29 @@
   align-items: center;
   height: 85px;
   margin-right: 25px;
-  
+
 }
+
 .edit-container {
   height: 50px;
   margin-right: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  }
-  
+}
+
 .edit-container span {
   font-size: 15px;
-  font-family: 'Inter', sans-serif; 
+  font-family: 'Inter', sans-serif;
 
+}
+
+.modal-buttons {
+  width: 400px;
+  display: flex;
+  row-gap: 16px;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .line {
@@ -155,7 +168,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
 }
-   
+
 .modalBox {
   position: absolute;
   width: 500px;
@@ -169,57 +182,64 @@
   padding: 30px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07), 0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07), 0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
   align-items: flex-start;
-  font-family:  'Inter', sans-serif;;
+  font-family: 'Inter', sans-serif;
 }
 
 .modalContent {
   display: flex;
   flex-direction: column;
 }
-.nomeedital h3, .type h3, .description h3{
+
+.nomeedital h3,
+.type h3,
+.description h3 {
   font-size: 25px;
 }
+
 .modalProp {
   display: flex;
   margin-bottom: 5px;
-  
-} 
-.modalProp span{
+
+}
+
+.modalProp span {
   font-weight: bold;
   font-size: 17px;
 }
-.modalProp p{
+
+.modalProp p {
   margin-left: 5px;
-  text-align:justify;
+  text-align: justify;
   word-wrap: break-word;
   max-width: 363px;
 }
 
-.modalProp .description{
+.modalProp .description {
   align-items: center;
 }
+
 .description p {
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 
-.baixar{
+.baixar {
   width: 25% !important;
   height: 50px !important;
   display: flex !important;
-  margin: 0 !important; 
+  margin: 0 !important;
   margin-left: 5px !important;
-  
+
 }
+
 .modalProp {
   display: flex;
   justify-content: start;
-  
+
 }
 
-.modalBox button{
-  width:50%;
+.modalBox button {
   margin: 0 auto;
   background-color: #7991CF;
   color: white;
@@ -228,6 +248,6 @@
   transition: all 0.3s ease-in-out;
 }
 
-.modalBox button:hover{
+.modalBox button:hover {
   transform: scale(1.09);
 }
