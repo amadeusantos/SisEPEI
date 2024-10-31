@@ -59,7 +59,10 @@
   transform: scale(0.7);
 }
 
-
+.card-summary {
+  display: flex;
+  align-items: center;
+}
 
 .card-body {
   margin-bottom: 20px;

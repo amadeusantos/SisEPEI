@@ -32,17 +32,19 @@ export const Card = ({ id, name, coordinator, type, description, term, requireme
 
   return (
     <div className="card-body">
-      <div className="nomeedital">
-        <h3>Nome:</h3>
-        <p>{name}</p>
-      </div>
-      <div className='type'>
-        <h3>Tipo:</h3>
-        <p>{type}</p>
-      </div>
-      <div className='description'>
-        <h3>Descrição:</h3>
-        <p>{description}</p>
+      <div className="card-summary">
+        <div className="nomeedital">
+          <h3>Nome:</h3>
+          <p>{name}</p>
+        </div>
+        <div className='type'>
+          <h3>Tipo:</h3>
+          <p>{type}</p>
+        </div>
+        <div className='description'>
+          <h3>Descrição:</h3>
+          <p>{description}</p>
+        </div>
       </div>
 
       <div className="actions">
