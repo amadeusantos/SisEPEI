@@ -25,7 +25,7 @@ const noticeSchema = z.object({
   title: z.string(),
   description: z.string(),
   requirements: z.string(),
-  date: z.coerce.date(),
+  time: z.coerce.date(),
   axle: z.enum(["EXTENSAO", "PESQUISA", "INOVACAO"]),
   file: z.string(),
 });
@@ -49,7 +49,7 @@ export async function createNotice({
   title,
   description,
   requirements,
-  date,
+  time,
   axle,
   file,
 }) {
@@ -58,7 +58,7 @@ export async function createNotice({
     title,
     description,
     requirements,
-    date,
+    time,
     axle,
     file,
   });
@@ -71,7 +71,7 @@ export async function editNotice({
   title,
   description,
   requirements,
-  date,
+  time,
   axle,
   file,
 }) {
@@ -80,7 +80,7 @@ export async function editNotice({
     title,
     description,
     requirements,
-    date,
+    time,
     axle,
     file,
   });

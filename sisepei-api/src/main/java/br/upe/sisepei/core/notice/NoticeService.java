@@ -47,20 +47,14 @@ public class NoticeService {
 	}
 
 	//TODO AS: IOException
-	public Notice updateNotice(Long id, NoticeDTO noticeDTO, User coordinator, MultipartFile file) {
+	public Notice updateNotice(Long id, NoticeDTO noticeDTO, User coordinator, byte[] file) {
 		Notice notice = findNoticeById(id);
 
 		if (!notice.getCoordinator().getEmail().equals(coordinator.getEmail())) {
 			throw  new ValidationException("User not authorized to edit notice");
 		}
 
-		try {
-			if (!file.isEmpty()) {
-				notice.setFile(file.getBytes());
-			}
-		} catch (IOException ioException) {
-			throw new ValidationException(ioException.getMessage());
-		}
+		notice.setFile(file);
 
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.map(noticeDTO, notice);

@@ -1,6 +1,5 @@
 package br.upe.sisepei.core.notice.model;
 
-import java.util.Base64;
 import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
