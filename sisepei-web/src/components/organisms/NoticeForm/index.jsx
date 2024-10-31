@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
-import FormData from "form-data";
 import { Button, Field, SubTitle, Title } from "../../atoms";
 import { TextField } from "../../molecules";
 import { DateField } from "../../molecules/DateField";

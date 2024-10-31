@@ -66,6 +66,12 @@ export async function createNotice({
   return await request("POST", "notices", { body, token });
 }
 
+export async function findNoticeFile(id) {
+  const token = Cookies.get("token");
+
+  return await request("GET", `notices/${id}/file`, { token });
+}
+
 export async function editNotice({
   id,
   title,

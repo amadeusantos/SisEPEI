@@ -62,7 +62,6 @@ public class NoticeController {
 			@AuthenticationPrincipal User coordinator,
 			@Valid @RequestBody NoticeDTO noticeDTO
 	) throws IOException {
-		System.out.println(noticeDTO.getTime());
 		byte[] file = noticeDTO.getFile().getBytes(StandardCharsets.UTF_8);
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(convertToRepresentation(noticeService.createNotice(noticeDTO, coordinator, file)));

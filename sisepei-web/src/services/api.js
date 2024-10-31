@@ -15,7 +15,7 @@ export async function request(method, url, { token, body }={}) {
       url,
     })
     .then((response) =>
-      result = response.data
+      response.data
     )
     .catch((err) => {
       console.log(err)
