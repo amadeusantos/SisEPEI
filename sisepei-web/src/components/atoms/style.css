@@ -141,6 +141,11 @@
 
 }
 
+.link {
+  text-decoration: none;
+  color: var(--button-primary-hover);
+}
+
 .modal-buttons {
   width: 400px;
   display: flex;

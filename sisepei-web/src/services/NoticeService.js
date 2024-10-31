@@ -66,6 +66,34 @@ export async function createNotice({
   return await request("POST", "notices", { body, token });
 }
 
+export async function editNotice({
+  id,
+  title,
+  description,
+  requirements,
+  date,
+  axle,
+  file,
+}) {
+  const token = Cookies.get("token");
+  const body = noticeSchema.parse({
+    title,
+    description,
+    requirements,
+    date,
+    axle,
+    file,
+  });
+
+  return await request("PUT", `notices/${id}`, { body, token });
+}
+
+export async function findNotice(id) {
+  const token = Cookies.get("token");
+
+  return await request("GET", `notices/${id}`, { token });
+}
+
 export async function deleteNotice(id) {
   const token = Cookies.get("token");
 

@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Login, Home, Register, CreateNotice } from "../components/templates";
+import { Login, Home, Register, CreateNotice, EditNotice } from "../components/templates";
 import { MudancaPermicao } from "../components/templates/Cadastro/MudancaPermicao";
 import React from "react";
 import { EscolhaDePersonalidade } from "../components/templates/pagina-intermedio-login-dashboard/EscolhaDePersoladidade";
@@ -14,6 +14,7 @@ export default function Router() {
 
       <Route path="/adm/mudanca/permicao" element={<MudancaPermicao />} />
       <Route path="/new/notices" element={<CreateNotice />} />
+      <Route path="/edit/notices/:id" element={<EditNotice />} />
       <Route />
       <Route path="/intermedio" element={<EscolhaDePersonalidade />} />
       <Route path="/editaredital" element={<EditarEditais />} />

@@ -6,36 +6,39 @@ import { Button, Field, SubTitle, Title } from "../../atoms";
 import { TextField } from "../../molecules";
 import { DateField } from "../../molecules/DateField";
 import { SelectField } from "../../molecules/SelectField";
-import { createNotice } from "../../../services/NoticeService";
 
 const fileToBase64 = async (file) => {
   return new Promise(resolve => {
     var reader = new FileReader();
-    reader.onload = function(event) {
+    reader.onload = function (event) {
       resolve(event.target.result);
     };
     reader.readAsDataURL(file);
   });
 };
 
-export function NoticeForm() {
+export function NoticeForm({
+  defaultValues,
+  onSubmit,
+  title,
+  buttonText
+}) {
   const navigate = useNavigate();
 
-  const [titulo, setTitulo] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [requisitos, setRequisitos] = useState("");
-  const [edital, setEdital] = useState();
-  const [prazo, setPrazo] = useState("");
-  const [tipo, setTipo] = useState("");
+  const [titulo, setTitulo] = useState(defaultValues?.titulo ?? "");
+  const [descricao, setDescricao] = useState(defaultValues?.descricao ?? "");
+  const [requisitos, setRequisitos] = useState(defaultValues?.requisitos ?? "");
+  const [edital, setEdital] = useState(defaultValues?.edital ?? undefined);
+  const [prazo, setPrazo] = useState(defaultValues?.prazo ?? "");
+  const [tipo, setTipo] = useState(defaultValues?.tipo ?? "");
 
-  async function cadastrarEdital(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-
-    let bodyformData = new FormData();
 
     const file = await fileToBase64(edital);
 
-    await createNotice({title: titulo, description: descricao, requirements: requisitos, file, axle: tipo, date: prazo});
+    await onSubmit({ title: titulo, description: descricao, requirements: requisitos, file, axle: tipo, date: prazo });
+
     handleClick();
   }
 
@@ -79,8 +82,8 @@ export function NoticeForm() {
     setEdital(acceptedFiles[0]);
   };
   return (
-    <form action="" onSubmit={cadastrarEdital}>
-      <Title>Cadastro de Editais</Title>
+    <form action="" onSubmit={handleSubmit}>
+      <Title>{title}</Title>
 
       <SubTitle>
         Preencha o campos abaixo com as informaçoes pertinentes sobre o Edital
@@ -135,6 +138,7 @@ export function NoticeForm() {
           { value: "PESQUISA", label: "pesquisa" },
           { value: "INOVACAO", label: "inovação" },
         ]}
+        value={tipo}
         required
       />
 
@@ -196,7 +200,7 @@ export function NoticeForm() {
       <div className="space-evenly">
         <Button onClick={handleClick}>Voltar</Button>
         <Button color="secondary" type="submit">
-          Cadastrar
+          {buttonText}
         </Button>
       </div>
     </form>

@@ -1,6 +1,7 @@
 import { Eye, PencilSimple, Trash } from '@phosphor-icons/react';
 import React, { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
+import { Link } from "react-router-dom";
 
 import './style.css';
 import Modal from './Modal';
@@ -49,14 +50,14 @@ export const Card = ({ id, name, coordinator, type, description, term, requireme
         {(
 
           <div className="button-container">
-            <div ></div>
-            <BotaoDeAcao
-              src={<PencilSimple size={42} weight="fill" />}
-              alt="editar"
-              label="Editar"
-              className="BotaoDeAcao"
-            />
-            <div ></div>
+            <Link className="link" to={`/edit/notices/${id}`}>
+              <BotaoDeAcao
+                src={<PencilSimple size={42} weight="fill" />}
+                alt="editar"
+                label="Editar"
+                className="BotaoDeAcao"
+              />
+            </Link>
           </div>
         )}
 
