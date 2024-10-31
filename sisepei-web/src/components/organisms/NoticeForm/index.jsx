@@ -37,7 +37,7 @@ export function NoticeForm({
 
     const file = await fileToBase64(edital);
 
-    await onSubmit({ title: titulo, description: descricao, requirements: requisitos, file, axle: tipo, date: prazo });
+    await onSubmit({ title: titulo, description: descricao, requirements: requisitos, file, axle: tipo, time: prazo });
 
     handleClick();
   }

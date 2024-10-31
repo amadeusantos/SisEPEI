@@ -60,8 +60,9 @@ public class NoticeController {
 	@PostMapping
 	public ResponseEntity<?> createNotice(
 			@AuthenticationPrincipal User coordinator,
-			@RequestBody NoticeDTO noticeDTO
+			@Valid @RequestBody NoticeDTO noticeDTO
 	) throws IOException {
+		System.out.println(noticeDTO.getTime());
 		byte[] file = noticeDTO.getFile().getBytes(StandardCharsets.UTF_8);
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(convertToRepresentation(noticeService.createNotice(noticeDTO, coordinator, file)));
@@ -72,9 +73,9 @@ public class NoticeController {
 	public ResponseEntity<?> updateNotice(
 			@PathVariable Long id,
 			@AuthenticationPrincipal User coordinator,
-			@Valid @RequestBody NoticeDTO noticeDTO,
-			@RequestPart(value = "file", required = false) MultipartFile file
+			@Valid @RequestBody NoticeDTO noticeDTO
 	) {
+		byte[] file = noticeDTO.getFile().getBytes(StandardCharsets.UTF_8);
 		return ResponseEntity.ok(convertToRepresentation(noticeService.updateNotice(id, noticeDTO, coordinator, file)));
 	}
 

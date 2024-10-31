@@ -20,7 +20,7 @@ export function DateField({ label, required, name, value, onChange }) {
       <div className="date-input-container">
         <input
           id={name}
-          value={value}
+        value={value.substring(0, 10)}
           type="date"
           className="custom-date-input"
           onChange={setValue}
