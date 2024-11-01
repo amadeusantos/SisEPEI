@@ -1,6 +1,7 @@
 package br.upe.sisepei.core.profile.service;
 
-import br.upe.sisepei.core.profile.respository.ProfileRepository;
+import br.upe.sisepei.core.profile.respository.ProfileJPARepository;
+import br.upe.sisepei.core.profile.respository.interfaces.ProfileRepository;
 import br.upe.sisepei.core.profile.model.ProfileEnum;
 import br.upe.sisepei.core.user.model.User;
 import br.upe.sisepei.utils.exceptions.NotFoundException;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
 public class ListUsersByProfile {
 

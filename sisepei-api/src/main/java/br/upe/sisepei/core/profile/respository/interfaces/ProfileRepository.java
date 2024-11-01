@@ -1,14 +1,14 @@
-package br.upe.sisepei.core.profile.respository;
+package br.upe.sisepei.core.profile.respository.interfaces;
 
+import java.util.List;
 import java.util.Optional;
 
 import br.upe.sisepei.core.profile.model.ProfileEnum;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.upe.sisepei.core.profile.model.Profile;
 
-public interface ProfileRepository extends JpaRepository<Profile, Long> {
+public interface ProfileRepository{
 	
 	Optional<Profile> findByName(ProfileEnum name);
-
+	List<Profile> findAll();
 }

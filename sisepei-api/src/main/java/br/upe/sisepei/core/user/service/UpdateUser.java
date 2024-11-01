@@ -7,11 +7,12 @@ import br.upe.sisepei.core.user.model.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
+
 @RequiredArgsConstructor
 public class UpdateUser {
+    private final IUserRepository IUserRepository;
     private final FindUserById findUserById;
-    private final IUserRepository IUserRepository = UserJPARepository.getInstance();
+
 
     public User execute(Long id, UserDTO userDTO) {
         User user = findUserById.execute(id);

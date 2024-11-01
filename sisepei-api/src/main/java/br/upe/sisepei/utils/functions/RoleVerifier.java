@@ -7,6 +7,8 @@ import br.upe.sisepei.core.user.model.User;
 import java.util.List;
 import java.util.Map;
 
+
+@RequiredArgsConstructor
 public class RoleVerifier {
 
     private static final Map<AxleEnum, String> roleMapping = Map.of(
@@ -15,7 +17,7 @@ public class RoleVerifier {
             AxleEnum.PESQUISA, "COORDENADOR_PESQUISA"
     );
 
-    public static boolean roleVerifier(AxleEnum axle, User coordinator) {
+    public static boolean execute(AxleEnum axle, User coordinator) {
         List<String> role = coordinator.getProfiles().stream().map(Profile::getAuthority).toList();
 
         return role.contains(roleMapping.get(axle));

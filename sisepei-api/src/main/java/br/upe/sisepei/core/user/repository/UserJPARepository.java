@@ -48,23 +48,25 @@ public class UserJPARepository implements IUserRepository {
     @Override
     public Optional<User> findByEmail(String email) {
         String query = "SELECT u FROM User u WHERE u.email = :email";
-        User user = entityManager
+        List<User> users = entityManager
                 .createQuery(query, User.class)
                 .setParameter("email", email)
-                .getSingleResult();
+                .setMaxResults(1)
+                .getResultList();
 
-        return Optional.ofNullable(user);
+        return users.isEmpty() ? Optional.empty() : Optional.of(users.get(0));
     }
 
     @Override
     public Optional<User> findById(Long id) {
-        String query = "SELECT u FROM User u WHERE id = :id";
-        User user = entityManager
+        String query = "SELECT u FROM User u WHERE u.id = :id";
+        List<User> users = entityManager
                 .createQuery(query, User.class)
                 .setParameter("id", id)
-                .getSingleResult();
+                .setMaxResults(1)
+                .getResultList();
 
-        return Optional.ofNullable(user);
+        return users.isEmpty() ? Optional.empty() : Optional.of(users.get(0));
     }
 
     @Override

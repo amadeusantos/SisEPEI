@@ -6,11 +6,11 @@ import br.upe.sisepei.utils.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
+
 @RequiredArgsConstructor
 public class DeleteUser {
 
-    private final IUserRepository IUserRepository = UserJPARepository.getInstance();
+    private final IUserRepository IUserRepository;
 
     public void execute(Long id) {
         if (!IUserRepository.existsById(id)) {

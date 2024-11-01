@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import br.upe.sisepei.api.representation.NoticeRepresentation;
 import br.upe.sisepei.core.notice.model.AxleEnum;
 import br.upe.sisepei.core.notice.service.*;
+import br.upe.sisepei.core.notice.service.CreateNotice;
 import br.upe.sisepei.core.user.model.User;
 import br.upe.sisepei.utils.exceptions.NotFoundException;
 import jakarta.validation.Valid;

@@ -1,6 +1,6 @@
 package br.upe.sisepei.core.notice.service;
 
-import br.upe.sisepei.core.notice.repository.NoticeRepository;
+import br.upe.sisepei.core.notice.repository.interfaces.NoticeRepository;
 import br.upe.sisepei.core.notice.model.Notice;
 import br.upe.sisepei.core.notice.model.NoticeDTO;
 import br.upe.sisepei.core.user.model.User;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-@Service
+
 @RequiredArgsConstructor
 public class CreateNotice {
 
@@ -19,9 +19,9 @@ public class CreateNotice {
 
     public Notice execute(NoticeDTO noticeDTO, User coordinator, byte[] file) {
 
-//        if (roleVerifier(noticeDTO.getAxle(), coordinator)) {
-//            throw  new ValidationException("User not authorized to create notice for axle");
-//        }
+        if (RoleVerifier.execute(noticeDTO.getAxle(), coordinator)) {
+            throw  new ValidationException("User not authorized to create notice for axle");
+        }
 
         Notice notice = new Notice();
         BeanUtils.copyProperties(noticeDTO, notice);

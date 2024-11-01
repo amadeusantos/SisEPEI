@@ -11,11 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
+
 @RequiredArgsConstructor
 public class RegisterUser {
 
-    private final IUserRepository IUserRepository = UserJPARepository.getInstance();
+    private final IUserRepository IUserRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
