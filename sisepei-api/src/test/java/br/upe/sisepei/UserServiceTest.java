@@ -9,7 +9,7 @@ import br.upe.sisepei.core.user.model.User;
 import br.upe.sisepei.core.user.model.UserDTO;
 import br.upe.sisepei.config.JwtService;
 import br.upe.sisepei.utils.exceptions.NotFoundException;
-import br.upe.sisepei.utils.exceptions.ValidationException;
+import br.upe.sisepei.utils.exceptions.UnprocessableEntityException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -111,7 +111,7 @@ class UserServiceTest {
         RegisterDTO request = new RegisterDTO("Test User", testEmail, testPassword);
         when(userRepository.existsByEmail(testEmail)).thenReturn(true);
 
-        ValidationException exception = assertThrows(ValidationException.class, () -> {
+        UnprocessableEntityException exception = assertThrows(UnprocessableEntityException.class, () -> {
             userService.register(request);
         });
 

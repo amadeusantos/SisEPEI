@@ -8,13 +8,12 @@ import br.upe.sisepei.core.notice.model.NoticeDTO;
 import br.upe.sisepei.core.user.model.User;
 import br.upe.sisepei.core.profile.model.Profile;
 import br.upe.sisepei.utils.exceptions.NotFoundException;
-import br.upe.sisepei.utils.exceptions.ValidationException;
+import br.upe.sisepei.utils.exceptions.UnprocessableEntityException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -80,7 +79,7 @@ class NoticeServiceTest {
     }
 
     @Test
-    void testCreateNotice() throws IOException, ValidationException {
+    void testCreateNotice() throws IOException, UnprocessableEntityException {
         noticeDTO.setAxle(AxleEnum.EXTENSAO);
         when(repository.save(any(Notice.class))).thenReturn(notice);
 
@@ -101,7 +100,7 @@ class NoticeServiceTest {
         profile.setName(COORDENADOR_EXTENSAO);
         coordinator.setProfiles(Collections.singletonList(profile));
 
-        Exception exception = assertThrows(ValidationException.class, () -> {
+        Exception exception = assertThrows(UnprocessableEntityException.class, () -> {
             noticeService.createNotice(noticeDTO, coordinator, file);
         });
 

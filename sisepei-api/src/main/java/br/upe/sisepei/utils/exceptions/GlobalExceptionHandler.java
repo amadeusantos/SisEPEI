@@ -12,13 +12,22 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ExceptionResponse> handleNotFoundException(NotFoundException exception) {
-        return ResponseEntity.badRequest().body(new ExceptionResponse(404, exception.getMessage()));
+        return ResponseEntity.badRequest().body(new ExceptionResponse(HttpStatus.NOT_FOUND.value(), exception.getMessage()));
     }
 
-    @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<ExceptionResponse> handleValidationException(ValidationException exception) {
+    @ExceptionHandler(UnprocessableEntityException.class)
+    public ResponseEntity<ExceptionResponse> handleValidationException(UnprocessableEntityException exception) {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
-                .body(new ExceptionResponse(422, exception.getMessage()));
+                .body(new ExceptionResponse(
+                        HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                        exception.getMessage(),
+                        exception.getFieldErrors()
+                ));
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ExceptionResponse> handleConflictException(ConflictException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ExceptionResponse(HttpStatus.CONFLICT.value(), exception.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
