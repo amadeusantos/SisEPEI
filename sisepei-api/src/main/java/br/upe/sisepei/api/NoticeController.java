@@ -1,31 +1,23 @@
 package br.upe.sisepei.api;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import br.upe.sisepei.api.representation.NoticeRepresentation;
 import br.upe.sisepei.core.notice.model.AxleEnum;
-import br.upe.sisepei.core.notice.service.*;
-import br.upe.sisepei.core.notice.service.CreateNotice;
+import br.upe.sisepei.core.notice.useCases.*;
 import br.upe.sisepei.core.user.model.User;
-import br.upe.sisepei.utils.exceptions.NotFoundException;
+import br.upe.sisepei.utils.exceptions.UnprocessableEntityException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import br.upe.sisepei.core.notice.model.Notice;
 import br.upe.sisepei.core.notice.model.NoticeDTO;
-import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin
 @RestController
@@ -33,43 +25,34 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/notices")
 public class NoticeController {
 
-	private final ListNotices listNotices;
-	private final FindNoticesByAxle findNoticesByAxle;
-	private final FindNoticeById findNoticeById;
-	private final CreateNotice createNotice;
-	private final DeleteNotice deleteNotice;
-	private final UpdateNotice updateNotice;
+	private final ListNoticesUseCase listNoticesUseCase;
+	private final FindNoticesByAxleUseCase findNoticesByAxleUseCase;
+	private final FindNoticeByIdUseCase findNoticeByIdUseCase;
+	private final CreateNoticeUseCase createNoticeUseCase;
+	private final UpdateNoticeUseCase updateNoticeUseCase;
+	private final DeleteNoticeUseCase deleteNoticeUseCase;
 
 	@GetMapping
 	public ResponseEntity<List<NoticeRepresentation>> listNotices(){
-		return ResponseEntity.ok(
-				listNotices
-				.execute()
-				.stream()
-				.map(this::convertToRepresentation)
-				.collect(Collectors.toList())
-		);
+		return ResponseEntity.ok(listNoticesUseCase.execute().stream()
+				.map(NoticeRepresentation::new).collect(Collectors.toList()));
+
 	}
 
 	@GetMapping("axle/{axle}")
 	public ResponseEntity<List<NoticeRepresentation>> listNoticesByAxle(@PathVariable AxleEnum axle) {
-		return ResponseEntity.ok(
-				findNoticesByAxle
-						.execute(axle)
-						.stream()
-						.map(this::convertToRepresentation)
-						.collect(Collectors.toList())
-				);
+		return ResponseEntity.ok(findNoticesByAxleUseCase.execute(axle).stream()
+				.map(NoticeRepresentation::new).collect(Collectors.toList()));
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findNoticeById(@PathVariable Long id){
-			return ResponseEntity.ok(convertToRepresentation(findNoticeById.execute(id)));
+		return ResponseEntity.ok(new NoticeRepresentation(findNoticeByIdUseCase.execute(id)));
 	}
 
 	@GetMapping("/{id}/file")
-	public ResponseEntity<?> getNoticeFile(@PathVariable Long id){
-			return ResponseEntity.ok(findNoticeById.execute(id).getFile());
+	public ResponseEntity<?> getNoticeFileById(@PathVariable Long id){
+		return ResponseEntity.ok(findNoticeByIdUseCase.execute(id).getFile());
 	}
 
 	@PostMapping
@@ -77,14 +60,13 @@ public class NoticeController {
 			@AuthenticationPrincipal User coordinator,
 			@Valid @RequestBody NoticeDTO noticeDTO,
 			BindingResult bindingResult
-	){
-		if (bindingResult.hasErrors()) {
-			return ResponseEntity.badRequest().body(String.join("; ", bindingResult.getAllErrors().stream()
-					.map(DefaultMessageSourceResolvable::getDefaultMessage).toList()));
-		}
-			byte[] file = noticeDTO.getFile().getBytes(StandardCharsets.UTF_8);
-			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(convertToRepresentation(createNotice.execute(noticeDTO, coordinator, file)));
+	) {
+	if (bindingResult.hasFieldErrors()) {
+		throw new UnprocessableEntityException("Error when create notice", bindingResult.getFieldErrors());
+	}
+		byte[] file = noticeDTO.getFile().getBytes(StandardCharsets.UTF_8);
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(new NoticeRepresentation(createNoticeUseCase.execute(noticeDTO, coordinator, file)));
 	}
 
 
@@ -92,25 +74,22 @@ public class NoticeController {
 	public ResponseEntity<?> updateNotice(
 			@PathVariable Long id,
 			@AuthenticationPrincipal User coordinator,
-			@Valid @RequestBody NoticeDTO noticeDTO
+			@Valid @RequestBody NoticeDTO noticeDTO,
+			BindingResult bindingResult
 	) {
-			byte[] file = noticeDTO.getFile().getBytes(StandardCharsets.UTF_8);
-			return ResponseEntity.ok(convertToRepresentation(updateNotice.execute(id, noticeDTO, coordinator, file)));
+		if (bindingResult.hasFieldErrors()) {
+			throw new UnprocessableEntityException("Error when edit notice", bindingResult.getFieldErrors());
+		}
+		byte[] file = noticeDTO.getFile().getBytes(StandardCharsets.UTF_8);
+		return ResponseEntity.ok(new NoticeRepresentation(updateNoticeUseCase.execute(id, noticeDTO, coordinator, file)));
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteNotice(
 			@AuthenticationPrincipal User coordinator,
 			@PathVariable Long id
-			){
-			deleteNotice.execute(id, coordinator);
-
+			) {
+		deleteNoticeUseCase.execute(id, coordinator.getId());
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-	}
-
-	// TODO: Remover
-	private NoticeRepresentation convertToRepresentation(Notice notice) {
-		ModelMapper modelMapper = new ModelMapper();
-		return modelMapper.map(notice, NoticeRepresentation.class);
 	}
 }

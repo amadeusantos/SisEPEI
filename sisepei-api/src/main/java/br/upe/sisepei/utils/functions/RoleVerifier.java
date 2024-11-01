@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 
-@RequiredArgsConstructor
 public class RoleVerifier {
 
     private static final Map<AxleEnum, String> roleMapping = Map.of(

@@ -3,12 +3,16 @@ package br.upe.sisepei.api;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.upe.sisepei.core.user.service.*;
-import br.upe.sisepei.utils.exceptions.NotFoundException;
+import br.upe.sisepei.utils.exceptions.UnprocessableEntityException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
+import br.upe.sisepei.core.user.useCases.DeleteUserUseCase;
+import br.upe.sisepei.core.user.useCases.FindUserByIdUseCase;
+import br.upe.sisepei.core.user.useCases.ListUsersUseCase;
+import br.upe.sisepei.core.user.useCases.UpdateUserUseCase;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import br.upe.sisepei.api.representation.UserRepresentation;
@@ -22,51 +26,45 @@ import br.upe.sisepei.core.user.model.UserDTO;
 @RequestMapping("/users")
 public class UserController {
 
-	private final ListUsers listUsers;
-	private final FindUsersProfiles findUsersProfiles;
-	private final FindUserById findUserById;
-	private final UpdateUser updateUser;
-	private final DeleteUser deleteUser;
+    private final ListUsersUseCase listUsersUseCase;
+    private final FindUserByIdUseCase findUserByIdUseCase;
+    private final UpdateUserUseCase updateUserUseCase;
+    private final DeleteUserUseCase deleteUserUseCase;
 
-	@GetMapping
-	public ResponseEntity<List<UserRepresentation>> listUser() {
-		return ResponseEntity.ok(
-				listUsers
-						.execute()
-						.stream()
-						.map(this::convertToUserRepresentation)
-						.collect(Collectors.toList()));
-	}
+    @GetMapping
+    public ResponseEntity<List<UserRepresentation>> listUser() {
+        return ResponseEntity.ok(listUsersUseCase.execute()
+                .stream().map(UserRepresentation::new).collect(Collectors.toList()));
+    }
 
-	@GetMapping("/profile")
-	public ResponseEntity<?> findUserProfiles(
-			@RequestHeader(name = "Authorization") String token
-	) {
-			String jwt = token.substring(7);
-			return ResponseEntity.ok(convertToUserRepresentation(findUsersProfiles.execute(jwt)));
-	}
+    @GetMapping("/profile")
+    public ResponseEntity<?> findUserProfiles(
+            @AuthenticationPrincipal User user
+    ) {
+        return ResponseEntity.ok(new UserRepresentation(findUserByIdUseCase.execute(user.getId())));
+    }
 
-	@GetMapping("/{id}")
-	public ResponseEntity<?> findUserById(@PathVariable Long id) {
-			return ResponseEntity.ok(convertToUserRepresentation(findUserById.execute(id)));
-	}
-	
-	@PutMapping("/{id}")
-	public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO userDTO) {
-			return ResponseEntity.ok(convertToUserRepresentation(updateUser.execute(id, userDTO)));
-	}
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(new UserRepresentation(findUserByIdUseCase.execute(id)));
+    }
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteUser(@PathVariable Long id) {
-			deleteUser.execute(id);
-		
-		return ResponseEntity.noContent().build();
-	}
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(
+            @PathVariable Long id, 
+            @Valid @RequestBody UserDTO userDTO,
+            BindingResult bindingResult
+    ) {
+        if (bindingResult.hasFieldErrors()) {
+            throw new UnprocessableEntityException("Error when edit user", bindingResult.getFieldErrors());
+        }
+        return ResponseEntity.ok(new UserRepresentation(updateUserUseCase.execute(id, userDTO)));
+    }
 
-	// TODO Remover
-	private UserRepresentation convertToUserRepresentation(User user) {
-		ModelMapper modelMapper = new ModelMapper();
-		return modelMapper.map(user, UserRepresentation.class);
-	}
-	
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        deleteUserUseCase.execute(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

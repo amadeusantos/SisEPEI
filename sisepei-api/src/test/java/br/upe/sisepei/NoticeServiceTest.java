@@ -1,6 +1,6 @@
 package br.upe.sisepei;
 
-import br.upe.sisepei.core.notice.NoticeRepository;
+import br.upe.sisepei.core.notice.INoticeRepository;
 import br.upe.sisepei.core.notice.NoticeService;
 import br.upe.sisepei.core.notice.model.AxleEnum;
 import br.upe.sisepei.core.notice.model.Notice;
@@ -30,7 +30,7 @@ class NoticeServiceTest {
     private NoticeService noticeService;
 
     @Mock
-    private NoticeRepository repository;
+    private INoticeRepository repository;
 
     private byte[] file;
     private User coordinator;

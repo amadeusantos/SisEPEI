@@ -1,25 +1,35 @@
 package br.upe.sisepei.api.representation;
 
 import br.upe.sisepei.core.notice.model.AxleEnum;
-import lombok.Data;
+import br.upe.sisepei.core.notice.model.Notice;
+import lombok.Getter;
 
 import java.util.Date;
 
-@Data
+@Getter
 public class NoticeRepresentation {
 
-    private Long id;
+    private final Long id;
 
-    private String title;
+    private final String title;
 
-    private String description;
+    private final String description;
 
-    private String requirements;
+    private final String requirements;
 
-    private Date time;
+    private final Date time;
 
-    private AxleEnum axle;
+    private final AxleEnum axle;
 
-    private UserRepresentation coordinator;
+    private final UserRepresentation coordinator;
 
+    public NoticeRepresentation(Notice notice) {
+        this.id = notice.getId();
+        this.title = notice.getTitle();
+        this.description = notice.getDescription();
+        this.requirements = notice.getRequirements();
+        this.time = notice.getTime();
+        this.axle = notice.getAxle();
+        this.coordinator = new UserRepresentation(notice.getCoordinator());
+    }
 }

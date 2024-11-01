@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import br.upe.sisepei.core.user.repository.interfaces.IUserRepository;
+import br.upe.sisepei.core.user.IUserRepository;
 import br.upe.sisepei.core.user.repository.UserJPARepository;
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AplicationConfig {
 
-    private IUserRepository repository = UserJPARepository.getInstance();
+    private final IUserRepository repository;
 
     @Bean
     public UserDetailsService userDetailsService(){

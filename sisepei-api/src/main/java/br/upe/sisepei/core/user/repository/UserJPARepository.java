@@ -1,27 +1,21 @@
 package br.upe.sisepei.core.user.repository;
 
 import br.upe.sisepei.core.user.model.User;
-import br.upe.sisepei.core.user.repository.interfaces.IUserRepository;
+import br.upe.sisepei.core.user.IUserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
+@RequiredArgsConstructor
 public class UserJPARepository implements IUserRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
-    private static UserJPARepository instance = null;
-
-    private UserJPARepository() {}
-
-    public static UserJPARepository getInstance() {
-        if (instance == null) {
-            instance = new UserJPARepository();
-        }
-        return instance;
-    }
 
     @Override
     public boolean existsByEmail(String email) {

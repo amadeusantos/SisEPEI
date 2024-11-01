@@ -2,28 +2,28 @@ package br.upe.sisepei.core.notice.repository;
 
 import br.upe.sisepei.core.notice.model.AxleEnum;
 import br.upe.sisepei.core.notice.model.Notice;
-import br.upe.sisepei.core.notice.repository.interfaces.NoticeRepository;
+import br.upe.sisepei.core.notice.INoticeRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
-public class NoticeJPARepository implements NoticeRepository {
+@Repository
+@RequiredArgsConstructor
+public class NoticeJPARepository implements INoticeRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
-    private static NoticeJPARepository instance = null;
 
-    private NoticeJPARepository() {
+    @Override
+    public List<Notice> findAll() {
+        String query = "SELECT n FROM User n";
 
-    }
-
-    public static NoticeJPARepository getInstance() {
-        if (instance == null) {
-            instance = new NoticeJPARepository();
-        }
-        return instance;
+        return entityManager
+                .createQuery(query, Notice.class)
+                .getResultList();
     }
 
     @Override
@@ -42,13 +42,12 @@ public class NoticeJPARepository implements NoticeRepository {
     }
 
     @Override
-    public void delete(Notice notice) {
-        entityManager.remove(notice);
-    }
-
-    @Override
     public void deleteById(Long id) {
-    
+        String query = "DELETE FROM Notice n WHERE n.id = :id";
+        entityManager
+                .createQuery(query)
+                .setParameter("id", id)
+                .executeUpdate();
     }
 
     @Override
@@ -60,22 +59,5 @@ public class NoticeJPARepository implements NoticeRepository {
                 .getSingleResult();
         
         return Optional.ofNullable(entity);
-    }
-
-    @Override
-    public List<Notice> listNotices() {
-        String query = "SELECT n FROM Notice n";
-
-        return entityManager
-                .createQuery(query, Notice.class)
-                .getResultList();
-    }
-
-    @Override
-    public Notice updateNotice(Notice notice) {
-        if (notice.getId() == null || findById(notice.getId()).isEmpty()) {
-            throw new IllegalArgumentException("Notice ID must not be null and should exist.");
-        }
-        return entityManager.merge(notice);
     }
 }

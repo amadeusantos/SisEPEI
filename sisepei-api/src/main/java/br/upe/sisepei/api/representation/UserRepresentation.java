@@ -1,18 +1,28 @@
 package br.upe.sisepei.api.representation;
 
 import java.util.List;
-import lombok.Data;
 
-@Data
+import br.upe.sisepei.core.profile.model.Profile;
+import br.upe.sisepei.core.profile.model.ProfileEnum;
+import br.upe.sisepei.core.user.model.User;
+import lombok.Getter;
+
+@Getter
 public class UserRepresentation {
 
-	private Long id;
-	
-	private String name;
-	
-	private String email;
+	private final Long id;
 
-	private List<ProfileRepresentation> profiles;
+	private final String name;
 
+	private final String email;
+
+	private final List<ProfileEnum> profiles;
+
+	public UserRepresentation(User user) {
+		this.id = user.getId();
+		this.name = user.getName();
+		this.email = user.getEmail();
+		this.profiles = user.getProfiles().stream().map(Profile::getName).toList();
+	}
 }
 
