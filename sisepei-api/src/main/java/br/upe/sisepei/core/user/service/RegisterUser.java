@@ -6,7 +6,7 @@ import br.upe.sisepei.core.user.repository.UserJPARepository;
 import br.upe.sisepei.core.user.repository.interfaces.IUserRepository;
 import br.upe.sisepei.core.user.model.RegisterDTO;
 import br.upe.sisepei.core.user.model.User;
-import br.upe.sisepei.utils.exceptions.ValidationException;
+import br.upe.sisepei.utils.exceptions.ConflictException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class RegisterUser {
 
     public AuthenticationResponse execute(RegisterDTO request) {
         if (IUserRepository.existsByEmail(request.getEmail())) {
-            throw new ValidationException("Email already registered");
+            throw new ConflictException("Email already registered");
         }
 
         var user = User.builder()

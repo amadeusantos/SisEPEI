@@ -1,15 +1,12 @@
 package br.upe.sisepei.core.notice.service;
 
-import br.upe.sisepei.core.notice.repository.NoticeJPARepository;
 import br.upe.sisepei.core.notice.repository.interfaces.NoticeRepository;
 import br.upe.sisepei.core.notice.model.Notice;
 import br.upe.sisepei.core.notice.model.NoticeDTO;
 import br.upe.sisepei.core.user.model.User;
-import br.upe.sisepei.utils.exceptions.ValidationException;
+import br.upe.sisepei.utils.exceptions.ConflictException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -24,7 +21,7 @@ public class UpdateNotice {
         Notice notice = findNoticeById.execute(id);
 
         if (!notice.getCoordinator().getEmail().equals(coordinator.getEmail())) {
-            throw  new ValidationException("User not authorized to edit notice");
+            throw  new ConflictException("User not authorized to edit notice");
         }
 
         BeanUtils.copyProperties(noticeDTO, notice);

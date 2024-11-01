@@ -4,8 +4,7 @@ package br.upe.sisepei.core.notice.service;
 import br.upe.sisepei.core.notice.repository.interfaces.NoticeRepository;
 import br.upe.sisepei.core.notice.model.Notice;
 import br.upe.sisepei.core.user.model.User;
-import br.upe.sisepei.utils.exceptions.ValidationException;
-import lombok.AllArgsConstructor;
+import br.upe.sisepei.utils.exceptions.ConflictException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -18,7 +17,7 @@ public class DeleteNotice {
         Notice notice = findNoticeById.execute(id);
 
         if (!notice.getCoordinator().getEmail().equals(coordinator.getEmail())) {
-            throw new ValidationException("User not authorized to delete notice");
+            throw new ConflictException("User not authorized to delete notice");
         }
         noticeRepository.deleteById(id);
     }
