@@ -1,6 +1,6 @@
 package br.upe.sisepei.core.notice.service;
 
-import br.upe.sisepei.core.notice.repository.NoticeRepository;
+import br.upe.sisepei.core.notice.repository.interfaces.NoticeRepository;
 import br.upe.sisepei.core.notice.model.Notice;
 import br.upe.sisepei.core.notice.model.NoticeDTO;
 import br.upe.sisepei.core.user.model.User;
@@ -8,21 +8,19 @@ import br.upe.sisepei.utils.exceptions.ValidationException;
 import br.upe.sisepei.utils.functions.RoleVerifier;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-@Service
+
 @RequiredArgsConstructor
 public class CreateNotice {
 
     private final NoticeRepository noticeRepository;
-    private final RoleVerifier roleVerifier;
 
     public Notice execute(NoticeDTO noticeDTO, User coordinator, MultipartFile file) throws IOException, ValidationException {
 
-        if (roleVerifier.execute(noticeDTO.getAxle(), coordinator)) {
+        if (RoleVerifier.execute(noticeDTO.getAxle(), coordinator)) {
             throw  new ValidationException("User not authorized to create notice for axle");
         }
 

@@ -1,6 +1,7 @@
 package br.upe.sisepei.core.notice.service;
 
-import br.upe.sisepei.core.notice.repository.NoticeRepository;
+import br.upe.sisepei.core.notice.repository.NoticeJPARepository;
+import br.upe.sisepei.core.notice.repository.interfaces.NoticeRepository;
 import br.upe.sisepei.core.notice.model.Notice;
 import br.upe.sisepei.core.notice.model.NoticeDTO;
 import br.upe.sisepei.core.user.model.User;
@@ -12,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-@Service
+
 @RequiredArgsConstructor
 public class UpdateNotice {
 

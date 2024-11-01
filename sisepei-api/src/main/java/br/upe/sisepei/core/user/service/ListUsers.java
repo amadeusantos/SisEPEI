@@ -8,11 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
 public class ListUsers {
 
-    private final IUserRepository IUserRepository = UserJPARepository.getInstance();
+    private final IUserRepository IUserRepository;
 
     public List<User> execute() {
         return IUserRepository.findAll();

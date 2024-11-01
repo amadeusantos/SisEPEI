@@ -1,6 +1,7 @@
 package br.upe.sisepei.core.profile.service;
 
-import br.upe.sisepei.core.profile.respository.ProfileRepository;
+import br.upe.sisepei.core.profile.respository.ProfileJPARepository;
+import br.upe.sisepei.core.profile.respository.interfaces.ProfileRepository;
 import br.upe.sisepei.core.profile.model.Profile;
 import br.upe.sisepei.core.profile.model.ProfileEnum;
 import br.upe.sisepei.core.user.repository.UserJPARepository;
@@ -10,12 +11,12 @@ import br.upe.sisepei.utils.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
+
 @RequiredArgsConstructor
 public class AddProfileToUser {
 
     private final ProfileRepository profileRepository;
-    private final IUserRepository IUserRepository = UserJPARepository.getInstance();
+    private final IUserRepository IUserRepository;
 
     public void execute(ProfileEnum profileEnum, Long userId) {
         Profile profile = profileRepository

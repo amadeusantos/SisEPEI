@@ -1,14 +1,11 @@
 package br.upe.sisepei.core.notice.service;
 
 
-import br.upe.sisepei.core.notice.repository.NoticeRepository;
+import br.upe.sisepei.core.notice.repository.interfaces.NoticeRepository;
 import br.upe.sisepei.core.notice.model.Notice;
 import br.upe.sisepei.core.user.model.User;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
 public class DeleteNotice {
     private final NoticeRepository noticeRepository;

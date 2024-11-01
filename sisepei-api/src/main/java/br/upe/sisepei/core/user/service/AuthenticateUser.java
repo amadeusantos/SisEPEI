@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthenticateUser {
 
-    private final IUserRepository IUserRepository = UserJPARepository.getInstance();
+    private final IUserRepository IUserRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 

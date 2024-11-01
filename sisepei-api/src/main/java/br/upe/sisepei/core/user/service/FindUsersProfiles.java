@@ -8,11 +8,11 @@ import br.upe.sisepei.utils.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
+
 @RequiredArgsConstructor
 public class FindUsersProfiles {
 
-    private final IUserRepository IUserRepository = UserJPARepository.getInstance();
+    private final IUserRepository IUserRepository;
     private final JwtService jwtService;
 
     public User execute(String token) throws NotFoundException {

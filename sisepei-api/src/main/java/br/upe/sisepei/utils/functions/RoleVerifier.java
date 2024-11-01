@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-@Service
+
 @RequiredArgsConstructor
 public class RoleVerifier {
 
-    private final Map<AxleEnum, String> roleMapping = Map.of(
+    private static final Map<AxleEnum, String> roleMapping = Map.of(
             AxleEnum.EXTENSAO, "COORDENADOR_EXTENSAO",
             AxleEnum.INOVACAO, "COORDENADOR_INOVACAO",
             AxleEnum.PESQUISA, "COORDENADOR_PESQUISA"
     );
 
-    public boolean execute(AxleEnum axle, User coordinator) {
+    public static boolean execute(AxleEnum axle, User coordinator) {
         List<String> role = coordinator.getProfiles().stream().map(Profile::getAuthority).toList();
 
         return role.contains(roleMapping.get(axle));
