@@ -1,4 +1,4 @@
-package br.upe.sisepei.core.notice;
+package br.upe.sisepei.core.notice.repository;
 
 import br.upe.sisepei.core.notice.model.AxleEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
