@@ -21,7 +21,7 @@ export function LoginForm() {
   }
 
   const handleClick = () => {
-    navigate("/cadastro/usuario");
+    navigate("/register");
   };
 
   return (

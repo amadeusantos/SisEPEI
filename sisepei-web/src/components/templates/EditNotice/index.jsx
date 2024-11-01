@@ -11,11 +11,12 @@ export function EditNotice() {
   const navigate = useNavigate();
   const { data: notice, isLoading } = useFindNotice(id);
   const queryClient = useQueryClient();
+  console.log(notice?.file)
   const defaultValues = {
     titulo: notice?.title,
     descricao: notice?.description,
     requisitos: notice?.requirements,
-    edital: notice?.file,
+    edital: new File([new Blob([notice?.file])], notice?.title),
     prazo: notice?.time,
     tipo: notice?.axle,
   }
