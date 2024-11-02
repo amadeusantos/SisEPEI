@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.upe.sisepei.api.representation.NoticeFullRepresentation;
 import br.upe.sisepei.api.representation.NoticeRepresentation;
 import br.upe.sisepei.core.notice.model.AxleEnum;
 import br.upe.sisepei.core.notice.useCases.*;
@@ -47,7 +48,7 @@ public class NoticeController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findNoticeById(@PathVariable Long id){
-		return ResponseEntity.ok(new NoticeRepresentation(findNoticeByIdUseCase.execute(id)));
+		return ResponseEntity.ok(new NoticeFullRepresentation(findNoticeByIdUseCase.execute(id)));
 	}
 
 	@GetMapping("/{id}/file")

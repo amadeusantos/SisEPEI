@@ -143,18 +143,37 @@ export function NoticeForm({
 
       <Field label="Edital" name="file">
         {edital ? (
-          <label
+          <div
+            className="editalContent"
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
             style={{
-              padding: "10px 20px",
-              backgroundColor: "#007bff",
-              color: "#fff",
-              border: "none",
-              borderRadius: "5px",
-              marginTop: "10px",
+              cursor: "pointer",
             }}
           >
-            {edital.name}
-          </label>
+            <input
+              type="file"
+              multiple
+              accept=".pdf,.docx,.odt,.txt"
+              onChange={handleFileSelect}
+              style={{ display: "none", cursor: "pointer" }}
+              id="fileInput"
+            />
+            <label
+              htmlFor="fileInput"
+              style={{
+                padding: "10px 20px",
+                backgroundColor: "#007bff",
+                color: "#fff",
+                border: "none",
+                borderRadius: "5px",
+                marginTop: "10px",
+                cursor: "pointer"
+              }}
+            >
+              {edital.name}
+            </label>
+          </div>
         ) : (
           <div
             onDragOver={handleDragOver}

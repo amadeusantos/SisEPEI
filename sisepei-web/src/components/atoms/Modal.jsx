@@ -1,26 +1,11 @@
 import React from 'react';
+
 import './style.css';
-import Cookies from 'js-cookie';
 import { findNoticeFile } from '../../services/NoticeService';
+import { base64ToFile } from '../../utils/file'
+import Button from './Button';
 
-function base64ToFile(base64String, fileName) {
-  const base64Data = base64String.split(',')[1];
-
-  const typeMime = base64String.split(',')[0].replace("data:", "").replace(" ", "").replace(";base64", "");
-
-  const byteCharacters = atob(base64Data);
-  const byteNumbers = new Array(byteCharacters.length);
-
-  for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-  }
-
-  const byteArray = new Uint8Array(byteNumbers);
-
-  return new File([byteArray], `${fileName}.${typeMime.split("/")[1]}`, { type: typeMime });
-}
-
-function Modal({id, closeModal, name, type, description, term, requirements, coordinator }) {
+function Modal({ id, closeModal, name, type, description, term, requirements, coordinator }) {
   const baixarArquivo = async () => {
     try {
       const response = await findNoticeFile(id);
@@ -32,7 +17,7 @@ function Modal({id, closeModal, name, type, description, term, requirements, coo
       link.setAttribute(
         "download",
         file.name
-      ); // Nome do arquivo a ser baixado
+      );
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -68,12 +53,19 @@ function Modal({id, closeModal, name, type, description, term, requirements, coo
             <span>Descrição:</span>
             <p>{description.substring(0, 255)}</p>
           </div>
-          <div className='modalProp'>
-            <span>Baixar Edital:</span>
-            <button className="baixar"onClick={baixarArquivo}>Baixar Arquivo</button>
-          </div>
         </div>
-        <button className="fechar"onClick={() => closeModal(false)}>Fechar</button>
+        <div className='modalProp'>
+          <Button onClick={baixarArquivo}>Baixar Arquivo</Button>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            width: '100%',
+            paddingTop: '16px'
+          }}
+        >
+          <Button onClick={() => closeModal(false)}>Fechar</Button>
+        </div>
       </div>
     </div>
   )

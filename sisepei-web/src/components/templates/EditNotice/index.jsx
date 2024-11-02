@@ -5,18 +5,18 @@ import "./style.css";
 import { NoticeForm } from "../../organisms/NoticeForm";
 import { editNotice } from "../../../services/NoticeService";
 import { useFindNotice } from "./edit-notice.store";
+import { base64ToFile } from "../../../utils/file";
 
 export function EditNotice() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: notice, isLoading } = useFindNotice(id);
   const queryClient = useQueryClient();
-  console.log(notice?.file)
   const defaultValues = {
     titulo: notice?.title,
     descricao: notice?.description,
     requisitos: notice?.requirements,
-    edital: new File([new Blob([notice?.file])], notice?.title),
+    edital: base64ToFile(notice?.file, notice?.title),
     prazo: notice?.time,
     tipo: notice?.axle,
   }

@@ -26,6 +26,7 @@
 .primary:hover {
   background-color: var(--button-primary-hover);
 }
+
 .secundary {
   background-color: var(--button-secundary);
 }
@@ -41,6 +42,7 @@
 .terciary:hover {
   background-color: var(--button-terciary-hover);
 }
+
 .gray {
   color: var(--button-primary-hover);
   background-color: var(--button-gray);

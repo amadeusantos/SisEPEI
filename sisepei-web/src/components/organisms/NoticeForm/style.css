@@ -29,3 +29,13 @@ input[type="file"] {
   margin-top: 10px;
   text-align: center;
 }
+
+.editalContent {
+  display: inline;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.editalContent:hover {
+  cursor: pointer;
+}
