@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class NoticeJPARepository implements INoticeRepository {
@@ -20,7 +21,7 @@ public class NoticeJPARepository implements INoticeRepository {
 
     @Override
     public List<Notice> findAll() {
-        String query = "SELECT n FROM User n";
+        String query = "SELECT n FROM Notice n";
 
         return entityManager
                 .createQuery(query, Notice.class)
@@ -43,6 +44,7 @@ public class NoticeJPARepository implements INoticeRepository {
                 .getResultList();
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         String query = "DELETE FROM Notice n WHERE n.id = :id";
