@@ -1,10 +1,8 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom"
-
+import { useNavigate, useParams } from "react-router-dom";
 import "./style.css";
 import { NoticeForm } from "../../organisms/NoticeForm";
-import { editNotice } from "../../../services/NoticeService";
-import { useFindNotice } from "./edit-notice.store";
+import { useEditNotice, useFindNotice } from "./edit-notice.store";
 import { base64ToFile } from "../../../utils/file";
 
 export function EditNotice() {
@@ -12,6 +10,17 @@ export function EditNotice() {
   const navigate = useNavigate();
   const { data: notice, isLoading } = useFindNotice(id);
   const queryClient = useQueryClient();
+
+  const onSuccess = () => {
+    alert("Edital editado com sucesso");
+    queryClient.invalidateQueries(["listNotices"]);
+    navigate("/");
+  };
+
+  const onError = () => {
+    alert("Ocorreu algum erro!");
+  };
+  const { mutate } = useEditNotice({ onSuccess, onError });
   const defaultValues = {
     titulo: notice?.title,
     descricao: notice?.description,
@@ -19,18 +28,10 @@ export function EditNotice() {
     edital: base64ToFile(notice?.file, notice?.title),
     prazo: notice?.time,
     tipo: notice?.axle,
-  }
+  };
 
   async function onSubmit(data) {
-    await editNotice({ id, ...data })
-      .then(_ => {
-        alert("Edital editado com sucesso")
-        queryClient.invalidateQueries(["listNotices"])
-        navigate('/')
-      })
-      .catch(_ => {
-        alert("Ocorreu algum erro!")
-      })
+    mutate({ id, ...data });
   }
 
   if (isLoading) {

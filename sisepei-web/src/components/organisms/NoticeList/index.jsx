@@ -2,19 +2,16 @@ import Card from "../../atoms/InfoEditais";
 import { SubTitle, Title } from "../../atoms";
 import { Button } from "../../atoms";
 import { Plus } from "@phosphor-icons/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Filter from "../../molecules/Filter";
 import "./style.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import Cookies from "js-cookie";
-import { listNotices } from "../../../services/NoticeService";
 import { useNoticeList } from "./notice-list.store";
 
 export function NoticeList() {
   const navigation = useNavigate();
   const [order, setOrder] = useState("");
   const [filter, setFilter] = useState("");
-  const [cardsData, setCardsData] = useState([]);
   const { data, error, isLoading, isError } = useNoticeList();
 
   const navigationCreateNotice = () => navigation("new/notices");
@@ -48,12 +45,6 @@ export function NoticeList() {
       }
     });
 
-  const listNoticesQuery = async () => {
-    const data = await listNotices();
-    console.log(data)
-    setCardsData(data);
-  };
-
 
   return (
     <div className="container-list-notice">
@@ -67,7 +58,7 @@ export function NoticeList() {
         <Filter order={order} setOrder={setOrder} setFilter={setFilter} />
       </div>
 
-      {filteredCards.length > 0 ? (
+      { filteredCards.length > 0 ? (
         filteredCards.map((card) => (
           <Card
             key={card.id}
