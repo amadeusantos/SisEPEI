@@ -8,7 +8,7 @@ import "./style.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { listNotices } from "../../../services/NoticeService";
-import { useNoticeList } from "./useNoticeList";
+import { useNoticeList } from "./notice-list.store";
 
 export function NoticeList() {
   const navigation = useNavigate();

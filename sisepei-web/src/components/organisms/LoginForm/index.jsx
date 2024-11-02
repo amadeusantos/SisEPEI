@@ -3,21 +3,20 @@ import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { TextField } from "../../molecules";
 import { useState } from "react";
-import { login } from "../../../services/AuthenticationService";
 import "./style.css";
 import { Title } from "../../atoms";
+import { useLogin } from "./login-form.store";
 
 export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { mutate } = useLogin(() => navigate("/"));
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    await login({ email, password });
-
-    navigate("/");
+    mutate({ email, password });
   }
 
   const handleClick = () => {
