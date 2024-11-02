@@ -58,7 +58,7 @@ public class NoticeController {
 
 	@PostMapping
 	public ResponseEntity<?> createNotice(
-			@AuthenticationPrincipal User coordinator,
+			@AuthenticationPrincipal User user,
 			@Valid @RequestBody NoticeDTO noticeDTO,
 			BindingResult bindingResult
 	) {
@@ -67,14 +67,14 @@ public class NoticeController {
 	}
 		byte[] file = noticeDTO.getFile().getBytes(StandardCharsets.UTF_8);
 		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(new NoticeRepresentation(createNoticeUseCase.execute(noticeDTO, coordinator, file)));
+				.body(new NoticeRepresentation(createNoticeUseCase.execute(noticeDTO, user.getId(), file)));
 	}
 
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateNotice(
 			@PathVariable Long id,
-			@AuthenticationPrincipal User coordinator,
+			@AuthenticationPrincipal User user,
 			@Valid @RequestBody NoticeDTO noticeDTO,
 			BindingResult bindingResult
 	) {
@@ -82,15 +82,15 @@ public class NoticeController {
 			throw new UnprocessableEntityException("Error when edit notice", bindingResult.getFieldErrors());
 		}
 		byte[] file = noticeDTO.getFile().getBytes(StandardCharsets.UTF_8);
-		return ResponseEntity.ok(new NoticeRepresentation(updateNoticeUseCase.execute(id, noticeDTO, coordinator, file)));
+		return ResponseEntity.ok(new NoticeRepresentation(updateNoticeUseCase.execute(id, noticeDTO, user.getId(), file)));
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteNotice(
-			@AuthenticationPrincipal User coordinator,
+			@AuthenticationPrincipal User user,
 			@PathVariable Long id
 			) {
-		deleteNoticeUseCase.execute(id, coordinator.getId());
+		deleteNoticeUseCase.execute(id, user.getId());
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 }
