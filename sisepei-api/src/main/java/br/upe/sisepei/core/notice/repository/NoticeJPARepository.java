@@ -5,6 +5,7 @@ import br.upe.sisepei.core.notice.model.Notice;
 import br.upe.sisepei.core.notice.INoticeRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +27,7 @@ public class NoticeJPARepository implements INoticeRepository {
                 .getResultList();
     }
 
+    @Transactional
     @Override
     public Notice save(Notice notice) {
         entityManager.persist(notice);

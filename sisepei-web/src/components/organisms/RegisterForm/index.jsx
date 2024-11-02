@@ -85,7 +85,7 @@ export function RegisterForm() {
 
     api
       .post("api/auth/register", {
-        nome: name,
+        name: name,
         email: email,
         password: password,
       })

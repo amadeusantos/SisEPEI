@@ -4,6 +4,7 @@ import br.upe.sisepei.core.user.model.User;
 import br.upe.sisepei.core.user.IUserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -60,7 +61,7 @@ public class UserJPARepository implements IUserRepository {
                 .setMaxResults(1)
                 .getResultList();
 
-        return users.isEmpty() ? Optional.empty() : Optional.of(users.get(0));
+        return users.isEmpty() ? Optional.empty() : Optional.of(users.getFirst());
     }
 
     @Override
@@ -81,6 +82,7 @@ public class UserJPARepository implements IUserRepository {
                 .executeUpdate();
     }
 
+    @Transactional
     @Override
     public User save(User user) {
         entityManager.persist(user);
