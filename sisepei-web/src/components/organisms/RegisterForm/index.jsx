@@ -3,11 +3,11 @@ import { useState } from "react";
 import { Button, SubTitle, Title } from "../../atoms";
 import { TextField } from "../../molecules";
 import { Alert, Form } from "react-bootstrap";
-import { api } from "../../../services/api";
 import "./style.css";
+import { useRegister } from "./register-form.store";
 
 export function RegisterForm() {
-  const navigate = useNavigate();
+  const navigation = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,6 +15,8 @@ export function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [alertShow, setAlertShow] = useState(false);
   const [errors, setErrors] = useState([]);
+
+  const { mutate } = useRegister(() => navigation("/login"));
 
   const validation = (input) => {
     validationFunction["required"](input);
@@ -83,21 +85,15 @@ export function RegisterForm() {
     }
     console.log(errors);
 
-    api
-      .post("api/auth/register", {
-        name: name,
-        email: email,
-        password: password,
-      })
-      .then(() => {
-        alert("Usuário cadastrado com sucesso!")
-        navigate("/login")
-      })
-      .catch((err) => setErrors((values) => [...values, err.data.message]));
+    mutate({
+      name: name,
+      email: email,
+      password: password,
+    })
   }
 
   const handleClick = () => {
-    navigate("/login");
+    navigation("/login");
   };
   return (
     <Form id="divGeral" onSubmit={registerUser} action="">

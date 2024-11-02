@@ -51,5 +51,5 @@ const userDetailsSchema = z.object({
  */
 export async function register({ name, email, password }) {
   const body = userDetailsSchema.parse({ name, email, password });
-  return await request("POST", "auth/register", { body });
+  return await request("POST", "api/auth/register", { body });
 }
