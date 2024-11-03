@@ -5,11 +5,6 @@ import Cookies from "js-cookie";
 /**
  * Fetches a paginated list of notices based on the provided page, size, and optional filter by axle.
  *
- * @param {Object} params - The pagination and filter parameters.
- * @param {number} [params.page=1] - The current page number (defaults to 1).
- * @param {number} [params.size=10] - The number of notices per page (defaults to 10).
- * @param {string} [params.axle=undefined] - Optional filter to limit notices to a specific axle/category.
- *
  * @returns {Promise<Object>} A promise that resolves to the paginated notices, typically including an array of notices and metadata (e.g., total pages).
  *
  * @throws {APIException} Throws an error if the request fails or the server responds with an error.
@@ -40,7 +35,9 @@ const noticeSchema = z.object({
  * @param {string[]} notice.requirements - A list of requirements associated with the notice.
  * @param {Date} notice.date - The date associated with the notice (e.g., publication or event date).
  * @param {string} notice.axle - The axle or category to which the notice belongs.
- *
+ * @param {string} [noticeData.file] - The base64 file of the notice.
+ * @param {string} [noticeData.filename] - The name of the file.
+ * 
  * @returns {Promise<Object>} A promise that resolves to the newly created notice object.
  *
  * @throws {ZodError} Throws an error if input validation fails (e.g., invalid title, description, or date).
@@ -69,12 +66,39 @@ export async function createNotice({
   return await request("POST", "notices", { body, token });
 }
 
+/**
+ * Retrieves the file associated with a specific notice by its ID.
+ *
+ * @param {string} id - The unique identifier of the notice whose file is being retrieved.
+ *
+ * @returns {Promise<byte[]>} A promise that resolves to the byte[] file associated with the notice.
+ *
+ * @throws {APIException} Throws an error if the request fails or the server responds with an error.
+ */
 export async function findNoticeFile(id) {
   const token = Cookies.get("token");
 
   return await request("GET", `notices/${id}/file`, { token });
 }
 
+/**
+ * Edit notice with the provided details.
+ *
+ * @param {Object} notice - The data for the new notice.
+ * @param {number} notice.id - The id of the update notice.
+ * @param {string} notice.title - The title of the notice.
+ * @param {string} notice.description - A detailed description of the notice.
+ * @param {string[]} notice.requirements - A list of requirements associated with the notice.
+ * @param {Date} notice.date - The date associated with the notice (e.g., publication or event date).
+ * @param {string} notice.axle - The axle or category to which the notice belongs.
+ * @param {string} [noticeData.file] - The base64 file of the notice.
+ * @param {string} [noticeData.filename] - The name of the file.
+ * 
+ * @returns {Promise<Object>} A promise that resolves to the newly created notice object.
+ *
+ * @throws {ZodError} Throws an error if input validation fails (e.g., invalid title, description, or date).
+ * @throws {APIException} Throws an error if the server fails to create the notice or responds with an error.
+ */
 export async function editNotice({
   id,
   title,
@@ -99,12 +123,30 @@ export async function editNotice({
   return await request("PUT", `notices/${id}`, { body, token });
 }
 
+/**
+ * Retrieves the details of a specific notice by its ID.
+ *
+ * @param {string} id - The unique identifier of the notice to be retrieved.
+ *
+ * @returns {Promise<Object>} A promise that resolves to the notice object containing its details.
+ *
+ * @throws {APIException} Throws an error if the request fails or the server responds with an error.
+ */
 export async function findNotice(id) {
   const token = Cookies.get("token");
 
   return await request("GET", `notices/${id}`, { token });
 }
 
+/**
+ * Deletes a specific notice by its ID.
+ *
+ * @param {string} id - The unique identifier of the notice to be deleted.
+ *
+ * @returns {Promise<Object>} A promise that resolves when the notice is successfully deleted.
+ *
+ * @throws {APIException} Throws an error if the request fails or the server responds with an error.
+ */
 export async function deleteNotice(id) {
   const token = Cookies.get("token");
 
