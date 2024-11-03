@@ -5,12 +5,12 @@ import { findNoticeFile } from '../../services/NoticeService';
 import { base64ToFile } from '../../utils/file'
 import Button from './Button';
 
-function Modal({ id, closeModal, name, type, description, term, requirements, coordinator }) {
+function Modal({ id, closeModal, name, type, description, term, requirements, coordinator, filename }) {
   const baixarArquivo = async () => {
     try {
       const response = await findNoticeFile(id);
       console.log(response.toString());
-      const file = base64ToFile(response.toString(), `${name}-${coordinator}`)
+      const file = base64ToFile(response.toString(), filename)
       const url = window.URL.createObjectURL(file);
       const link = document.createElement("a");
       link.href = url;

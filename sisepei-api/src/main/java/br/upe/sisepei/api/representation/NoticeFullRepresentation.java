@@ -26,6 +26,8 @@ public class NoticeFullRepresentation {
 
     private final String file;
 
+    private final String filename;
+
     public NoticeFullRepresentation(Notice notice) {
         this.id = notice.getId();
         this.title = notice.getTitle();
@@ -35,5 +37,6 @@ public class NoticeFullRepresentation {
         this.axle = notice.getAxle();
         this.coordinator = new UserRepresentation(notice.getCoordinator());
         this.file = new String(notice.getFile(), StandardCharsets.UTF_8);
+        this.filename = notice.getFilename();
     }
 }

@@ -14,7 +14,7 @@ export function NoticeList() {
   const navigation = useNavigate();
   const [order, setOrder] = useState("");
   const [filter, setFilter] = useState("");
-  const { data: filteredCards, isLoading, isFetching, refetch } = useFilteredNoticeList(filter, order);
+  const { data: filteredNotices, isLoading, isFetching, refetch } = useFilteredNoticeList(filter, order);
   const navigationCreateNotice = () => navigation("new/notices");
 
   if (isLoading || isFetching) {
@@ -33,20 +33,21 @@ export function NoticeList() {
         <Filter order={order} setOrder={setOrder} setFilter={setFilter} />
       </div>
 
-      {filteredCards?.length > 0 ? (
-        filteredCards?.map((card) => (
+      {filteredNotices?.length > 0 ? (
+        filteredNotices?.map((notice) => (
           <Card
-            key={card.id}
-            id={card.id}
-            name={card.title}
-            type={card.axle}
-            description={card.description}
-            term={card.time}
-            coordinator={card.coordinator.name}
-            requirements={card.requirements}
+            key={notice.id}
+            id={notice.id}
+            name={notice.title}
+            type={notice.axle}
+            description={notice.description}
+            term={notice.time}
+            coordinator={notice.coordinator.name}
+            requirements={notice.requirements}
             showDeleteButton={false}
             showEditButton={false}
             showShowButton={true}
+            filename={notice.filename}
           />
         ))
       ) : (

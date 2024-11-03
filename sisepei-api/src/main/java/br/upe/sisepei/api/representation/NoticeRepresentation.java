@@ -15,6 +15,8 @@ public class NoticeRepresentation {
 
     private final String description;
 
+    private final String filename;
+
     private final String requirements;
 
     private final Date time;
@@ -30,6 +32,7 @@ public class NoticeRepresentation {
         this.requirements = notice.getRequirements();
         this.time = notice.getTime();
         this.axle = notice.getAxle();
+        this.filename = notice.getFilename();
         this.coordinator = new UserRepresentation(notice.getCoordinator());
     }
 }

@@ -28,6 +28,7 @@ const noticeSchema = z.object({
   time: z.coerce.date(),
   axle: z.enum(["EXTENSAO", "PESQUISA", "INOVACAO"]),
   file: z.string(),
+  filename: z.string(),
 });
 
 /**
@@ -52,6 +53,7 @@ export async function createNotice({
   time,
   axle,
   file,
+  filename
 }) {
   const token = Cookies.get("token");
   const body = noticeSchema.parse({
@@ -61,6 +63,7 @@ export async function createNotice({
     time,
     axle,
     file,
+    filename
   });
 
   return await request("POST", "notices", { body, token });
@@ -80,6 +83,7 @@ export async function editNotice({
   time,
   axle,
   file,
+  filename
 }) {
   const token = Cookies.get("token");
   const body = noticeSchema.parse({
@@ -89,6 +93,7 @@ export async function editNotice({
     time,
     axle,
     file,
+    filename
   });
 
   return await request("PUT", `notices/${id}`, { body, token });

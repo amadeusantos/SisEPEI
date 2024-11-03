@@ -9,7 +9,7 @@ import BotaoDeAcao from './BotaoDeAcao';
 import DeleteModal from './DeleteModal';
 import { deleteNotice } from '../../services/NoticeService'
 
-export const Card = ({ id, name, coordinator, type, description, term, requirements, showEditButton, showDeleteButton }) => {
+export const Card = ({ id, name, coordinator, type, description, term, requirements, filename }) => {
   const [openModal, setOpenModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const queryClient = useQueryClient();
@@ -101,6 +101,7 @@ export const Card = ({ id, name, coordinator, type, description, term, requireme
           requirements={requirements}
           term={term}
           coordinator={coordinator}
+          filename={filename}
         />
       )}
     </div>

@@ -25,6 +25,8 @@ public class Notice {
 
 	@Column(columnDefinition = "longblob")
 	private byte[] file;
+
+	private String filename;
 	
 	private AxleEnum axle;
 	

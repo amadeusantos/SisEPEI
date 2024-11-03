@@ -14,5 +14,5 @@ export function base64ToFile(base64String, fileName) {
 
     const byteArray = new Uint8Array(byteNumbers);
 
-    return new File([byteArray], `${fileName}.${typeMime.split("/")[1]}`, { type: typeMime });
+    return new File([byteArray], fileName, { type: typeMime });
 }

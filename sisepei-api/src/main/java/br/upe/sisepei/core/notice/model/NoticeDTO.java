@@ -30,4 +30,7 @@ public class NoticeDTO {
 	@NotBlank(message = "")
 	private String file;
 
+	@NotBlank(message = "")
+	private String filename;
+
 }

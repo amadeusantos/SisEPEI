@@ -30,13 +30,14 @@ export function NoticeForm({
   const [edital, setEdital] = useState(defaultValues?.edital ?? undefined);
   const [prazo, setPrazo] = useState(defaultValues?.prazo ?? "");
   const [tipo, setTipo] = useState(defaultValues?.tipo ?? "");
+  const [filename, setFilename] = useState(defaultValues?.filename ?? "");
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     const file = await fileToBase64(edital);
 
-    await onSubmit({ title: titulo, description: descricao, requirements: requisitos, file, axle: tipo, time: prazo });
+    await onSubmit({ title: titulo, description: descricao, requirements: requisitos, file, axle: tipo, time: prazo, filename: edital?.name });
 
     handleClick();
   }
@@ -64,6 +65,7 @@ export function NoticeForm({
       ].includes(file.type)
     );
 
+    setFilename(acceptedFiles[0].name)
     setEdital(acceptedFiles[0]);
   };
 
@@ -77,7 +79,8 @@ export function NoticeForm({
         "application/vnd.oasis.opendocument.text",
       ].includes(file.type)
     );
-    console.log(acceptedFiles[0]);
+
+    setFilename(acceptedFiles[0].name)
     setEdital(acceptedFiles[0]);
   };
   return (
@@ -171,7 +174,7 @@ export function NoticeForm({
                 cursor: "pointer"
               }}
             >
-              {edital.name}
+              {filename}
             </label>
           </div>
         ) : (

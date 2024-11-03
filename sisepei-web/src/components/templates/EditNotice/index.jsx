@@ -16,6 +16,7 @@ export function EditNotice() {
     edital: base64ToFile(notice?.file, notice?.title),
     prazo: notice?.time,
     tipo: notice?.axle,
+    filename: notice?.filename
   };
 
   async function onSubmit(data) {
