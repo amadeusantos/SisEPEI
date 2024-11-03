@@ -1,26 +1,14 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 import "./style.css";
 import { NoticeForm } from "../../organisms/NoticeForm";
-import { useEditNotice, useFindNotice } from "./edit-notice.store";
+import { useEditNotice, useCurrentNotice } from "./edit-notice.store";
 import { base64ToFile } from "../../../utils/file";
 
 export function EditNotice() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const { data: notice, isLoading } = useFindNotice(id);
-  const queryClient = useQueryClient();
-
-  const onSuccess = () => {
-    alert("Edital editado com sucesso");
-    queryClient.invalidateQueries(["listNotices"]);
-    navigate("/");
-  };
-
-  const onError = () => {
-    alert("Ocorreu algum erro!");
-  };
-  const { mutate } = useEditNotice({ onSuccess, onError });
+  const { data: notice, isLoading, isFetching } = useCurrentNotice();
+  const { mutate } = useEditNotice();
   const defaultValues = {
     titulo: notice?.title,
     descricao: notice?.description,
@@ -34,7 +22,7 @@ export function EditNotice() {
     mutate({ id, ...data });
   }
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return null;
   }
 

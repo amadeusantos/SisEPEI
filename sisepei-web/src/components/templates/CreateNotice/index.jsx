@@ -8,7 +8,6 @@ export function CreateNotice() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const onSuccess = () => {
-    alert("Edital editado com sucesso");
     queryClient.invalidateQueries(["listNotices"]);
     navigate("/");
   };

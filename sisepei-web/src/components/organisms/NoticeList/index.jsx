@@ -1,50 +1,25 @@
+import { Plus } from "@phosphor-icons/react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 import Card from "../../atoms/InfoEditais";
 import { SubTitle, Title } from "../../atoms";
 import { Button } from "../../atoms";
-import { Plus } from "@phosphor-icons/react";
-import { useState } from "react";
 import Filter from "../../molecules/Filter";
 import "./style.css";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useNoticeList } from "./notice-list.store";
+import { useFilteredNoticeList } from "./notice-list.store";
+import { NotFoundError } from "../../atoms/NotFoundError";
 
 export function NoticeList() {
   const navigation = useNavigate();
   const [order, setOrder] = useState("");
   const [filter, setFilter] = useState("");
-  const { data, error, isLoading, isError } = useNoticeList();
-
+  const { data: filteredCards, isLoading, isFetching, refetch } = useFilteredNoticeList(filter, order);
   const navigationCreateNotice = () => navigation("new/notices");
 
-  if (isLoading) {
-    return;
+  if (isLoading || isFetching) {
+    return null;
   }
-
-  if (isError && (error.status == 403 || error.status == 401)) {
-    return navigation("/login")
-  }
-
-  const filteredCards = data
-    .filter(
-      (card) =>
-        card.title.toLowerCase().includes(filter.toLowerCase()) ||
-        card.axle.toLowerCase().includes(filter.toLowerCase())
-    )
-    .sort((a, b) => {
-      switch (order) {
-        case "asc":
-          return new Date(a.time).getTime() < new Date(b.time).getTime()
-            ? -1
-            : 1;
-        case "desc":
-          return new Date(a.time).getTime() > new Date(b.time).getTime()
-            ? -1
-            : 1;
-        default:
-          return 0;
-      }
-    });
-
 
   return (
     <div className="container-list-notice">
@@ -58,8 +33,8 @@ export function NoticeList() {
         <Filter order={order} setOrder={setOrder} setFilter={setFilter} />
       </div>
 
-      { filteredCards.length > 0 ? (
-        filteredCards.map((card) => (
+      {filteredCards?.length > 0 ? (
+        filteredCards?.map((card) => (
           <Card
             key={card.id}
             id={card.id}
@@ -75,7 +50,10 @@ export function NoticeList() {
           />
         ))
       ) : (
-        <SubTitle>nenhum edital encontrado</SubTitle>
+        <NotFoundError>
+          <SubTitle>Nenhum edital encontrado...</SubTitle>
+          <Button onClick={refetch}>Tentar novamente</Button>
+        </NotFoundError>
       )}
     </div>
   );

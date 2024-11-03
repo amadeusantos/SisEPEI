@@ -1,7 +1,9 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { editNotice, findNotice } from "../../../services/NoticeService";
 
-export function useFindNotice(id) {
+export function useNotice(id) {
   return useQuery({
     queryKey: ["notice", id],
     queryFn: () => findNotice(id),
@@ -9,12 +11,25 @@ export function useFindNotice(id) {
   });
 }
 
-export function useEditNotice({ onSuccess, onError } = {}) {
-  const { error, isError, isPending, mutate } = useMutation({
-    mutationFn: editNotice,
-    onSuccess,
-    onError,
-  });
+export function useCurrentNotice() {
+  const { id } = useParams();
 
-  return { error, isError, isPending, mutate };
+  return useNotice(id)
+}
+
+export function useEditNotice() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: editNotice,
+    onSuccess: (variables) => {
+      queryClient.invalidateQueries(["listNotices"]);
+      queryClient.invalidateQueries(["notice", `${variables.id}`]);
+      navigate("/");
+    },
+    onError: () => {
+      alert("Ocorreu algum erro!");
+    }
+  });
 }

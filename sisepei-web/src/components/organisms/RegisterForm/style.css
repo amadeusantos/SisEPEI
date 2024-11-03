@@ -1,15 +1,12 @@
 #divGeral {
   width: 80%;
-  margin: 0 auto;
   padding: 20px;
   border: 2px solid #ccc;
   border-radius: 5px;
 }
 
 .space-evenly {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 1em;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1em;
 }
-
-
