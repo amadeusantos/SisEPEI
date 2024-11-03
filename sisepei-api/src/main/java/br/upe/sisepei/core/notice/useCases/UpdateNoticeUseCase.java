@@ -3,8 +3,9 @@ package br.upe.sisepei.core.notice.useCases;
 import br.upe.sisepei.core.notice.INoticeRepository;
 import br.upe.sisepei.core.notice.model.Notice;
 import br.upe.sisepei.core.notice.model.NoticeDTO;
+import br.upe.sisepei.core.user.IUserRepository;
 import br.upe.sisepei.core.user.model.User;
-import br.upe.sisepei.core.user.useCases.FindUserByIdUseCase;
+import br.upe.sisepei.utils.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -14,15 +15,13 @@ import org.springframework.stereotype.Service;
 public class UpdateNoticeUseCase {
 
     private final INoticeRepository noticeRepository;
-
-    private final FindNoticeByIdUseCase findNoticeByIdUseCase;
-
-    private final FindUserByIdUseCase findUserByIdUseCase;
+    private final IUserRepository userRepository;
 
     public Notice execute(Long id, NoticeDTO noticeDTO, Long coordinatorId, byte[] file) { // TODO: permission
-        Notice notice = findNoticeByIdUseCase.execute(id);
+        Notice notice = noticeRepository.findById(id).orElseThrow(() -> new NotFoundException("Notice not found"));
+        User coordinator = userRepository.findById(coordinatorId).orElseThrow(() -> new NotFoundException("Coordinator not found"));
+
         BeanUtils.copyProperties(noticeDTO, notice);
-        User coordinator = findUserByIdUseCase.execute(coordinatorId);
         notice.setCoordinator(coordinator);
         notice.setFile(file);
         return noticeRepository.save(notice);
