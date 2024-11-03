@@ -1,10 +1,7 @@
 package br.upe.sisepei;
 
-import br.upe.sisepei.core.profile.ProfileRepository;
-import br.upe.sisepei.core.profile.ProfileService;
 import br.upe.sisepei.core.profile.model.Profile;
 import br.upe.sisepei.core.profile.model.ProfileEnum;
-import br.upe.sisepei.core.user.UserRepository;
 import br.upe.sisepei.core.user.model.User;
 import br.upe.sisepei.utils.exceptions.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;

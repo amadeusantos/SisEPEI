@@ -1,8 +1,6 @@
 package br.upe.sisepei;
 
 import br.upe.sisepei.api.representation.AuthenticationResponse;
-import br.upe.sisepei.core.user.UserRepository;
-import br.upe.sisepei.core.user.UserService;
 import br.upe.sisepei.core.user.model.LoginDTO;
 import br.upe.sisepei.core.user.model.RegisterDTO;
 import br.upe.sisepei.core.user.model.User;

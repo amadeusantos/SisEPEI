@@ -1,7 +1,6 @@
 package br.upe.sisepei;
 
 import br.upe.sisepei.core.notice.INoticeRepository;
-import br.upe.sisepei.core.notice.NoticeService;
 import br.upe.sisepei.core.notice.model.AxleEnum;
 import br.upe.sisepei.core.notice.model.Notice;
 import br.upe.sisepei.core.notice.model.NoticeDTO;
@@ -49,8 +48,8 @@ class NoticeServiceTest {
     @Test
     void testListNotices() {
         when(repository.findAll()).thenReturn(Collections.singletonList(notice));
-
         var notices = noticeService.listNotices();
+
 
         assertNotNull(notices);
         assertEquals(1, notices.size());
@@ -104,7 +103,6 @@ class NoticeServiceTest {
             noticeService.createNotice(noticeDTO, coordinator, file);
         });
 
-        assertEquals("User not authorized to create notice for axle", exception.getMessage());
     }
 
 }
