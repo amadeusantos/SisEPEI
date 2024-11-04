@@ -31,7 +31,7 @@ export const Card = ({ id, name, coordinator, type, description, term, requireme
   }
 
   return (
-    <div className="card-body">
+    <div className="card-body" role='notice'>
       <div className="card-summary">
         <div className="nomeedital">
           <h3>Nome:</h3>

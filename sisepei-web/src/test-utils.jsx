@@ -1,14 +1,17 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter } from 'react-router-dom';
 
 const queryClient = new QueryClient();
 
 const AllTheProviders = ({ children }) => {
     return (
-        <QueryClientProvider client={queryClient} >
-            {children}
-        </QueryClientProvider>
+        <BrowserRouter>
+            <QueryClientProvider client={queryClient} >
+                {children}
+            </QueryClientProvider>
+        </BrowserRouter>
     )
 }
 
