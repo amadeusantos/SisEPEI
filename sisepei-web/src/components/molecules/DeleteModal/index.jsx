@@ -1,12 +1,12 @@
-import React from 'react';
-import './style.css';
-import Button from '../atoms/Button/index'
+import React from "react";
+import "./style.css";
+import { Button } from "../../atoms";
 
-const DeleteModal = ({ onConfirm, onCancel }) => {
+export const DeleteModal = ({ onConfirm, onCancel }) => {
   return (
-    <div className='modalBackground'>
-      <div className='modalBox'>
-        <div className='modalContent'>
+    <div className="modalBackground">
+      <div className="modalBox">
+        <div className="modalContent">
           <h3>Deletar Edital</h3>
           <p>Deseja realmente deletar este edital?</p>
           <div className="modal-buttons">
@@ -18,5 +18,3 @@ const DeleteModal = ({ onConfirm, onCancel }) => {
     </div>
   );
 };
-
-export default DeleteModal;

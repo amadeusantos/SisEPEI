@@ -1,23 +1,36 @@
-import { Eye, PencilSimple, Trash } from '@phosphor-icons/react';
-import React, { useState } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
+import { Eye, PencilSimple, Trash } from "@phosphor-icons/react";
+import React, { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
-import './style.css';
-import Modal from './Modal';
-import BotaoDeAcao from './BotaoDeAcao';
-import DeleteModal from './DeleteModal';
-import { deleteNotice } from '../../services/NoticeService'
+import "./style.css";
+import { DeleteModal } from "../../molecules";
+import { deleteNotice } from "../../../services/NoticeService";
+import { ButtonAction } from "../../atoms";
+import { NoticeModal } from "../../organisms";
 
-export const Card = ({ id, name, coordinator, type, description, term, requirements, filename }) => {
+export const NoticeCard = ({
+  id,
+  name,
+  coordinator,
+  type,
+  description,
+  term,
+  requirements,
+  filename,
+}) => {
   const [openModal, setOpenModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const queryClient = useQueryClient();
 
   const handleConfirmDelete = async () => {
     await deleteNotice(id)
-      .then(_ => { queryClient.invalidateQueries(["listNotices"]) })
-      .catch(_ => { alert('Algum erro ocorreu!') })
+      .then((_) => {
+        queryClient.invalidateQueries(["listNotices"]);
+      })
+      .catch((_) => {
+        alert("Algum erro ocorreu!");
+      });
 
     setShowModal(false);
   };
@@ -27,8 +40,8 @@ export const Card = ({ id, name, coordinator, type, description, term, requireme
   };
 
   const closeModal = () => {
-    setOpenModal(false)
-  }
+    setOpenModal(false);
+  };
 
   return (
     <div className="card-body">
@@ -37,37 +50,34 @@ export const Card = ({ id, name, coordinator, type, description, term, requireme
           <h3>Nome:</h3>
           <p>{name}</p>
         </div>
-        <div className='type'>
+        <div className="type">
           <h3>Tipo:</h3>
           <p>{type}</p>
         </div>
-        <div className='description'>
+        <div className="description">
           <h3>Descrição:</h3>
           <p>{description}</p>
         </div>
       </div>
 
       <div className="actions">
-
-        {(
-
+        {
           <div className="button-container">
             <Link className="link" to={`/edit/notices/${id}`}>
-              <BotaoDeAcao
-                src={<PencilSimple size={42} weight="fill" />}
+              <ButtonAction
+                icon={<PencilSimple size={42} weight="fill" />}
                 alt="editar"
                 label="Editar"
                 className="BotaoDeAcao"
               />
             </Link>
           </div>
-        )}
+        }
 
-        {(
-
+        {
           <div className="button-container">
-            <BotaoDeAcao
-              src={<Trash size={42} weight="fill" />}
+            <ButtonAction
+              icon={<Trash size={42} weight="fill" />}
               alt="deletar"
               label="Deletar"
               onClick={() => setShowModal(true)}
@@ -80,19 +90,18 @@ export const Card = ({ id, name, coordinator, type, description, term, requireme
               />
             )}
           </div>
+        }
 
-        )}
-
-        <BotaoDeAcao
-          src={<Eye size={42} weight="fill" />}
-          alt='mostrar'
-          label='Mostrar'
+        <ButtonAction
+          icon={<Eye size={42} weight="fill" />}
+          alt="mostrar"
+          label="Mostrar"
           onClick={() => setOpenModal(true)}
-          className='BotaoDeAcao' />
-
+          className="BotaoDeAcao"
+        />
       </div>
       {openModal && (
-        <Modal
+        <NoticeModal
           id={id}
           closeModal={closeModal}
           name={name}
@@ -105,8 +114,5 @@ export const Card = ({ id, name, coordinator, type, description, term, requireme
         />
       )}
     </div>
-
   );
 };
-
-export default Card;

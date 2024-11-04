@@ -2,13 +2,13 @@ import { Plus } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import Card from "../../atoms/InfoEditais";
 import { SubTitle, Title } from "../../atoms";
 import { Button } from "../../atoms";
 import Filter from "../../molecules/Filter";
 import "./style.css";
 import { useFilteredNoticeList } from "./notice-list.store";
 import { NotFoundError } from "../../atoms/NotFoundError";
+import { NoticeCard } from "../../molecules";
 
 export function NoticeList() {
   const navigation = useNavigate();
@@ -35,7 +35,7 @@ export function NoticeList() {
 
       {filteredNotices?.length > 0 ? (
         filteredNotices?.map((notice) => (
-          <Card
+          <NoticeCard
             key={notice.id}
             id={notice.id}
             name={notice.title}

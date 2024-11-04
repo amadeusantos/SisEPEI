@@ -1,0 +1,85 @@
+.card-summary {
+  display: flex;
+  align-items: center;
+}
+
+.card-body {
+  margin-bottom: 20px;
+  margin-left: 250px;
+  margin-right: 250px;
+  border-radius: 20px;
+  padding: 10px;
+  padding-left: 20px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #e6e7ed;
+  border: none;
+  min-height: 120px;
+}
+
+.nomeedital,
+.type,
+.description {
+  margin-top: 0px;
+  font-family: "Inter", sans-serif;
+  margin-left: 20px;
+}
+
+.nomeedital,
+.type,
+.description h3 {
+  margin-top: 5px;
+}
+
+.nomeedital h3,
+.type h3,
+.description h3 {
+  font-size: 25px;
+}
+
+.nomeedital,
+.type,
+.description {
+  margin-top: 0px;
+  font-family: "Inter", sans-serif;
+  margin-left: 20px;
+}
+
+.description {
+  overflow-wrap: break-word;
+  max-width: 500px;
+  flex-grow: 1;
+}
+
+.actions button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  height: 85px;
+  margin-right: 25px;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--button-primary-hover);
+}
+
+.edit-container button.BotaoDeAcao svg {
+  width: 100%;
+  height: 100%;
+  transform: scale(0.7);
+  transition: all 0.2s ease-in-out;
+  color: var(--button-primary-hover);
+}
+
+.edit-container button.BotaoDeAcao:hover svg {
+  transform: scale(1);
+}
