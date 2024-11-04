@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ class FindNoticeByIdUseCaseTest {
 
     @BeforeEach
     void setUp() {
+        MockitoAnnotations.openMocks(this);
         this.notice = new Notice();
         notice.setId(1L);
     }
