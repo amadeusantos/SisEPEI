@@ -16,13 +16,13 @@ public class UserRepresentation {
 
 	private final String email;
 
-	private final List<ProfileEnum> profiles;
+	private final List<ProfileRepresentation> profiles;
 
 	public UserRepresentation(User user) {
 		this.id = user.getId();
 		this.name = user.getName();
 		this.email = user.getEmail();
-		this.profiles = user.getProfiles().stream().map(Profile::getName).toList();
+		this.profiles = user.getProfiles().stream().map(ProfileRepresentation::new).toList();
 	}
 }
 

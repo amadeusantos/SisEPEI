@@ -3,13 +3,13 @@ package br.upe.sisepei.api;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.upe.sisepei.core.user.model.UpdateUserProfilesDTO;
+import br.upe.sisepei.core.user.useCases.*;
 import br.upe.sisepei.utils.exceptions.UnprocessableEntityException;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import br.upe.sisepei.core.user.useCases.DeleteUserUseCase;
-import br.upe.sisepei.core.user.useCases.FindUserByIdUseCase;
-import br.upe.sisepei.core.user.useCases.ListUsersUseCase;
-import br.upe.sisepei.core.user.useCases.UpdateUserUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
@@ -28,6 +28,7 @@ public class UserController {
 
     private final ListUsersUseCase listUsersUseCase;
     private final FindUserByIdUseCase findUserByIdUseCase;
+    private final UpdateUserProfilesUseCase updateUserProfilesUseCase;
     private final UpdateUserUseCase updateUserUseCase;
     private final DeleteUserUseCase deleteUserUseCase;
 
@@ -37,11 +38,24 @@ public class UserController {
                 .stream().map(UserRepresentation::new).collect(Collectors.toList()));
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/me")
     public ResponseEntity<?> findUserProfiles(
             @AuthenticationPrincipal User user
     ) {
         return ResponseEntity.ok(new UserRepresentation(findUserByIdUseCase.execute(user.getId())));
+    }
+
+    @PatchMapping("{id}/profiles")
+    public ResponseEntity<Void> updateUserProfiles(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateUserProfilesDTO updateUserProfilesDTO,
+            BindingResult bindingResult
+    ) {
+        if (bindingResult.hasFieldErrors()) {
+            throw new UnprocessableEntityException("Error when update user profiles", bindingResult.getFieldErrors());
+        }
+        updateUserProfilesUseCase.execute(id, updateUserProfilesDTO.getProfileIds());
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
@@ -62,7 +76,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         deleteUserUseCase.execute(id);
         return ResponseEntity.noContent().build();
     }

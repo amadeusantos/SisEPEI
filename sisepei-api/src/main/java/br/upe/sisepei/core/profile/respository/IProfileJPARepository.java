@@ -34,4 +34,10 @@ public class IProfileJPARepository implements IProfileRepository {
                 .createQuery(query, Profile.class)
                 .getResultList();
     }
+
+    @Override
+    public List<Profile> findByIds(List<Long> ids) {
+        String query = "SELECT p FROM Profile p WHERE p.id IN :ids";
+        return entityManager.createQuery(query, Profile.class).setParameter("ids", ids).getResultList();
+    }
 }

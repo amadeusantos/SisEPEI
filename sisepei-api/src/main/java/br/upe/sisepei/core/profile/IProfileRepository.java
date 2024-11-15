@@ -11,4 +11,5 @@ public interface IProfileRepository {
 	
 	Optional<Profile> findByName(ProfileEnum name);
 	List<Profile> findAll();
+	List<Profile> findByIds(List<Long> ids);
 }

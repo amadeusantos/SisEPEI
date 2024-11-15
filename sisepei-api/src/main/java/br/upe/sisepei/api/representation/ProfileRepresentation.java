@@ -10,10 +10,12 @@ import lombok.Getter;
 
 @Getter
 public class ProfileRepresentation implements Serializable {
-	
+
+    private final Long id;
 	private final String name;
 
     public ProfileRepresentation(Profile profile) {
+        this.id = profile.getId();
         this.name = profile.getName().name();
     }
 }
