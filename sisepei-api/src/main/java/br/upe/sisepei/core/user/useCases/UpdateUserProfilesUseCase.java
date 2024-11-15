@@ -19,8 +19,8 @@ public class UpdateUserProfilesUseCase {
     private final IProfileRepository profileRepository;
 
     public void execute(Long userId, List<Long> profileIds) {
-        List<Profile> profiles = profileRepository.findByIds(profileIds);
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
+        List<Profile> profiles = profileRepository.findByIds(profileIds);
         user.setProfiles(profiles);
         userRepository.save(user);
     }
