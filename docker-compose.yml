@@ -1,0 +1,54 @@
+services:
+  mariadb:
+    image: mariadb:10.10
+    container_name: mariadb-container
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - sisepei_network
+    env_file:
+      - .env
+
+  sisepi-webapp:
+    build:
+      context: sisepei-web
+      dockerfile: Dockerfile
+    container_name: sisepei-webapp
+    ports:
+      - "5173:5173"
+
+    networks:
+      - sisepei_network
+  
+  sisepi-api:
+    build:
+      context: sisepei-api
+      dockerfile: Dockerfile
+    container_name: sisepei-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+    environment:
+      JDBC_DATABASE_URL: ${JDBC_DATABASE_URL}
+      JDBC_DATABASE_USERNAME: ${JDBC_DATABASE_USERNAME}
+      JDBC_DATABASE_PASSWORD: ${JDBC_DATABASE_PASSWORD}
+      SECRET_KEY: ${SECRET_KEY}
+    env_file:
+      - .env
+    networks:
+      - sisepei_network
+
+volumes:
+  mariadb_data:
+
+networks:
+  sisepei_network:
+    driver: bridge
