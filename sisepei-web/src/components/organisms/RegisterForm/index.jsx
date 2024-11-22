@@ -83,13 +83,20 @@ export function RegisterForm() {
     if (errors.length > 0) {
       setAlertShow(true);
     }
-    console.log(errors);
-
-    mutate({
-      name: name,
-      email: email,
-      password: password,
-    })
+    
+    if (confirmPassword != password) {
+      setErrors((values) => [
+        ...values,
+        "A senha de confirmação deve ser igual a senha",
+      ]);
+    
+    } else {
+      mutate({
+        name: name,
+        email: email,
+        password: password,
+      })
+    }
   }
 
   const handleClick = () => {
