@@ -2,6 +2,7 @@ package br.upe.sisepei.core.notice.useCases;
 
 import br.upe.sisepei.core.notice.INoticeRepository;
 import br.upe.sisepei.core.notice.model.Notice;
+import br.upe.sisepei.core.user.model.User;
 import br.upe.sisepei.utils.exceptions.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,19 +34,22 @@ class DeleteNoticeUseCaseTest {
 
     @Test
     void execute() {
+        User user = new User();
         when(noticeRepository.findById(1L)).thenReturn(Optional.of(notice));
 
-        deleteNoticeUseCase.execute(1L);
+        deleteNoticeUseCase.execute(1L, user);
 
         verify(noticeRepository, times(1)).deleteById(1L);
     }
 
     @Test
     void execute_noticeNotFound() {
+
+        User user = new User();
         when(noticeRepository.findById(2L)).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> {
-            deleteNoticeUseCase.execute(2L);
+            deleteNoticeUseCase.execute(2L, user);
         });
     }
 }

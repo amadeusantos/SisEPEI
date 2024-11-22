@@ -87,9 +87,10 @@ public class NoticeController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteNotice(
-			@PathVariable Long id
+			@PathVariable Long id,
+			@AuthenticationPrincipal User user
 			) {
-		deleteNoticeUseCase.execute(id);
+		deleteNoticeUseCase.execute(id, user);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 }

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { request } from "./api";
 import Cookies from "js-cookie";
+import { message } from "antd";
 
 /**
  * Fetches a paginated list of notices based on the provided page, size, and optional filter by axle.
@@ -149,6 +150,13 @@ export async function findNotice(id) {
  */
 export async function deleteNotice(id) {
   const token = Cookies.get("token");
-
-  return await request("DELETE", `notices/${id}`, { token })
+  try {
+    return await request("DELETE", `notices/${id}`, { token });
+  } catch (error) {
+    if (error.status === 401) {
+      message.error("Você não tem autorização para deletar esse edital");
+    } else {
+      message.error("Ocorreu um erro ao deletar o edital");
+    }
+  }
 }

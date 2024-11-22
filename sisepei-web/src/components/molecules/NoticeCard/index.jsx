@@ -43,6 +43,7 @@ export const NoticeCard = ({
     setOpenModal(false);
   };
 
+
   return (
     <div className="card-body" role='notice'>
       <div className="card-summary">
