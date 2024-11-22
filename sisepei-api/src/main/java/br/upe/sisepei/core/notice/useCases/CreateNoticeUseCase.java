@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import static br.upe.sisepei.utils.functions.RoleVerifier.verifyPermissionCreateNotice;
+import static br.upe.sisepei.utils.functions.ProfileVerifier.verifyPermissionCreateNotice;
 
 @Service
 @RequiredArgsConstructor
