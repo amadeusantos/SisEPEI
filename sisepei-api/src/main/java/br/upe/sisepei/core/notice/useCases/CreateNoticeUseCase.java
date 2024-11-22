@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import static br.upe.sisepei.utils.functions.RoleVerifier.verifyPermissionCreateNotice;
+
 @Service
 @RequiredArgsConstructor
 public class CreateNoticeUseCase {
@@ -17,11 +19,12 @@ public class CreateNoticeUseCase {
     private final INoticeRepository noticeRepository;
     private final IUserRepository userRepository;
 
-    public Notice execute(NoticeDTO noticeDTO, Long coordinatorId, byte[] file) { // TODO: permission
+    public Notice execute(NoticeDTO noticeDTO, Long coordinatorId, byte[] file) {
+        User coordinator = userRepository.findById(coordinatorId).orElseThrow(() -> new NotFoundException("Coordinator not found"));
+        verifyPermissionCreateNotice(coordinator, noticeDTO);
+
         Notice notice = new Notice();
         BeanUtils.copyProperties(noticeDTO, notice);
-        User coordinator = userRepository.findById(coordinatorId).orElseThrow(() -> new NotFoundException("Coordinator not found"));
-
         notice.setCoordinator(coordinator);
         notice.setFile(file);
         return noticeRepository.save(notice);
