@@ -1,4 +1,5 @@
 import { request } from "./api";
+import Cookies from "js-cookie";
 
 /**
  * Fetches a paginated list of users, optionally filtered by profile ID.
@@ -23,6 +24,11 @@ export async function listUsers({
     uri += `&profileId=${profileId}`;
   }
   return await request("GET", uri);
+}
+
+export async function userMe() {
+  const token = Cookies.get("token");
+  return await request("GET", "users/me", { token });
 }
 
 /**

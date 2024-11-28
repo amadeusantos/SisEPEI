@@ -30,6 +30,10 @@ export function TextField({
 }) {
   const setValue = (e) => onChange(e.target.value);
 
+  const setHidden = () => {
+    setTypeValue(typeValue == "password"? "text": "password");
+  }
+
   return (
     <Field name={name} label={label}>
       <Form.Control
