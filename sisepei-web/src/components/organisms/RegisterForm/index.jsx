@@ -127,7 +127,7 @@ export function RegisterForm() {
         name="password"
         onChange={setPassword}
         value={password}
-        type="password"
+        type="Password"
         required
       />
       <TextField
@@ -135,7 +135,7 @@ export function RegisterForm() {
         name="confirmPassword"
         onChange={setConfirmPassword}
         value={confirmPassword}
-        type="password"
+        type="Password"
         required
       />
       <div className="space-evenly">

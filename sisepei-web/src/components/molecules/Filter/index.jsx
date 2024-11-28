@@ -29,7 +29,7 @@ export function Filter({ order, setOrder, setFilter }) {
   };
   return (
     <div className="search-filter">
-      <Input placeholder="Buscar" onChange={setFilter} />
+      <Input placeholder="Buscar" variant="borderless" onChange={setFilter} />
       <Button color="gray" onClick={filterOrder}>
         <Icon size={28} />
       </Button>

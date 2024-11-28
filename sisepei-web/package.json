@@ -11,6 +11,7 @@
     "auditjs": "npx auditjs ossi -w ./node_modules -q -j > vulnerabilities/$(date +'%Y-%m-%d').json"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.5.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.7",

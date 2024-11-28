@@ -42,7 +42,7 @@ export function LoginForm() {
           name="password"
           value={password}
           onChange={setPassword}
-          type="password"
+          type="Password"
           required
           placeholder="Digite aqui sua senha"
         />

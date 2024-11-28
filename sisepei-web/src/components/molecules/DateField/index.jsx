@@ -1,5 +1,6 @@
+import { DatePicker } from "antd";
 import { Field } from "../../atoms";
-import "./style.css";
+import dayjs from "dayjs";
 
 /**
  * A form input date component with a label and customizable properties.
@@ -10,23 +11,22 @@ import "./style.css";
  * @param {string} props.name - The name attribute for the input date field.
  * @param {string} props.value - The current value of the input date field.
  * @param {Function} props.onChange - The function to handle changes in the input date value.
+ * @param {import("antd/es/form").Rule[]} [props.rules]
  *
  * @returns {React.FC} The rendered input field component.
  */
-export function DateField({ label, required, name, value, onChange }) {
-  const setValue = (event) => onChange(event.target.value);
+export function DateField({ label, required, name, value, onChange, rules }) {
   return (
-    <Field label={label} name={name}>
-      <div className="date-input-container">
-        <input
-          id={name}
-        value={value.substring(0, 10)}
-          type="date"
-          className="custom-date-input"
-          onChange={setValue}
-          required={required}
-        />
-      </div>
+    <Field label={label} name={name} rules={rules} required={required}>
+      <DatePicker
+        size="large"
+        required={required}
+        format={"DD/MM/YYYY"}
+        value={dayjs(value)}
+        onChange={(date) => {
+          onChange(date.toDate());
+        }}
+      />
     </Field>
   );
 }

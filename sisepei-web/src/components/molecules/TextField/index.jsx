@@ -1,5 +1,5 @@
-import Form from "react-bootstrap/Form";
-import { Field } from "../../atoms";
+import { Input as InputAntd } from "antd";
+import Field from "../../atoms/Field";
 
 /**
  * A form input component with a label and customizable properties.
@@ -14,6 +14,7 @@ import { Field } from "../../atoms";
  * @param {string} [props.as] - Specifies if the field should render as a "textarea" or "input" (defaults to "input").
  * @param {number} [props.rows] - The number of rows for the textarea, if the component is rendered as a textarea.
  * @param {string} [props.type='text'] - The type of input field (e.g., text, password, email). Default is 'text'.
+ * @param {import("antd/es/form").Rule[]} [props.rules]
  *
  * @returns {React.FC} The rendered input field component.
  */
@@ -24,26 +25,21 @@ export function TextField({
   name,
   value,
   onChange,
-  as,
+  rules,
   rows,
-  type = "text",
+  type = "",
 }) {
+  const Input = InputAntd[type] || InputAntd;
   const setValue = (e) => onChange(e.target.value);
 
-  const setHidden = () => {
-    setTypeValue(typeValue == "password"? "text": "password");
-  }
-
   return (
-    <Field name={name} label={label}>
-      <Form.Control
-        type={type}
-        name={label}
-        required={required}
+    <Field label={label} name={name} rules={rules} required={required}>
+      <Input
+        size="large"
         placeholder={placeholder}
         value={value}
         onChange={setValue}
-        as={as}
+        required={required}
         rows={rows}
       />
     </Field>

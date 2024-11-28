@@ -5,9 +5,13 @@ import { Button, Field, SubTitle, Title } from "../../atoms";
 import { TextField } from "../../molecules";
 import { DateField } from "../../molecules/DateField";
 import { SelectField } from "../../molecules/SelectField";
+import { InboxOutlined } from "@ant-design/icons";
+import { Upload } from "antd";
+
+const { Dragger } = Upload;
 
 const fileToBase64 = async (file) => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     var reader = new FileReader();
     reader.onload = function (event) {
       resolve(event.target.result);
@@ -16,12 +20,7 @@ const fileToBase64 = async (file) => {
   });
 };
 
-export function NoticeForm({
-  defaultValues,
-  onSubmit,
-  title,
-  buttonText
-}) {
+export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
   const navigate = useNavigate();
 
   const [titulo, setTitulo] = useState(defaultValues?.titulo ?? "");
@@ -32,12 +31,27 @@ export function NoticeForm({
   const [tipo, setTipo] = useState(defaultValues?.tipo ?? "");
   const [filename, setFilename] = useState(defaultValues?.filename ?? "");
 
+  const setFile = async (file) => {
+    const base64File = await fileToBase64(file);
+    setFilename(file.name);
+    setEdital(base64File);
+    return false;
+  };
+
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const file = await fileToBase64(edital);
+    console.log(prazo);
 
-    await onSubmit({ title: titulo, description: descricao, requirements: requisitos, file, axle: tipo, time: prazo, filename: edital?.name });
+    await onSubmit({
+      title: titulo,
+      description: descricao,
+      requirements: requisitos,
+      file: edital,
+      axle: tipo,
+      time: prazo,
+      filename: filename,
+    });
 
     handleClick();
   }
@@ -46,45 +60,8 @@ export function NoticeForm({
     navigate("/");
   };
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const droppedFiles = Array.from(e.dataTransfer.files);
-
-    const acceptedFiles = droppedFiles.filter((file) =>
-      [
-        "application/pdf",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "application/vnd.oasis.opendocument.text",
-      ].includes(file.type)
-    );
-
-    setFilename(acceptedFiles[0].name)
-    setEdital(acceptedFiles[0]);
-  };
-
-  const handleFileSelect = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-
-    const acceptedFiles = selectedFiles.filter((file) =>
-      [
-        "application/pdf",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "application/vnd.oasis.opendocument.text",
-      ].includes(file.type)
-    );
-
-    setFilename(acceptedFiles[0].name)
-    setEdital(acceptedFiles[0]);
-  };
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <Title>{title}</Title>
 
       <SubTitle>
@@ -96,7 +73,7 @@ export function NoticeForm({
         name="title"
         value={titulo}
         onChange={setTitulo}
-        type="text"
+        rules={[{min: 8, message: "Coloque um título com mínimo 8 letra"}]}
         required
       />
 
@@ -105,8 +82,7 @@ export function NoticeForm({
         name="description"
         value={descricao}
         onChange={setDescricao}
-        type="text"
-        as="textarea"
+        type="TextArea"
         rows={3}
         required
       />
@@ -121,11 +97,10 @@ export function NoticeForm({
 
       <TextField
         label="Requisitos"
-        name="description"
+        name="requirements"
         value={requisitos}
         onChange={setRequisitos}
-        type="text"
-        as="textarea"
+        type="TextArea"
         rows={3}
         required
       />
@@ -134,7 +109,7 @@ export function NoticeForm({
         label="Tipo"
         name="axle"
         onChange={setTipo}
-        values={[
+        options={[
           { label: "Selecione um tipo de edital" },
           { value: "EXTENSAO", label: "extensão" },
           { value: "PESQUISA", label: "pesquisa" },
@@ -144,77 +119,30 @@ export function NoticeForm({
         required
       />
 
-      <Field label="Edital" name="file">
+      <Field label="Edital" name="file" required>
         {edital ? (
-          <div
-            className="editalContent"
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            style={{
-              cursor: "pointer",
-            }}
-          >
-            <input
-              type="file"
-              multiple
-              accept=".pdf,.docx,.odt,.txt"
-              onChange={handleFileSelect}
-              style={{ display: "none", cursor: "pointer" }}
-              id="fileInput"
-            />
-            <label
-              htmlFor="fileInput"
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#007bff",
-                color: "#fff",
-                border: "none",
-                borderRadius: "5px",
-                marginTop: "10px",
-                cursor: "pointer"
-              }}
-            >
-              {filename}
-            </label>
-          </div>
+          <Upload
+            maxCount={1}
+            onRemove={() => setEdital(null)}
+            action={setFile}
+            fileList={[{ name: filename, uid: "-1", status: "done" }]}
+          />
         ) : (
-          <div
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            style={{
-              border: "2px dashed #cccccc",
-              borderRadius: "10px",
-              padding: "20px",
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "#f9f9f9",
-              marginBottom: "20px",
-            }}
+          <Dragger
+            fileList={[]}
+            onRemove={() => setEdital(null)}
+            accept=".pdf,.docx,.odt,.txt"
+            maxCount={1}
+            beforeUpload={setFile}
           >
-            <p>Arraste e solte seus arquivos para adicionar</p>
-            <input
-              type="file"
-              multiple
-              accept=".pdf,.docx,.odt,.txt"
-              onChange={handleFileSelect}
-              style={{ display: "none" }}
-              id="fileInput"
-            />
-            <label
-              htmlFor="fileInput"
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#007bff",
-                color: "#fff",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
-                marginTop: "10px",
-              }}
-            >
-              Selecione os arquivos
-            </label>
-          </div>
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined />
+            </p>
+            <p className="ant-upload-text">
+              Arraste e solte seus arquivos para adicionar
+            </p>
+            <p className="ant-upload-hint">Selecione os arquivos</p>
+          </Dragger>
         )}
       </Field>
 

@@ -1,4 +1,5 @@
 import "./style.css";
+import { Input as InputAntd } from "antd";
 /**
  * A form input component with a label and customizable properties.
  *
@@ -10,14 +11,15 @@ import "./style.css";
  *
  * @returns {React.FC} The rendered input field component.
  */
-export function Input({ value, type = "text", placeholder, onChange }) {
+export function Input({ value, type = "text", variant, placeholder, onChange }) {
   const setValue = (e) => onChange(e.target.value);
   return (
     <div className="container-input">
-      <input className="input"
+      <InputAntd className="input"
         type={type}
         placeholder={placeholder}
         value={value}
+        variant={variant}
         onChange={setValue}
       />
     </div>

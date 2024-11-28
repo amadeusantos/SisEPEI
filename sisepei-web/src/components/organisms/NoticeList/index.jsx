@@ -9,6 +9,7 @@ import "./style.css";
 import { useFilteredNoticeList } from "./notice-list.store";
 import { NotFoundError } from "../../atoms/NotFoundError";
 import { NoticeCard } from "../../molecules";
+import { Loading } from "../../atoms/Loading";
 
 export function NoticeList() {
   const navigation = useNavigate();
@@ -18,7 +19,7 @@ export function NoticeList() {
   const navigationCreateNotice = () => navigation("new/notices");
 
   if (isLoading || isFetching) {
-    return null;
+    return <Loading />;
   }
 
   return (
