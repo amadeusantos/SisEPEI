@@ -6,7 +6,8 @@ import { TextField } from "../../molecules";
 import { DateField } from "../../molecules/DateField";
 import { SelectField } from "../../molecules/SelectField";
 import { InboxOutlined } from "@ant-design/icons";
-import { Upload } from "antd";
+import { Form, Upload } from "antd";
+import dayjs from "dayjs";
 
 const { Dragger } = Upload;
 
@@ -38,10 +39,8 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
     return false;
   };
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+  async function handleSubmit() {
 
-    console.log(prazo);
 
     await onSubmit({
       title: titulo,
@@ -53,7 +52,6 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
       filename: filename,
     });
 
-    handleClick();
   }
 
   const handleClick = () => {
@@ -61,7 +59,13 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form initialValues={{
+      "title": defaultValues.titulo,
+      "description": defaultValues.descricao,
+      "requirements": defaultValues.requisitos,
+      "axle": defaultValues.tipo,
+      "time": dayjs(defaultValues.prazo),
+    }} onFinish={handleSubmit}>
       <Title>{title}</Title>
 
       <SubTitle>
@@ -69,11 +73,16 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
       </SubTitle>
 
       <TextField
-        label="Titulo"
+        label="Título"
         name="title"
         value={titulo}
         onChange={setTitulo}
-        rules={[{min: 8, message: "Coloque um título com mínimo 8 letra"}]}
+        rules={[
+          {
+            required: true,
+            message: "Digite uma título!",
+          },
+        ]}
         required
       />
 
@@ -83,6 +92,12 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
         value={descricao}
         onChange={setDescricao}
         type="TextArea"
+        rules={[
+          {
+            required: true,
+            message: "Digite uma descrição!",
+          },
+        ]}
         rows={3}
         required
       />
@@ -92,6 +107,12 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
         name="time"
         onChange={setPrazo}
         value={prazo}
+        rules={[
+          {
+            required: true,
+            message: "Digite uma um prazo!",
+          },
+        ]}
         required
       />
 
@@ -100,6 +121,12 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
         name="requirements"
         value={requisitos}
         onChange={setRequisitos}
+        rules={[
+          {
+            required: true,
+            message: "Digite os requisitos para ser aceito!",
+          },
+        ]}
         type="TextArea"
         rows={3}
         required
@@ -115,6 +142,12 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
           { value: "PESQUISA", label: "pesquisa" },
           { value: "INOVACAO", label: "inovação" },
         ]}
+        rules={[
+          {
+            required: true,
+            message: "Selecione um eixo!",
+          },
+        ]}
         value={tipo}
         required
       />
@@ -125,7 +158,14 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
             maxCount={1}
             onRemove={() => setEdital(null)}
             action={setFile}
-            fileList={[{ name: filename, uid: "-1", status: "done" }]}
+            fileList={edital ?[{ name: filename, uid: "-1", status: "done" }]: []}
+            rules={[
+              {
+                required: true,
+                message: "Selecione um arquivo!",
+              },
+            ]}
+            required
           />
         ) : (
           <Dragger
@@ -148,10 +188,10 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
 
       <div className="space-evenly">
         <Button onClick={handleClick}>Voltar</Button>
-        <Button color="secondary" type="submit">
+        <Button color="secondary" type="submit" disabled={!edital}>
           {buttonText}
         </Button>
       </div>
-    </form>
+    </Form>
   );
 }

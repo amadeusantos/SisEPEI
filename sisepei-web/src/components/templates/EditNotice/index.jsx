@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import "./style.css";
 import { NoticeForm } from "../../organisms/NoticeForm";
 import { useEditNotice, useCurrentNotice } from "./edit-notice.store";
-import { base64ToFile } from "../../../utils/file";
 
 export function EditNotice() {
   const { id } = useParams();
@@ -13,7 +12,7 @@ export function EditNotice() {
     titulo: notice?.title,
     descricao: notice?.description,
     requisitos: notice?.requirements,
-    edital: base64ToFile(notice?.file, notice?.title),
+    edital: notice?.file,
     prazo: notice?.time,
     tipo: notice?.axle,
     filename: notice?.filename

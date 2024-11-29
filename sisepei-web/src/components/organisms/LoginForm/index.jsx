@@ -1,11 +1,11 @@
 import Button from "../../atoms/Button";
 import { useNavigate } from "react-router-dom";
-import Form from "react-bootstrap/Form";
 import { TextField } from "../../molecules";
 import { useState } from "react";
 import "./style.css";
 import { Title } from "../../atoms";
 import { useLogin } from "./login-form.store";
+import { Form } from "antd";
 
 export function LoginForm() {
   const [email, setEmail] = useState("");
@@ -13,8 +13,7 @@ export function LoginForm() {
   const navigate = useNavigate();
   const { mutate } = useLogin(() => navigate("/"));
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit() {
 
     mutate({ email, password });
   }
@@ -26,14 +25,14 @@ export function LoginForm() {
   return (
     <div className="login">
       <Title>Login</Title>
-      <br />
-      <Form role="form" action="" onSubmit={handleSubmit} className="form">
+      <Form onFinish={handleSubmit} className="form">
         <TextField
           label="Email"
           name="email"
           value={email}
           onChange={setEmail}
           type="email"
+          rules={[{required: true, message: "Digite um email!"}, {type: "email", message: "Email válido!"}]}
           required
           placeholder="Digite aqui seu email"
         />
@@ -43,6 +42,7 @@ export function LoginForm() {
           value={password}
           onChange={setPassword}
           type="Password"
+          rules={[{required: true, message: "Digite sua senha!"}]}
           required
           placeholder="Digite aqui sua senha"
         />

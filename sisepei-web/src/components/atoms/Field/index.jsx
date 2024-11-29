@@ -1,4 +1,4 @@
-import { Form } from "antd";
+import { Form, Tag, Typography } from "antd";
 
 /**
  * A form field component with a label and customizable properties.
@@ -13,11 +13,18 @@ import { Form } from "antd";
  */
 export function Field({ label, name, rules, required, children }) {
   return (
-    <>
-      <Form.Item layout="vertical" label={label} name={name} rules={rules} required={required}>
+    <div>
+      <label htmlFor={name}>
+        <Typography.Title level={5}>{label}</Typography.Title>
+      </label>
+      <Form.Item
+        name={name}
+        rules={rules}
+        required={required}
+      >
         {children}
       </Form.Item>
-    </>
+    </div>
   );
 }
 

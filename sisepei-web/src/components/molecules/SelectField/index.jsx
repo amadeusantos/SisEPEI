@@ -28,7 +28,7 @@ export function SelectField({
     <Field label={label} name={name} rules={rules} required={required}>
       <Select
         size="large"
-        style={{ width: "16em" }}
+        style={{ maxWidth: "16em" }}
         required={required}
         options={options}
         value={value}
