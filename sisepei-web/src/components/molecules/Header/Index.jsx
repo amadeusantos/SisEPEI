@@ -1,4 +1,4 @@
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Layout, Typography } from "antd";
 import Cookies from "js-cookie";
 
@@ -6,7 +6,6 @@ import "./Header.css";
 import { Menu } from "../Menu";
 
 const Header = () => {
-  const location = useLocation();
   const isLogged = Boolean(Cookies.get("token"));
 
   return (
