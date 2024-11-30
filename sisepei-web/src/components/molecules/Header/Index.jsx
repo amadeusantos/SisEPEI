@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import "./Header.css";
 import { logout } from "../../../services/AuthenticationService";
 import { Button, Dropdown, Layout, Typography } from "antd";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const items = [
   {
@@ -35,7 +36,7 @@ const Header = () => {
       </Typography.Title>
       {!isRegisterOrLoginCurrentRoute && (
         <Dropdown menu={{ items }} placement="bottomRight">
-          <Button>Ações</Button>
+          <Button size="large"><AccountCircleIcon fontSize="large" /></Button>
         </Dropdown>
       )}
     </Layout.Header>
