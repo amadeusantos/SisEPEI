@@ -45,7 +45,11 @@ export default function Router() {
 
       <Route
         path="/admin/permissions"
-        element={<PermissionsPage />}
+        element={
+          <PrivateRoute profiles={["ADMINISTRADOR"]}>
+            <PermissionsPage />
+          </PrivateRoute>
+        }
       />
 
       <Route path="/intermedio" element={<EscolhaDePersonalidade />} />
