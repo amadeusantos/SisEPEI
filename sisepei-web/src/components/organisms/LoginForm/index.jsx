@@ -32,7 +32,7 @@ export function LoginForm() {
           value={email}
           onChange={setEmail}
           type="email"
-          rules={[{required: true, message: "Digite um email!"}, {type: "email", message: "Email válido!"}]}
+          rules={[{ required: true, message: "Digite um email!" }, { type: "email", message: "Email válido!" }]}
           required
           placeholder="Digite aqui seu email"
         />
@@ -42,7 +42,7 @@ export function LoginForm() {
           value={password}
           onChange={setPassword}
           type="Password"
-          rules={[{required: true, message: "Digite sua senha!"}]}
+          rules={[{ required: true, message: "Digite sua senha!" }]}
           required
           placeholder="Digite aqui sua senha"
         />

@@ -60,11 +60,11 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
 
   return (
     <Form initialValues={{
-      "title": defaultValues.titulo,
-      "description": defaultValues.descricao,
-      "requirements": defaultValues.requisitos,
-      "axle": defaultValues.tipo,
-      "time": dayjs(defaultValues.prazo),
+      "title": defaultValues?.titulo,
+      "description": defaultValues?.descricao,
+      "requirements": defaultValues?.requisitos,
+      "axle": defaultValues?.tipo,
+      "time": dayjs(defaultValues?.prazo),
     }} onFinish={handleSubmit}>
       <Title>{title}</Title>
 
@@ -158,7 +158,7 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
             maxCount={1}
             onRemove={() => setEdital(null)}
             action={setFile}
-            fileList={edital ?[{ name: filename, uid: "-1", status: "done" }]: []}
+            fileList={edital ? [{ name: filename, uid: "-1", status: "done" }] : []}
             rules={[
               {
                 required: true,

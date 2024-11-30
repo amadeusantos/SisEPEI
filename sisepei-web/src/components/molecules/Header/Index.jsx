@@ -1,26 +1,13 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
+import { Layout, Typography } from "antd";
+import Cookies from "js-cookie";
 
 import "./Header.css";
-import { logout } from "../../../services/AuthenticationService";
-import { Button, Dropdown, Layout, Typography } from "antd";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
-const items = [
-  {
-    key: "1",
-    label: (
-      <Button type="button" onClick={logout}>
-        <span>logout</span>
-      </Button>
-    ),
-  },
-];
+import { Menu } from "../Menu";
 
 const Header = () => {
   const location = useLocation();
-  const isRegisterOrLoginCurrentRoute = ["/login", "/register"].includes(
-    location.pathname
-  );
+  const isLogged = Boolean(Cookies.get("token"));
 
   return (
     <Layout.Header
@@ -31,13 +18,14 @@ const Header = () => {
         backgroundColor: "var(--primary)",
       }}
     >
-      <Typography.Title style={{ color: "var(--secundary)", margin: 0 }}>
-        SisPEI
-      </Typography.Title>
-      {!isRegisterOrLoginCurrentRoute && (
-        <Dropdown menu={{ items }} placement="bottomRight">
-          <Button size="large"><AccountCircleIcon fontSize="large" /></Button>
-        </Dropdown>
+      <Link className="link" to={"/"}>
+        <Typography.Title style={{ color: "var(--secundary)", margin: 0 }}>
+          SisPEI
+        </Typography.Title>
+      </Link>
+
+      {isLogged && (
+        <Menu />
       )}
     </Layout.Header>
   );

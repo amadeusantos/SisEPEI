@@ -13,20 +13,13 @@ import Cookies from "js-cookie";
  *
  * @throws {APIException} Throws an error if the request fails or the server responds with an error.
  */
-export async function listUsers({
-  page = 1,
-  size = 10,
-  profileId = undefined,
-}) {
-  let uri = `?page=${page}&size=${size}`;
+export async function getUsers() {
+  const token = Cookies.get("token");
 
-  if (profileId) {
-    uri += `&profileId=${profileId}`;
-  }
-  return await request("GET", uri);
+  return await request("GET", 'users', { token });
 }
 
-export async function userMe() {
+export async function getWhoami() {
   const token = Cookies.get("token");
   return await request("GET", "users/me", { token });
 }
