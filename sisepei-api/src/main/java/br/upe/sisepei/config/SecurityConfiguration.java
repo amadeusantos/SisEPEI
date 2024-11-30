@@ -38,8 +38,6 @@ public class SecurityConfiguration {
                                 .permitAll()
                                 .requestMatchers("/api/auth/**", "/v3/**", "/swagger-ui/**")
                                 .permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/addresses/**", "/api/courses/**")
-                                .permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->

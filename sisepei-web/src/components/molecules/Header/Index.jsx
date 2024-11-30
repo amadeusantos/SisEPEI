@@ -1,12 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Layout, Typography } from "antd";
-import Cookies from "js-cookie";
 
 import "./Header.css";
 import { Menu } from "../Menu";
 
 const Header = () => {
-  const isLogged = Boolean(Cookies.get("token"));
+  const location = useLocation();
+  const isRegisterOrLoginCurrentRoute = ["/login", "/register"].includes(
+    location.pathname
+  );
 
   return (
     <Layout.Header
@@ -22,8 +24,7 @@ const Header = () => {
           SisPEI
         </Typography.Title>
       </Link>
-
-      {isLogged && (
+      {!isRegisterOrLoginCurrentRoute && (
         <Menu />
       )}
     </Layout.Header>
