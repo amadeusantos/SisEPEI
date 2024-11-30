@@ -19,7 +19,7 @@ export async function request(method, url, { token, body } = {}) {
       response.data
     )
     .catch((err) => {
-      const isForbbidenError = err.response.status === 403;
+      const isForbbidenError = err.response.status === 401;
 
       if (isForbbidenError) {
         Cookies.remove('token')

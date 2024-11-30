@@ -1,5 +1,11 @@
+import Cookies from "js-cookie";
+
 import { request } from "./api";
 
-export async function listProfiles() {
-  return request("GET", "");
+const PROFILES = 'profiles/'
+
+export async function getProfiles() {
+  const token = Cookies.get("token");
+
+  return await request("GET", PROFILES, { token });
 }
