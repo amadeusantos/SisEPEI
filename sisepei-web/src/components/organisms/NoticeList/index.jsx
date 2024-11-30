@@ -10,15 +10,24 @@ import { useFilteredNoticeList } from "./notice-list.store";
 import { NotFoundError } from "../../atoms/NotFoundError";
 import { NoticeCard } from "../../molecules";
 import { Loading } from "../../atoms/Loading";
+import { useWhoami } from "../../../store/users.store";
 
 export function NoticeList() {
+  const { data: user, isLoading: isLoadingUser } = useWhoami();
   const navigation = useNavigate();
   const [order, setOrder] = useState("");
   const [filter, setFilter] = useState("");
-  const { data: filteredNotices, isLoading, isFetching, refetch } = useFilteredNoticeList(filter, order);
+  const {
+    data: filteredNotices,
+    isLoading,
+    isFetching,
+    refetch,
+  } = useFilteredNoticeList(filter, order);
   const navigationCreateNotice = () => navigation("new/notices");
+  const profiles = user ? user.profiles.map((profile) => profile.name) : [];
+  console.log(profiles);
 
-  if (isLoading || isFetching) {
+  if (isLoading || isFetching || isLoadingUser) {
     return <Loading />;
   }
 
@@ -27,10 +36,16 @@ export function NoticeList() {
       <Title>Editais</Title>
 
       <div className="button-search">
-        <Button color="terciary" onClick={navigationCreateNotice}>
-          <Plus size={24} weight="bold" />
-          Cadastrar edital
-        </Button>
+        {[
+          "COORDENADOR_EXTENSAO",
+          "COORDENADOR_PESQUISA",
+          "COORDENADOR_INOVACAO",
+        ].some((profileRequest) => profiles.includes(profileRequest)) && (
+          <Button color="terciary" onClick={navigationCreateNotice}>
+            <Plus size={24} weight="bold" />
+            Cadastrar edital
+          </Button>
+        )}
         <Filter order={order} setOrder={setOrder} setFilter={setFilter} />
       </div>
 
@@ -45,9 +60,7 @@ export function NoticeList() {
             term={notice.time}
             coordinator={notice.coordinator.name}
             requirements={notice.requirements}
-            showDeleteButton={false}
-            showEditButton={false}
-            showShowButton={true}
+            isCoordinator={notice.coordinator.id == user.id}
             filename={notice.filename}
           />
         ))

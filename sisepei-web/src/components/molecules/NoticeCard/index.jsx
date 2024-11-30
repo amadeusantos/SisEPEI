@@ -18,6 +18,7 @@ export const NoticeCard = ({
   term,
   requirements,
   filename,
+  isCoordinator = false
 }) => {
   const [openModal, setOpenModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -43,9 +44,8 @@ export const NoticeCard = ({
     setOpenModal(false);
   };
 
-
   return (
-    <div className="card-body" role='notice'>
+    <div className="card-body" role="notice">
       <div className="card-summary">
         <div className="nomeedital">
           <h3>Nome:</h3>
@@ -62,7 +62,7 @@ export const NoticeCard = ({
       </div>
 
       <div className="actions">
-        {
+        {isCoordinator && (
           <div className="button-container">
             <Link className="link" to={`/edit/notices/${id}`}>
               <ButtonAction
@@ -73,9 +73,9 @@ export const NoticeCard = ({
               />
             </Link>
           </div>
-        }
+        )}
 
-        {
+        {isCoordinator && (
           <div className="button-container">
             <ButtonAction
               icon={<Trash size={42} weight="fill" />}
@@ -91,7 +91,7 @@ export const NoticeCard = ({
               />
             )}
           </div>
-        }
+        )}
 
         <ButtonAction
           icon={<Eye size={42} weight="fill" />}
