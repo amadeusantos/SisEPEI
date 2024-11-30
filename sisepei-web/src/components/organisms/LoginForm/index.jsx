@@ -25,7 +25,7 @@ export function LoginForm() {
   return (
     <div className="login">
       <Title>Login</Title>
-      <Form onFinish={handleSubmit} className="form">
+      <Form onFinish={handleSubmit} className="form" role="form">
         <TextField
           label="Email"
           name="email"
