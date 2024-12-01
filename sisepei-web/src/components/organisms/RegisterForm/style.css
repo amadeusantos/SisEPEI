@@ -9,4 +9,8 @@
   display: flex;
   justify-content: space-evenly;
   gap: 1em;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
 }
