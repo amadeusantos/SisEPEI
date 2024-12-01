@@ -4,7 +4,7 @@ import { Button, SubTitle, Title } from "../../atoms";
 import { TextField } from "../../molecules";
 import "./style.css";
 import { useRegister } from "./register-form.store";
-import { Badge, Form, Space } from "antd";
+import { Badge, Form, message, Space } from "antd";
 
 export function passowordValidation({
   setLenght8,
@@ -54,14 +54,17 @@ export function RegisterForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { mutate } = useRegister(() => navigation("/login"));
+  const { mutate } = useRegister(() => {
+    navigation("/login");
+    message.success("Registro feito com sucesso");
+  });
 
   async function registerUser() {
     mutate({
       name: name,
       email: email,
       password: password,
-    });
+    },); 
   }
 
   const handleClick = () => {
