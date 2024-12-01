@@ -1,0 +1,35 @@
+.frame {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  background-color: #ffff;
+  padding: 50px;
+  margin: auto;
+
+}
+
+.intro {
+  padding: 30px;
+  border-radius: 15px;
+  text-align: start;
+  color: #1C3245;
+  width: 50%;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.intro h2 {
+  color: #1C3245 !important;
+}
+
+.intro h2 strong {
+  font-size: 64px;
+}
+
+#paragrafo {
+  font-size: 32px;
+  color: #081329;
+}

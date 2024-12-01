@@ -1,0 +1,30 @@
+.date-input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-date-input {
+  width: 180px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--button-gray);
+  border-radius: 5px;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px;
+}
+
+.custom-date-input:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.custom-date-input:hover {
+  border-color: #0056b3;
+}

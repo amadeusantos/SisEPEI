@@ -1,0 +1,458 @@
+[
+  {
+    "coordinates": "pkg:npm/micromatch@3.1.10",
+    "description": "Glob matching for javascript/node.js. A replacement and faster alternative to minimatch and multimatch.",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/micromatch@3.1.10?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2024-4067",
+        "title": "[CVE-2024-4067] CWE-1333",
+        "description": "The NPM package `micromatch` prior to 4.0.8 is vulnerable to Regular Expression Denial of Service (ReDoS). The vulnerability occurs in `micromatch.braces()` in `index.js` because the pattern `.*` will greedily match anything. By passing a malicious payload, the pattern matching will keep backtracking to the input while it doesn't find the closing bracket. As the input size increases, the consumption time will also increase until it causes the application to hang or slow down. There was a merged fix but further testing shows the issue persists. This issue should be mitigated by using a safe pattern that won't start backtracking the regular expression due to greedy matching. This issue was fixed in version 4.0.8.",
+        "cvssScore": 5.3,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+        "cve": "CVE-2024-4067",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2024-4067?component-type=npm&component-name=micromatch&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/braces@2.3.2",
+    "description": "Bash-like brace expansion, implemented in JavaScript. Safer than other brace expansion libs, with complete support for the Bash 4.3 braces specification, without sacrificing speed.",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/braces@2.3.2?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2024-4068",
+        "title": "[CVE-2024-4068] CWE-1050 CWE-400",
+        "description": "The NPM package `braces`, versions prior to 3.0.3, fails to limit the number of characters it can handle, which could lead to Memory Exhaustion. In `lib/parse.js,` if a malicious user sends \"imbalanced braces\" as input, the parsing will enter a loop, which will cause the program to start allocating heap memory without freeing it at any moment of the loop. Eventually, the JavaScript heap limit is reached, and the program will crash.",
+        "cvssScore": 7.5,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "cve": "CVE-2024-4068",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2024-4068?component-type=npm&component-name=braces&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/request@2.88.2",
+    "description": "Simplified HTTP request client.",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/request@2.88.2?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2023-28155",
+        "title": "[CVE-2023-28155] CWE-918: Server-Side Request Forgery (SSRF)",
+        "description": "The Request package through 2.88.1 for Node.js allows a bypass of SSRF mitigations via an attacker-controller server that does a cross-protocol redirect (HTTP to HTTPS, or HTTPS to HTTP). NOTE: This vulnerability only affects products that are no longer supported by the maintainer.",
+        "cvssScore": 6.1,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+        "cve": "CVE-2023-28155",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2023-28155?component-type=npm&component-name=request&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/tough-cookie@2.5.0",
+    "description": "RFC6265 Cookies and Cookie Jar for node.js",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/tough-cookie@2.5.0?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2023-26136",
+        "title": "[CVE-2023-26136] CWE-1321",
+        "description": "Versions of the package tough-cookie before 4.1.3 are vulnerable to Prototype Pollution due to improper handling of Cookies when using CookieJar in rejectPublicSuffixes=false mode. This issue arises from the manner in which the objects are initialized.",
+        "cvssScore": 9.8,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "cve": "CVE-2023-26136",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2023-26136?component-type=npm&component-name=tough-cookie&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/node-notifier@5.4.5",
+    "description": "A Node.js module for sending notifications on native Mac, Windows (post and pre 8) and Linux (or Growl as fallback)",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/node-notifier@5.4.5?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2020-7789",
+        "title": "[CVE-2020-7789] CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+        "description": "This affects the package node-notifier before 9.0.0. It allows an attacker to run arbitrary commands on Linux machines due to the options params not being sanitised when being passed an array.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2020-7789 for details",
+        "cvssScore": 5.6,
+        "cvssVector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+        "cve": "CVE-2020-7789",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2020-7789?component-type=npm&component-name=node-notifier&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/react-dev-utils@10.2.1",
+    "description": "webpack utilities used by Create React App",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/react-dev-utils@10.2.1?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2021-24033",
+        "title": "[CVE-2021-24033] CWE-77: Improper Neutralization of Special Elements used in a Command ('Command Injection')",
+        "description": "react-dev-utils - Command Injection [ CVE-2021-24033 ]\n\nThe software constructs all or part of a command using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the intended command when it is sent to a downstream component.",
+        "cvssScore": 8.8,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+        "cve": "CVE-2021-24033",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2021-24033?component-type=npm&component-name=react-dev-utils&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/browserslist@4.10.0",
+    "description": "Share target browsers between different front-end tools, like Autoprefixer, Stylelint and babel-env-preset",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/browserslist@4.10.0?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2021-23364",
+        "title": "[CVE-2021-23364] CWE-1333",
+        "description": "The package browserslist from 4.0.0 and before 4.16.5 are vulnerable to Regular Expression Denial of Service (ReDoS) during parsing of queries.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2021-23364 for details",
+        "cvssScore": 5.3,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+        "cve": "CVE-2021-23364",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2021-23364?component-type=npm&component-name=browserslist&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/glob-parent@3.1.0",
+    "description": "Extract the non-magic parent path from a glob string.",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/glob-parent@3.1.0?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2020-28469",
+        "title": "[CVE-2020-28469] CWE-400: Uncontrolled Resource Consumption ('Resource Exhaustion')",
+        "description": "This affects the package glob-parent before 5.1.2. The enclosure regex used to check for strings ending in enclosure containing path separator.",
+        "cvssScore": 7.5,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "cve": "CVE-2020-28469",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2020-28469?component-type=npm&component-name=glob-parent&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/immer@1.10.0",
+    "description": "Create your next immutable state by mutating the current one",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/immer@1.10.0?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2020-28477",
+        "title": "[CVE-2020-28477] CWE-471: Modification of Assumed-Immutable Data (MAID)",
+        "description": "This affects all versions of package immer.",
+        "cvssScore": 7.5,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "cve": "CVE-2020-28477",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2020-28477?component-type=npm&component-name=immer&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/loader-utils@1.2.3",
+    "description": "utils for webpack loaders",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/loader-utils@1.2.3?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2022-37599",
+        "title": "[CVE-2022-37599] CWE-1333",
+        "description": "A Regular expression denial of service (ReDoS) flaw was found in Function interpolateName in interpolateName.js in webpack loader-utils 2.0.0 via the resourcePath variable in interpolateName.js.",
+        "cvssScore": 7.5,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "cve": "CVE-2022-37599",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2022-37599?component-type=npm&component-name=loader-utils&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      },
+      {
+        "id": "CVE-2022-37601",
+        "title": "[CVE-2022-37601] CWE-1321",
+        "description": "Prototype pollution vulnerability in function parseQuery in parseQuery.js in webpack loader-utils via the name variable in parseQuery.js. This affects all versions prior to 1.4.1 and 2.0.3.",
+        "cvssScore": 9.8,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "cve": "CVE-2022-37601",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2022-37601?component-type=npm&component-name=loader-utils&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      },
+      {
+        "id": "CVE-2022-37603",
+        "title": "[CVE-2022-37603] CWE-1333",
+        "description": "A Regular expression denial of service (ReDoS) flaw was found in Function interpolateName in interpolateName.js in webpack loader-utils 2.0.0 via the url variable in interpolateName.js.",
+        "cvssScore": 7.5,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "cve": "CVE-2022-37603",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2022-37603?component-type=npm&component-name=loader-utils&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/shell-quote@1.7.2",
+    "description": "quote and parse shell commands",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/shell-quote@1.7.2?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2021-42740",
+        "title": "[CVE-2021-42740] CWE-77: Improper Neutralization of Special Elements used in a Command ('Command Injection')",
+        "description": "The shell-quote package before 1.7.3 for Node.js allows command injection. An attacker can inject unescaped shell metacharacters through a regex designed to support Windows drive letters. If the output of this package is passed to a real shell as a quoted argument to a command with exec(), an attacker can inject arbitrary commands. This is because the Windows drive letter regex character class is {A-z] instead of the correct {A-Za-z]. Several shell metacharacters exist in the space between capital letter Z and lower case letter a, such as the backtick character.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2021-42740 for details",
+        "cvssScore": 9.8,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "cve": "CVE-2021-42740",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2021-42740?component-type=npm&component-name=shell-quote&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/postcss@7.0.21",
+    "description": "Tool for transforming styles with JS plugins",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/postcss@7.0.21?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2021-23368",
+        "title": "[CVE-2021-23368] CWE-noinfo",
+        "description": "The package postcss from 7.0.0 and before 8.2.10 are vulnerable to Regular Expression Denial of Service (ReDoS) during source map parsing.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2021-23368 for details",
+        "cvssScore": 5.3,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+        "cve": "CVE-2021-23368",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2021-23368?component-type=npm&component-name=postcss&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      },
+      {
+        "id": "CVE-2021-23382",
+        "title": "[CVE-2021-23382] CWE-1333",
+        "description": "The package postcss before 8.2.13 are vulnerable to Regular Expression Denial of Service (ReDoS) via getAnnotationURL() and loadAnnotation() in lib/previous-map.js. The vulnerable regexes are caused mainly by the sub-pattern \\/\\*\\s* sourceMappingURL=(.*).",
+        "cvssScore": 7.5,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "cve": "CVE-2021-23382",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2021-23382?component-type=npm&component-name=postcss&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      },
+      {
+        "id": "CVE-2023-44270",
+        "title": "[CVE-2023-44270] CWE-74: Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')",
+        "description": "An issue was discovered in PostCSS before 8.4.31. The vulnerability affects linters using PostCSS to parse external untrusted CSS. An attacker can prepare CSS in such a way that it will contains parts parsed by PostCSS as a CSS comment. After processing by PostCSS, it will be included in the PostCSS output in CSS nodes (rules, properties) despite being included in a comment.",
+        "cvssScore": 5.3,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+        "cve": "CVE-2023-44270",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2023-44270?component-type=npm&component-name=postcss&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/webpack@4.42.0",
+    "description": "Packs CommonJs/AMD modules for the browser. Allows to split your codebase into multiple bundles, which can be loaded on demand. Support loaders to preprocess files, i.e. json, jsx, es7, css, less, ... and your custom stuff.",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/webpack@4.42.0?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2023-28154",
+        "title": "[CVE-2023-28154] CWE-noinfo",
+        "description": "Webpack 5 before 5.76.0 does not avoid cross-realm object access. ImportParserPlugin.js mishandles the magic comment feature. An attacker who controls a property of an untrusted object can obtain access to the real global object.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2023-28154 for details",
+        "cvssScore": 9.8,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "cve": "CVE-2023-28154",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2023-28154?component-type=npm&component-name=webpack&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/ansi-html@0.0.7",
+    "description": "An elegant lib that converts the chalked (ANSI) text to HTML.",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/ansi-html@0.0.7?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2021-23424",
+        "title": "[CVE-2021-23424] CWE-400: Uncontrolled Resource Consumption ('Resource Exhaustion')",
+        "description": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.",
+        "cvssScore": 7.5,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "cve": "CVE-2021-23424",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2021-23424?component-type=npm&component-name=ansi-html&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/ip@1.1.9",
+    "description": "[![](https://badge.fury.io/js/ip.svg)](https://www.npmjs.com/package/ip)",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/ip@1.1.9?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2024-29415",
+        "title": "[CVE-2024-29415] CWE-918: Server-Side Request Forgery (SSRF)",
+        "description": "The ip package through 2.0.1 for Node.js might allow SSRF because some IP addresses (such as 127.1, 01200034567, 012.1.2.3, 000:0:0000::01, and ::fFFf:127.0.0.1) are improperly categorized as globally routable via isPublic. NOTE: this issue exists because of an incomplete fix for CVE-2023-42282.",
+        "cvssScore": 8.1,
+        "cvssVector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "cve": "CVE-2024-29415",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2024-29415?component-type=npm&component-name=ip&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/async@2.6.4",
+    "description": "Higher-order functions and common patterns for asynchronous code",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/async@2.6.4?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2024-39249",
+        "title": "[CVE-2024-39249] CWE-1333",
+        "description": "Async <= 2.6.4 and <= 3.2.5 are vulnerable to ReDoS (Regular Expression Denial of Service) while parsing function in autoinject function. NOTE: this is disputed by the supplier because there is no realistic threat model: regular expressions are not used with untrusted input.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2024-39249 for details",
+        "cvssScore": 7.5,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "cve": "CVE-2024-39249",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2024-39249?component-type=npm&component-name=async&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/node-forge@0.10.0",
+    "description": "JavaScript implementations of network transports, cryptography, ciphers, PKI, message digests, and various utilities.",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/node-forge@0.10.0?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2022-0122",
+        "title": "[CVE-2022-0122] CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+        "description": "forge is vulnerable to URL Redirection to Untrusted Site",
+        "cvssScore": 6.1,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+        "cve": "CVE-2022-0122",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2022-0122?component-type=npm&component-name=node-forge&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      },
+      {
+        "id": "CVE-2022-24771",
+        "title": "[CVE-2022-24771] CWE-347: Improper Verification of Cryptographic Signature",
+        "description": "Forge (also called `node-forge`) is a native implementation of Transport Layer Security in JavaScript. Prior to version 1.3.0, RSA PKCS#1 v1.5 signature verification code is lenient in checking the digest algorithm structure. This can allow a crafted structure that steals padding bytes and uses unchecked portion of the PKCS#1 encoded message to forge a signature when a low public exponent is being used. The issue has been addressed in `node-forge` version 1.3.0. There are currently no known workarounds.",
+        "cvssScore": 7.5,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+        "cve": "CVE-2022-24771",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2022-24771?component-type=npm&component-name=node-forge&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      },
+      {
+        "id": "CVE-2022-24772",
+        "title": "[CVE-2022-24772] CWE-347: Improper Verification of Cryptographic Signature",
+        "description": "Forge (also called `node-forge`) is a native implementation of Transport Layer Security in JavaScript. Prior to version 1.3.0, RSA PKCS#1 v1.5 signature verification code does not check for tailing garbage bytes after decoding a `DigestInfo` ASN.1 structure. This can allow padding bytes to be removed and garbage data added to forge a signature when a low public exponent is being used. The issue has been addressed in `node-forge` version 1.3.0. There are currently no known workarounds.",
+        "cvssScore": 7.5,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+        "cve": "CVE-2022-24772",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2022-24772?component-type=npm&component-name=node-forge&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      },
+      {
+        "id": "CVE-2022-24773",
+        "title": "[CVE-2022-24773] CWE-347: Improper Verification of Cryptographic Signature",
+        "description": "Forge (also called `node-forge`) is a native implementation of Transport Layer Security in JavaScript. Prior to version 1.3.0, RSA PKCS#1 v1.5 signature verification code does not properly check `DigestInfo` for a proper ASN.1 structure. This can lead to successful verification with signatures that contain invalid structures but a valid digest. The issue has been addressed in `node-forge` version 1.3.0. There are currently no known workarounds.",
+        "cvssScore": 5.3,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+        "cve": "CVE-2022-24773",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2022-24773?component-type=npm&component-name=node-forge&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/webpack-dev-middleware@3.7.3",
+    "description": "A development middleware for webpack",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/webpack-dev-middleware@3.7.3?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2024-29180",
+        "title": "[CVE-2024-29180] CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+        "description": "Prior to versions 7.1.0, 6.1.2, and 5.3.4, the webpack-dev-middleware development middleware for devpack does not validate the supplied URL address sufficiently before returning the local file. It is possible to access any file on the developer's machine. The middleware can either work with the physical filesystem when reading the files or it can use a virtualized in-memory `memfs` filesystem. If `writeToDisk` configuration option is set to `true`, the physical filesystem is used. The `getFilenameFromUrl` method is used to parse URL and build the local file path. The public path prefix is stripped from the URL, and the `unsecaped` path suffix is appended to the `outputPath`. As the URL is not unescaped and normalized automatically before calling the midlleware, it is possible to use `%2e` and `%2f` sequences to perform path traversal attack.\n\nDevelopers using `webpack-dev-server` or `webpack-dev-middleware` are affected by the issue. When the project is started, an attacker might access any file on the developer's machine and exfiltrate the content. If the development server is listening on a public IP address (or `0.0.0.0`), an attacker on the local network can access the local files without any interaction from the victim (direct connection to the port). If the server allows access from third-party domains, an attacker can send a malicious link to the victim. When visited, the client side script can connect to the local server and exfiltrate the local files. Starting with fixed versions 7.1.0, 6.1.2, and 5.3.4, the URL is unescaped and normalized before any further processing.",
+        "cvssScore": 7.4,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:N/A:N",
+        "cve": "CVE-2024-29180",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2024-29180?component-type=npm&component-name=webpack-dev-middleware&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/lodash.template@4.5.0",
+    "description": "The Lodash method `_.template` exported as a module.",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/lodash.template@4.5.0?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2021-23337",
+        "title": "[CVE-2021-23337] CWE-94: Improper Control of Generation of Code ('Code Injection')",
+        "description": "Lodash versions prior to 4.17.21 are vulnerable to Command Injection via the template function.",
+        "cvssScore": 7.2,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+        "cve": "CVE-2021-23337",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2021-23337?component-type=npm&component-name=lodash.template&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/bootstrap@5.2.3",
+    "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/bootstrap@5.2.3?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2024-6484",
+        "title": "[CVE-2024-6484] CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "A vulnerability has been identified in Bootstrap that exposes users to Cross-Site Scripting (XSS) attacks. The issue is present in the carousel component, where the data-slide and data-slide-to attributes can be exploited through the href attribute of an <a> tag due to inadequate sanitization. This vulnerability could potentially enable attackers to execute arbitrary JavaScript within the victim's browser.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2024-6484 for details",
+        "cvssScore": 6.4,
+        "cvssVector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:L/A:L",
+        "cve": "CVE-2024-6484",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2024-6484?component-type=npm&component-name=bootstrap&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      },
+      {
+        "id": "CVE-2024-6531",
+        "title": "[CVE-2024-6531] CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "A vulnerability has been identified in Bootstrap that exposes users to Cross-Site Scripting (XSS) attacks. The issue is present in the carousel component, where the data-slide and data-slide-to attributes can be exploited through the href attribute of an <a> tag due to inadequate sanitization. This vulnerability could potentially enable attackers to execute arbitrary JavaScript within the victim's browser.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2024-6531 for details",
+        "cvssScore": 6.4,
+        "cvssVector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:L/A:L",
+        "cve": "CVE-2024-6531",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2024-6531?component-type=npm&component-name=bootstrap&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/css-what@3.4.2",
+    "description": "a CSS selector parser",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/css-what@3.4.2?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2022-21222",
+        "title": "[CVE-2022-21222] CWE-1333",
+        "description": "The package css-what before 2.1.3 are vulnerable to Regular Expression Denial of Service (ReDoS) due to the usage of insecure regular expression in the re_attr variable of index.js. The exploitation of this vulnerability could be triggered via the parse function.\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2022-21222 for details",
+        "cvssScore": 7.5,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "cve": "CVE-2022-21222",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2022-21222?component-type=npm&component-name=css-what&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/nth-check@1.0.2",
+    "description": "performant nth-check parser & compiler",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/nth-check@1.0.2?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2021-3803",
+        "title": "[CVE-2021-3803] CWE-1333",
+        "description": "nth-check is vulnerable to Inefficient Regular Expression Complexity",
+        "cvssScore": 7.5,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "cve": "CVE-2021-3803",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2021-3803?component-type=npm&component-name=nth-check&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/semver@6.3.0",
+    "description": "The semantic version parser used by npm.",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/semver@6.3.0?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2022-25883",
+        "title": "[CVE-2022-25883] CWE-1333",
+        "description": "Versions of the package semver before 7.5.2 are vulnerable to Regular Expression Denial of Service (ReDoS) via the function new Range, when untrusted user data is provided as a range.\r\r\r\n\nSonatype's research suggests that this CVE's details differ from those defined at NVD. See https://ossindex.sonatype.org/vulnerability/CVE-2022-25883 for details",
+        "cvssScore": 7.5,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "cve": "CVE-2022-25883",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2022-25883?component-type=npm&component-name=semver&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  },
+  {
+    "coordinates": "pkg:npm/postcss@7.0.39",
+    "description": "Tool for transforming styles with JS plugins",
+    "reference": "https://ossindex.sonatype.org/component/pkg:npm/postcss@7.0.39?utm_source=auditjs&utm_medium=integration&utm_content=4.0.45",
+    "vulnerabilities": [
+      {
+        "id": "CVE-2023-44270",
+        "title": "[CVE-2023-44270] CWE-74: Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')",
+        "description": "An issue was discovered in PostCSS before 8.4.31. The vulnerability affects linters using PostCSS to parse external untrusted CSS. An attacker can prepare CSS in such a way that it will contains parts parsed by PostCSS as a CSS comment. After processing by PostCSS, it will be included in the PostCSS output in CSS nodes (rules, properties) despite being included in a comment.",
+        "cvssScore": 5.3,
+        "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+        "cve": "CVE-2023-44270",
+        "reference": "https://ossindex.sonatype.org/vulnerability/CVE-2023-44270?component-type=npm&component-name=postcss&utm_source=auditjs&utm_medium=integration&utm_content=4.0.45"
+      }
+    ]
+  }
+]
