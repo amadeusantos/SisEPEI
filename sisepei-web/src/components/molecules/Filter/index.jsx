@@ -27,6 +27,7 @@ export function Filter({ order, setOrder, setFilter }) {
         break;
     }
   };
+  
   return (
     <div className="search-filter">
       <Input placeholder="Buscar" variant="borderless" onChange={setFilter} />

@@ -13,7 +13,6 @@ import { message } from "antd";
 export async function listNotices() {
   let uri = `notices`;
   const token = Cookies.get("token");
-
   return await request("GET", uri, { token });
 }
 

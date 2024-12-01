@@ -2,3 +2,9 @@
   display: flex;
   gap: 6px;
 }
+
+:where(.css-dev-only-do-not-override-1x0dypw).ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector {
+  border-color: #4096ff;
+  border-radius: 15px;
+  background-color: #D9D9D9;
+}
