@@ -42,6 +42,7 @@ class UpdateNoticeUseCaseTest {
         coordinator.setId(1L);
         noticeDTO = new NoticeDTO();
         noticeDTO.setTitle("Test2");
+        notice.setCoordinator(coordinator);
         file = new byte[]{1, 2, 3};
     }
 

@@ -12,6 +12,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class UpdateNoticeUseCase {
@@ -21,14 +23,12 @@ public class UpdateNoticeUseCase {
 
     public Notice execute(Long id, NoticeDTO noticeDTO, Long coordinatorId, byte[] file) { // TODO: permission
         Notice notice = noticeRepository.findById(id).orElseThrow(() -> new NotFoundException("Notice not found"));
-        User coordinator = userRepository.findById(coordinatorId).orElseThrow(() -> new NotFoundException("Coordinator not found"));
 
-        if (notice.getCoordinator() != coordinator) {
+        if (!Objects.equals(notice.getCoordinator().getId(), coordinatorId)) {
             throw new UnauthorizedException("Coordinator does not belong to this notice");
         }
 
         BeanUtils.copyProperties(noticeDTO, notice);
-        notice.setCoordinator(coordinator);
         notice.setFile(file);
         return noticeRepository.save(notice);
     }

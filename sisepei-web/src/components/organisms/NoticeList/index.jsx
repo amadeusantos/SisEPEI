@@ -25,7 +25,6 @@ export function NoticeList() {
   } = useFilteredNoticeList(filter, order);
   const navigationCreateNotice = () => navigation("new/notices");
   const profiles = user ? user.profiles.map((profile) => profile.name) : [];
-  console.log(profiles);
 
   if (isLoading || isFetching || isLoadingUser) {
     return <Loading />;

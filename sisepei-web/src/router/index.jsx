@@ -37,7 +37,7 @@ export default function Router() {
       <Route
         path="/edit/notices/:id"
         element={
-          <PrivateRoute profiles={["COORDENADOR_EXTENSAO", "COORDENADOR_PESQUISA", "COORDENADOR_INOVACAO"]}>
+          <PrivateRoute>
             <EditNotice />
           </PrivateRoute>
         }
