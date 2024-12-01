@@ -7,7 +7,7 @@ export function useRegister(onSuccess) {
     mutationFn: register,
     onSuccess,
     onError: (error) => {
-      if (error instanceof APiException && error.status === 409) {
+      if (error.status === 409) {
         message.error("O email já está cadastrado!");
       } else {
         message.error("Ocorreu um erro ao realizar o cadastro. Tente novamente.");
