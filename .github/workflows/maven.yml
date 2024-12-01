@@ -39,7 +39,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      working-directory: ./app
+      working-directory: ./sisepei-api
       run: mvn -B package --file pom.xml
       env:
         JDBC_DATABASE_USERNAME: ${{ secrets.DATABASE_USER }}
