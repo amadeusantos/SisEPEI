@@ -13,35 +13,15 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import "./index.css"
 import { useProfiles } from '../../../store/profiles.store';
-import { useUsers } from '../../../store/users.store';
+import { useUsersPermissionsRows } from '../../../store/users.store';
 import { Loading } from '../../atoms/Loading';
-
-function createData(email, isExtensionCoordinator, isResearchCoordinator, isInovationCoordinator, isAdmin) {
-    return { email, isExtensionCoordinator, isResearchCoordinator, isInovationCoordinator, isAdmin };
-}
-
-const rows = [
-    createData('jurandir@upe.br', true, true, true, true),
-    createData('rafael.joses@upe.br', true, true, false, true),
-    createData('pedro.souza@upe.br', false, true, true, true),
-    createData('amadeu.santos@upe.br', false, false, false, false),
-    createData('guilherme.alencar@upe.br', true, false, false, true),
-];
-
-const ROLES_MAP = {
-    ADMINISTRADOR: 'Administrador Geral',
-    COORDENADOR_EXTENSAO: 'Coordenador de Extensão',
-    COORDENADOR_INOVACAO: 'Coordenador de Inovação',
-    COORDENADOR_PESQUISA: 'Coordenador de Pesquisa'
-}
+import { ROLES_MAP } from '../../../utils/enums';
 
 export function PermissionsPage() {
     const { data: profiles, isLoading: isLoadingProfiles } = useProfiles();
-    const { data: users, isLoading: isLoadingUsers } = useUsers();
+    const { data: rows, isLoading: isLoadingUsers } = useUsersPermissionsRows();
     const isLoading = isLoadingProfiles || isLoadingUsers;
     const navigate = useNavigate();
-
-    console.log(users)
 
     function handleGoBack() {
         navigate('/')
@@ -76,7 +56,7 @@ export function PermissionsPage() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {rows?.map((row) => (
                             <TableRow key={row.email}>
                                 <TableCell component="th" scope="row">
                                     {row.email}
