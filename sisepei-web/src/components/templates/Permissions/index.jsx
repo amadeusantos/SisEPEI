@@ -13,7 +13,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import "./index.css"
 import { useProfiles } from '../../../store/profiles.store';
-import { useUsersPermissionsRows } from '../../../store/users.store';
+import { useUsersPermissionsRows, useEditUserProfiles } from '../../../store/users.store';
 import { Loading } from '../../atoms/Loading';
 import { ROLES_MAP } from '../../../utils/enums';
 
@@ -22,9 +22,22 @@ export function PermissionsPage() {
     const { data: rows, isLoading: isLoadingUsers } = useUsersPermissionsRows();
     const isLoading = isLoadingProfiles || isLoadingUsers;
     const navigate = useNavigate();
+    const { mutateAsync } = useEditUserProfiles();
 
     function handleGoBack() {
         navigate('/')
+    }
+
+    function handleUpdatePermission(user, role) {
+        const roleId = profiles?.find(profile => profile.name === role)?.id;
+        const userRoleIds = user.profiles.map(profile => profile.id);
+        const hasUserRoleId = userRoleIds.includes(roleId);
+
+        if (hasUserRoleId) {
+            mutateAsync({ id: user.id, profileIds: userRoleIds.filter((id) => id !== roleId) })
+        } else {
+            mutateAsync({ id: user.id, profileIds: [...userRoleIds, roleId] })
+        }
     }
 
     if (isLoading) {
@@ -62,16 +75,36 @@ export function PermissionsPage() {
                                     {row.email}
                                 </TableCell>
                                 <TableCell align="right">
-                                    <Switch defaultChecked={row.isExtensionCoordinator} />
+                                    <Switch
+                                        defaultChecked={row.isAdmin}
+                                        onChange={() => {
+                                            handleUpdatePermission(row.user, 'ADMINISTRADOR')
+                                        }}
+                                    />
                                 </TableCell>
                                 <TableCell align="right">
-                                    <Switch defaultChecked={row.isResearchCoordinator} />
+                                    <Switch
+                                        defaultChecked={row.isExtensionCoordinator}
+                                        onChange={() => {
+                                            handleUpdatePermission(row.user, 'COORDENADOR_EXTENSAO')
+                                        }}
+                                    />
                                 </TableCell>
                                 <TableCell align="right">
-                                    <Switch defaultChecked={row.isInovationCoordinator} />
+                                    <Switch
+                                        defaultChecked={row.isInovationCoordinator}
+                                        onChange={() => {
+                                            handleUpdatePermission(row.user, 'COORDENADOR_INOVACAO')
+                                        }}
+                                    />
                                 </TableCell>
                                 <TableCell align="right">
-                                    <Switch defaultChecked={row.isAdmin} />
+                                    <Switch
+                                        defaultChecked={row.isResearchCoordinator}
+                                        onChange={() => {
+                                            handleUpdatePermission(row.user, 'COORDENADOR_PESQUISA')
+                                        }}
+                                    />
                                 </TableCell>
                             </TableRow>
                         ))}

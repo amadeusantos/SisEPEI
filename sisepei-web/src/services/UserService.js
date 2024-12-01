@@ -24,17 +24,11 @@ export async function getWhoami() {
   return await request("GET", "users/me", { token });
 }
 
-/**
- * Updates the profiles associated with a specific user.
- *
- * @param {string} id - The unique identifier of the user whose profiles are being updated.
- * @param {number[]} profiles - An array of profile IDs to be assigned to the user.
- *
- * @returns {Promise<void>} A promise that resolves when the user's profiles have been successfully updated.
- *
- * @throws {ZodError} Throws an error if input validation fails (e.g., invalid user ID or profiles array).
- * @throws {APIException} Throws an error if the request fails or the server responds with an error.
- */
-export async function editUserProfiles(id, profiles) {
-  return await request("PATCH", `/${id}`, { body: { profiles } });
+export async function patchUserProfiles({ id, profileIds }) {
+  const token = Cookies.get("token");
+  const body = {
+    profileIds
+  }
+
+  return await request("PATCH", `users/${id}/profiles`, { token, body });
 }
