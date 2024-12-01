@@ -35,6 +35,9 @@ class DeleteNoticeUseCaseTest {
     @Test
     void execute() {
         User user = new User();
+        user.setId(1L);
+
+        notice.setCoordinator(user);
         when(noticeRepository.findById(1L)).thenReturn(Optional.of(notice));
 
         deleteNoticeUseCase.execute(1L, user);
