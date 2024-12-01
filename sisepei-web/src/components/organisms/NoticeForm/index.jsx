@@ -59,7 +59,7 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
   };
 
   return (
-    <Form initialValues={{
+    <Form id="divGeral" initialValues={{
       "title": defaultValues?.titulo,
       "description": defaultValues?.descricao,
       "requirements": defaultValues?.requisitos,

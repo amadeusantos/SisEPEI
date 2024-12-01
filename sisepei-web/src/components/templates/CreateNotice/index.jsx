@@ -13,12 +13,12 @@ export function CreateNotice() {
   };
   const { mutate } = useCreateNotice({ onSuccess });
   return (
-    <div id="divGeral">
+    <main>
       <NoticeForm
         title="Cadastro de Editais"
         buttonText="Cadastrar"
         onSubmit={mutate}
       />
-    </div>
+    </main>
   );
 }

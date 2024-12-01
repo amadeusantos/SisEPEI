@@ -3,10 +3,17 @@
   padding: 20px;
   border: 2px solid #ccc;
   border-radius: 5px;
+  @media screen and (max-width: 768px) {
+    width: 80%;
+  }
 }
 
 .space-evenly {
   display: flex;
   justify-content: space-evenly;
   gap: 1em;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
 }

@@ -35,13 +35,13 @@ export function EditNotice() {
   }
 
   return (
-    <div id="divGeral">
+    <main>
       <NoticeForm
         title="Edição de Edital"
         buttonText="Editar"
         onSubmit={onSubmit}
         defaultValues={defaultValues}
       />
-    </div>
+    </main>
   );
 }
