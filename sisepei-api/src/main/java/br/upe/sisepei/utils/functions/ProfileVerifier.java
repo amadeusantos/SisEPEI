@@ -14,8 +14,8 @@ public class ProfileVerifier {
 
     private static final Map<AxleEnum, ProfileEnum> roleMapping = Map.of(
             AxleEnum.EXTENSAO, ProfileEnum.COORDENADOR_EXTENSAO,
-            AxleEnum.INOVACAO, ProfileEnum.COORDENADOR_EXTENSAO,
-            AxleEnum.PESQUISA, ProfileEnum.COORDENADOR_EXTENSAO
+            AxleEnum.INOVACAO, ProfileEnum.COORDENADOR_INOVACAO,
+            AxleEnum.PESQUISA, ProfileEnum.COORDENADOR_PESQUISA
     );
 
     public static boolean execute(AxleEnum axle, User coordinator) {

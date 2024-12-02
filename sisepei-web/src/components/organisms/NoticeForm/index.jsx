@@ -8,6 +8,8 @@ import { SelectField } from "../../molecules/SelectField";
 import { InboxOutlined } from "@ant-design/icons";
 import { Form, Upload } from "antd";
 import dayjs from "dayjs";
+import { useWhoami } from "../../../store/users.store";
+import { Loading } from "../../atoms/Loading";
 
 const { Dragger } = Upload;
 
@@ -23,7 +25,7 @@ const fileToBase64 = async (file) => {
 
 export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
   const navigate = useNavigate();
-
+  const { data: user, isLoading: isLoadingUser } = useWhoami();
   const [titulo, setTitulo] = useState(defaultValues?.titulo ?? "");
   const [descricao, setDescricao] = useState(defaultValues?.descricao ?? "");
   const [requisitos, setRequisitos] = useState(defaultValues?.requisitos ?? "");
@@ -31,6 +33,17 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
   const [prazo, setPrazo] = useState(defaultValues?.prazo ?? "");
   const [tipo, setTipo] = useState(defaultValues?.tipo ?? "");
   const [filename, setFilename] = useState(defaultValues?.filename ?? "");
+  const x = [
+    ...user.profiles.map((p) => p.name),
+    defaultValues?.tipo,
+    undefined,
+  ];
+  const axleAllowed = [
+    { label: "Selecione um tipo de edital" },
+    { value: "EXTENSAO", label: "extensão", profile: "COORDENADOR_EXTENSAO" },
+    { value: "PESQUISA", label: "pesquisa", profile: "COORDENADOR_PESQUISA" },
+    { value: "INOVACAO", label: "inovação", profile: "COORDENADOR_INOVACAO" },
+  ].filter((p) => x.includes(p.profile) || x.includes(p.value));
 
   const setFile = async (file) => {
     const base64File = await fileToBase64(file);
@@ -40,8 +53,6 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
   };
 
   async function handleSubmit() {
-
-
     await onSubmit({
       title: titulo,
       description: descricao,
@@ -51,21 +62,28 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
       time: prazo,
       filename: filename,
     });
-
   }
 
   const handleClick = () => {
     navigate("/");
   };
 
+  if (isLoadingUser) {
+    return <Loading />;
+  }
+
   return (
-    <Form id="divGeral" initialValues={{
-      "title": defaultValues?.titulo,
-      "description": defaultValues?.descricao,
-      "requirements": defaultValues?.requisitos,
-      "axle": defaultValues?.tipo,
-      "time": dayjs(defaultValues?.prazo),
-    }} onFinish={handleSubmit}>
+    <Form
+      id="divGeral"
+      initialValues={{
+        title: defaultValues?.titulo,
+        description: defaultValues?.descricao,
+        requirements: defaultValues?.requisitos,
+        axle: defaultValues?.tipo,
+        time: dayjs(defaultValues?.prazo),
+      }}
+      onFinish={handleSubmit}
+    >
       <Title>{title}</Title>
 
       <SubTitle>
@@ -136,12 +154,7 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
         label="Tipo"
         name="axle"
         onChange={setTipo}
-        options={[
-          { label: "Selecione um tipo de edital" },
-          { value: "EXTENSAO", label: "extensão" },
-          { value: "PESQUISA", label: "pesquisa" },
-          { value: "INOVACAO", label: "inovação" },
-        ]}
+        options={axleAllowed}
         rules={[
           {
             required: true,
@@ -158,7 +171,9 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
             maxCount={1}
             onRemove={() => setEdital(null)}
             action={setFile}
-            fileList={edital ? [{ name: filename, uid: "-1", status: "done" }] : []}
+            fileList={
+              edital ? [{ name: filename, uid: "-1", status: "done" }] : []
+            }
             rules={[
               {
                 required: true,
