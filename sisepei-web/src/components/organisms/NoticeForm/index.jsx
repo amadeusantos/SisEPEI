@@ -31,7 +31,7 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
   const [requisitos, setRequisitos] = useState(defaultValues?.requisitos ?? "");
   const [edital, setEdital] = useState(defaultValues?.edital ?? undefined);
   const [prazo, setPrazo] = useState(defaultValues?.prazo ?? "");
-  const [tipo, setTipo] = useState(defaultValues?.tipo ?? "");
+  const [tipo, setTipo] = useState(defaultValues?.tipo ?? undefined);
   const [filename, setFilename] = useState(defaultValues?.filename ?? "");
   const x = [
     ...user.profiles.map((p) => p.name),
@@ -79,8 +79,8 @@ export function NoticeForm({ defaultValues, onSubmit, title, buttonText }) {
         title: defaultValues?.titulo,
         description: defaultValues?.descricao,
         requirements: defaultValues?.requisitos,
-        axle: defaultValues?.tipo,
-        time: dayjs(defaultValues?.prazo),
+        axle: defaultValues?.tipo || undefined,
+        time: defaultValues?.prazo ? dayjs(defaultValues?.prazo): undefined,
       }}
       onFinish={handleSubmit}
     >

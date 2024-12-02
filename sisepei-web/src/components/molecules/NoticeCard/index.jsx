@@ -8,6 +8,7 @@ import { DeleteModal } from "../../molecules";
 import { deleteNotice } from "../../../services/NoticeService";
 import { ButtonAction } from "../../atoms";
 import { NoticeModal } from "../../organisms";
+import dayjs from "dayjs";
 
 export const NoticeCard = ({
   id,
@@ -109,7 +110,7 @@ export const NoticeCard = ({
           type={type}
           description={description}
           requirements={requirements}
-          term={term}
+          term={dayjs(term).format('DD/MM/YYYY')}
           coordinator={coordinator}
           filename={filename}
         />

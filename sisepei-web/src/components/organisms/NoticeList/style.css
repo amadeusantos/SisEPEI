@@ -1,11 +1,39 @@
 .button-search {
+  padding: 0 10%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-end;
+  margin-bottom: 1em;
+  gap: 1em;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  button {
+    max-width: 220px;
+  }
+}
+
+.filters {
   display: flex;
-  align-items: center;
-  margin-bottom: 75px;
-  justify-content: right;
-  justify-content: space-between;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 1em;
+
+  @media screen and (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .container-list-notice {
-  padding: 20px 10em;
+  padding: 1em;
+}
+
+.content-list-notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

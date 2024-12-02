@@ -53,7 +53,7 @@ export function NoticeList() {
               Cadastrar edital
             </Button>
           )}
-        <div style={{ display: 'flex', flexDirection: "row", alignContent: 'center', justifyContent: 'center' }}>
+        <div className="filters">
           <Select
             defaultValue="TODOS"
             style={{ width: 120, height: 40, marginRight: 10 }}
@@ -69,7 +69,7 @@ export function NoticeList() {
           <Filter order={order} setOrder={setOrder} setFilter={setFilter} />
         </div>
       </div>
-
+      <div className="content-list-notice">
       {filteredNotices?.length > 0 ? (
         filteredNotices?.map((notice) => (
           <NoticeCard
@@ -91,6 +91,7 @@ export function NoticeList() {
           <Button onClick={refetch}>Tentar novamente</Button>
         </NotFoundError>
       )}
+      </div>
     </div>
   );
 }
