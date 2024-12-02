@@ -1,0 +1,9 @@
+.sub-title {
+  font-size: 20px;
+  text-align: center;
+  color: #1C3245 !important;
+
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
+}

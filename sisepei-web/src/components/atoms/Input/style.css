@@ -1,0 +1,11 @@
+.input {
+  outline-width: 0;
+  color: var(--button-primary-hover);
+  background-color: var(--button-gray);
+}
+
+.container-input {
+  padding: 6px 12px;
+  background-color: var(--button-gray);
+  border-radius: 16px;
+}

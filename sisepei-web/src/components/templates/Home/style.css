@@ -1,0 +1,12 @@
+.welcome{
+    font-family: 'Inter', sans-serif;
+    color: #143757;
+    margin-left: 55px;
+}
+
+.myhr{
+    border-color: #9ca7dbf3;
+    width: 90%;
+    margin: 0 auto;
+    border-width: 0.5px !important;
+}

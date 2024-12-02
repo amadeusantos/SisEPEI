@@ -1,0 +1,110 @@
+.card-summary {
+  display: flex;
+  align-items: center;
+}
+
+.card-body {
+  width: 80%;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  padding: 10px;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #e6e7ed;
+  border: none;
+  min-height: 120px;
+
+  @media screen and (max-width: 768px) {
+    padding: 0.5em;
+  }
+}
+
+.nomeedital,
+.type,
+.description {
+  margin-top: 0px;
+  font-family: "Inter", sans-serif;
+  margin-left: 20px;
+
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.nomeedital,
+.type,
+.description h3 {
+  margin-top: 5px;
+}
+
+
+.nomeedital h3,
+.type h3,
+.description h3 {
+  font-size: 25px;
+
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+.nomeedital,
+.type,
+.description {
+  margin-top: 0px;
+  font-family: "Inter", sans-serif;
+  margin-left: 20px;
+}
+
+.description {
+  overflow-wrap: break-word;
+  max-width: 500px;
+  flex-grow: 1;
+
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
+}
+
+.type {
+  max-width: 500px;
+  flex-grow: 1;
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+}
+
+.actions button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--button-primary-hover);
+}
+
+.edit-container button.BotaoDeAcao svg {
+  width: 100%;
+  height: 100%;
+  transform: scale(0.7);
+  transition: all 0.2s ease-in-out;
+  color: var(--button-primary-hover);
+}
+
+.edit-container button.BotaoDeAcao:hover svg {
+  transform: scale(1);
+}

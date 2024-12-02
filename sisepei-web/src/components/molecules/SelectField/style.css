@@ -1,0 +1,34 @@
+.select-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-select {
+  width: 16em;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--button-gray);
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #333;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23828282' d='M6 8l4 4 4-4H6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 24px;
+  cursor: pointer;
+}
+
+.custom-select::-ms-expand {
+  display: none;
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: #0056b3;
+  box-shadow: 0 0 5px #007bff80;
+}
+
+.custom-select:hover {
+  border-color: #0056b3;
+}
