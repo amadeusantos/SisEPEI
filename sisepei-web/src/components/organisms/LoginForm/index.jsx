@@ -32,7 +32,7 @@ export function LoginForm() {
           value={email}
           onChange={setEmail}
           type="email"
-          rules={[{ required: true, message: "Digite um email!" }, { type: "email", message: "Email válido!" }]}
+          rules={[{ required: true, message: "Digite um email!" }, { type: "email", message: "Email inválido!" }]}
           required
           placeholder="Digite aqui seu email"
         />

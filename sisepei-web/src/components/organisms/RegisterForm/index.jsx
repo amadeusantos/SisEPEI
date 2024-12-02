@@ -101,7 +101,7 @@ export function RegisterForm() {
           },
           {
             type: "email",
-            message: "digite um email valido!",
+            message: "digite um email inválido!",
           },
           {
             pattern: /^[A-Za-z0-9_.]+@upe\.br$/gm,
