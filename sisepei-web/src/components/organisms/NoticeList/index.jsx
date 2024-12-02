@@ -1,7 +1,7 @@
 import { Plus } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
+import { Select } from "antd";
 import { SubTitle, Title } from "../../atoms";
 import { Button } from "../../atoms";
 import Filter from "../../molecules/Filter";
@@ -30,22 +30,44 @@ export function NoticeList() {
     return <Loading />;
   }
 
+  const handleChange = (value) => {
+    if (value == "TODOS") {
+      setFilter("")
+    } else {
+      setFilter(value);
+    }
+  };
+
+
   return (
     <div className="container-list-notice">
       <Title>Editais</Title>
-
       <div className="button-search">
         {[
           "COORDENADOR_EXTENSAO",
           "COORDENADOR_PESQUISA",
           "COORDENADOR_INOVACAO",
         ].some((profileRequest) => profiles.includes(profileRequest)) && (
-          <Button color="terciary" onClick={navigationCreateNotice}>
-            <Plus size={24} weight="bold" />
-            Cadastrar edital
-          </Button>
-        )}
-        <Filter order={order} setOrder={setOrder} setFilter={setFilter} />
+            <Button color="terciary" onClick={navigationCreateNotice}>
+              <Plus size={24} weight="bold" />
+              Cadastrar edital
+            </Button>
+          )}
+        <div style={{ display: 'flex', flexDirection: "row", alignContent: 'center', justifyContent: 'center' }}>
+          <Select
+            defaultValue="TODOS"
+            style={{ width: 120, height: 40, marginRight: 10 }}
+            onChange={handleChange}
+            options={[
+              { value: 'TODOS', label: 'TODOS' },
+              { value: 'EXTENSAO', label: 'EXTENSÃO' },
+              { value: 'PESQUISA', label: 'PESQUISA' },
+              { value: 'INOVACAO', label: 'INOVAÇÃO' },
+            ]}
+          />
+
+          <Filter order={order} setOrder={setOrder} setFilter={setFilter} />
+        </div>
       </div>
 
       {filteredNotices?.length > 0 ? (

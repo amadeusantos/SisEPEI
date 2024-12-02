@@ -1,14 +1,27 @@
+import { message } from "antd";
 import { useMemo } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-import { getUsers, getWhoami } from "../services/UserService";
+import { getUsers, getWhoami, patchUserProfiles } from "../services/UserService";
 
 export function useUsers() {
     return useQuery({
         queryKey: ['users'],
         queryFn: getUsers
+    })
+}
+
+export function useEditUserProfiles() {
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: patchUserProfiles,
+        onSuccess() {
+            queryClient.invalidateQueries(['users'])
+            message.success('Atualizado com sucesso')
+        }
     })
 }
 
@@ -47,14 +60,15 @@ export function useUsersPermissionsRows() {
     const queryUsers = useUsers();
     const rows = useMemo(() => queryUsers.data?.map(user => {
         const roles = mountUserRoles(user)
-
-        return createData(
+        const row = createData(
             user.email,
             roles.isExtensionCoordinator,
             roles.isResearchCoordinator,
             roles.isInovationCoordinator,
             roles.isAdmin,
         )
+
+        return { ...row, user }
     }), [queryUsers.data]);
 
     return { ...queryUsers, data: rows }
